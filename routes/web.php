@@ -22,9 +22,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/profile', 'ProfileController@index');
+Route::post('/profile', 'ProfileController@submit');
 Route::get('/get-regency/{prov_id}', 'WilayahController@kabupaten');
 Route::get('/get-district/{kab_id}', 'WilayahController@kecamatan');
 Route::get('/get-village/{kec_id}', 'WilayahController@kelurahan');
 Route::get('/get-rayon/{kom_id}', 'WilayahController@rayon');
-
-Route::post('/profile', 'ProfileController@submit');
