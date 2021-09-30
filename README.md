@@ -1,6 +1,6 @@
 <p align="center"><img src="public/assets/img/favicon1.png" width="400"></p>
 
-## PMII Rayon "Pencerahan" Galileo
+## PMII Malang
 
 ## Deploy & Run
 
