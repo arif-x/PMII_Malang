@@ -35,3 +35,6 @@ Route::group([
 });
 
 Route::get('/test', 'TestController@index');	
+
+Route::get('auth/google', [App\Http\Controllers\Auth\LoginController::class, 'google']);
+Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'google_callback']);
