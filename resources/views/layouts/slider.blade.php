@@ -74,6 +74,7 @@
         </div>
 
         <h1>Components</h1>
+        @yield('content')
         <!--===== MAIN JS =====-->
         <script src="assets/js/main_slider.js"></script>
     </body>
