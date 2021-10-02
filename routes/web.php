@@ -38,5 +38,13 @@ Route::group([
 
 Route::get('/test', 'TestController@index');	
 
+Route::get('/new-profile', 'TestProfileController@index');
+
 Route::get('auth/google', [App\Http\Controllers\Auth\LoginController::class, 'google']);
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'google_callback']);
+
+Route::get('/oursymlink', function () {
+    $target = '/home/pmiigali/ehe_pub/storage/app/public';
+    $shortcut = '/home/pmiigali/ehe.pmiigalileo.or.id/storage';
+    symlink($target, $shortcut);
+});
