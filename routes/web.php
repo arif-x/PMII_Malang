@@ -31,7 +31,21 @@ Route::get('/get-rayon/{kom_id}', 'WilayahController@rayon');
 Route::group([
 	'middleware' => ['verified', 'auth']
 ], function(){
-	Route::get('/profile', 'ProfileController@index');	
+	
+});
+
+Route::group([
+	'namespace' => 'Users'
+], function(){
+	Route::get('/profile', 'ProfileController@index');
+	Route::resource('/modul', 'ModulController');
+});
+
+Route::group([
+	'middleware' => ['auth'],
+	'prefix' => 'filemanager'
+], function() {
+	\UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
 Route::get('/test', 'TestController@index');	

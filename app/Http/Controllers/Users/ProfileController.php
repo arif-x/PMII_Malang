@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Komisariat;
 use App\Provinsi;
@@ -53,7 +54,7 @@ class ProfileController extends Controller
     	$provinsi = Provinsi::pluck('name', 'id');
     	$komisariat = Komisariat::pluck('nama_komisariat', 'id_komisariat');
     	$pekerjaan = Pekerjaan::pluck('pekerjan', 'id_pekerjan');
-    	return view('profile.profile', compact('provinsi', 'komisariat', 'pekerjaan', 'profile', 'kaderisasi'));
+    	return view('users.profile', compact('provinsi', 'komisariat', 'pekerjaan', 'profile', 'kaderisasi'));
     }
 
     public function submit(Request $request){
