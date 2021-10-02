@@ -11,6 +11,7 @@ class TestController extends Controller
     public function index(){
     	$nik = Profile::where('id_user', Auth::user()->id)->pluck('nik');
     	$nim = Profile::where('id_user', Auth::user()->id)->pluck('nim');
+        echo $nim;
     	if(
     		Profile::where('id_user', Auth::user()->id)->pluck('nik') == '[null]' || Profile::where('id_user', Auth::user()->id)->pluck('nim') == '[null]' 
     	){

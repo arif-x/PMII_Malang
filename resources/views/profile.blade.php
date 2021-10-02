@@ -37,8 +37,6 @@
                             </div>
                         </div>
 
-                        @foreach($profile as $data)
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -423,8 +421,6 @@
                             </div>
                         </div>
 
-                        @endforeach
-
                         <hr>
                         <br>
 
@@ -435,8 +431,6 @@
                                 <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Kaderisasi.
                             </div>
                         </div>
-
-                        @foreach($kaderisasi as $kader)
 
                         <h3>MAPABA:</h3>
 
@@ -534,8 +528,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        @endforeach
 
                         <hr>
                         <br>
