@@ -10,7 +10,7 @@
             </div>
             <div class="col-md-6" style="text-align: right; margin-top: auto; margin-bottom: auto">
                 <button class="btn btn-info mb-3" style="">
-                    <i class="fa fa-arrow-left"></i> kembali
+                    <i class="fa fa-arrow-left"></i> Kembali
                 </button>
                 <button class="btn btn-primary mb-3" style="">
                     <i class="fa fa-save"></i> Simpan
@@ -21,12 +21,11 @@
 
             <div class="card-body">
 
-                <form method="POST" action="/profile">
-                    @csrf                                                
-
+                <form method="POST" action="/profile/submit" id="profileForm">
+                    @csrf
                     <h3>I. Data Diri:</h3>
-                    <div class="alert alert-warning" role="alert">
-                        <div class="ml-3 centere">
+                    <div class="alert alert-primary" role="alert">
+                        <div class="ml-3">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Wajib <nobr class="red-color">*</nobr>.
                         </div>
                     </div>
@@ -37,7 +36,7 @@
                                 <label for="nik" class="col-form-label text-md-right">NIK <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="nik" type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" required autocomplete="new-nik" placeholder="NIK">
+                                    <input id="nik" type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" required autocomplete="new-nik" placeholder="NIK" class="@error('nik') is-invalid @enderror">
                                     @error('nik')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -98,8 +97,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #3b5998"><i class="fa fa-map-marker" style="color: #fff"></i></span>
                                 </div>
-                                <input type="text" name="tempatLahir" class="form-control" id="validationTooltipUsername" placeholder="Tampat Lahir" required>
+                                <input type="text" name="tempatLahir" class="form-control @error('tempatLahir') is-invalid @enderror" id="validationTooltipUsername" placeholder="Tampat Lahir" required>
                             </div>
+                            @error('tempatLahir')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="tanggalLahir" class="col-form-label text-md-right">Tanggal Lahir <nobr class="red-color">*</nobr></label>
@@ -107,7 +111,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #3b5998"><i class="fa fa-calendar" style="color: #fff"></i></span>
                                 </div>
-                                <input type="date" name="tanggalLahir" class="form-control" id="validationTooltipUsername" placeholder="Tanggal Lahir" required>
+                                <input type="date" name="tanggalLahir" class="form-control" id="validationTooltipUsername" placeholder="Tanggal Lahir" required class="@error('tampat_lahir') is-invalid @enderror">
+
+                                @error('tanggal_lahir')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -230,12 +238,17 @@
                                 <label for="komisariat" class="col-form-label text-md-right">Komisariat <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <select name="komisariat" class="form-control">
+                                    <select name="komisariat" class="form-control @error('komisariat') is-invalid @enderror">
                                         <option value="">Pilih Komisariat</option>
                                         @foreach ($komisariat as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
                                     </select>
+                                    @error('komisariat')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -247,7 +260,7 @@
                                 <label for="rayon" class="col-form-label text-md-right">Rayon <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <select name="rayon" class="form-control">
+                                    <select name="rayon" class="form-control @error('rayon') is-invalid @enderror">
                                         <option value="">Pilih Rayon</option>
                                     </select>
                                 </div>
@@ -294,7 +307,7 @@
                                 <label for="statusKawin" class="col-form-label text-md-right">Status Kawin <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <select class="custom-select" name="statusKawin" required>
+                                    <select class="custom-select @error('statusKawin') is-invalid @enderror" name="statusKawin" required>
                                         <option value="">Pilih Status Perkawinan</option>
                                         <option value="kawin">Kawin</option>
                                         <option value="belum kawin">Belum Kawin</option>
@@ -310,7 +323,7 @@
                                 <label for="pekerjaan" class="col-form-label text-md-right">Pekerjaan <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <select name="pekerjaan" class="form-control">
+                                    <select name="pekerjaan" class="form-control @error('pekerjaan') is-invalid @enderror">
                                         <option value="">Pilih Pekerjaan</option> 
                                         @foreach ($pekerjaan as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
@@ -327,7 +340,7 @@
                                 <label for="golonganDarah" class="col-form-label text-md-right">Golongan Darah <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <select class="custom-select" name="golonganDarah" required>
+                                    <select class="custom-select @error('golonganDarah') is-invalid @enderror" name="golonganDarah" required>
                                         <option value="">Pilih Golongan Darah</option>
                                         <option value="o">O</option>
                                         <option value="a">A</option>
@@ -478,7 +491,7 @@
 
                     <h2>III. Data Pendukung:</h2>
 
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-primary" role="alert">
                         <div class="ml-3 centere">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Opsional, jika ada sebaiknya dilengkapi. Kosongkan jika tidak ada.
                         </div>
@@ -607,6 +620,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
         $('select[name="provinsi"]').on('change', function() {
             var provId = $(this).val();
             if(provId) {
@@ -699,6 +713,12 @@
                 $('select[name="rayonPenyelenggara"]').empty();
             }
         });
+    });
+</script>
+
+<script type="text/javascript">
+    $('#tempatLahir').keyup(function(){
+
     });
 </script>
 <script type="text/javascript">

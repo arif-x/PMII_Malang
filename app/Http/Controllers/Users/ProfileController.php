@@ -10,6 +10,7 @@ use App\Profile;
 use App\Pekerjaan;
 use App\Kaderisasi;
 use Auth;
+use Validator;
 
 class ProfileController extends Controller
 {
@@ -58,38 +59,76 @@ class ProfileController extends Controller
     }
 
     public function submit(Request $request){
-    	Profile::where('id_user', Auth::user()->id)->update([
-    		'nik' => $request->nik,
-    		'nim' => $request->ktm,
-    		'nama_lengkap' => Auth::user()->name,
-    		'tempat_lahir' => $request->tempatLahir,
-    		'tanggal_lahir' => $request->tanggalLahir,
-    		'jenis_kelamin' => $request->jenisKelamin,
-    		'provinsi' => $request->provinsi,
-    		'kota_kabupaten' => $request->kabupaten,
-    		'kecamatan' => $request->kecamatan,
-    		'desa_kelurahan' => $request->kelurahan,
-    		'rt' => $request->rt,
-    		'rw' => $request->rw,
-    		'alamat_lengkap' => $request->alamat,
-    		'komisariat' => $request->komisariat,
-    		'rayon' => $request->rayon,
-    		'fakultas' => $request->fakultas,
-    		'status_pernikahan' => $request->statusKawin,
-    		'pendidikan_terakhir' => $request->pendidikan,
-    		'pekerjaan' => $request->pekerjaan,
-    		'gol_darah' => $request->golonganDarah,
-    		'no_hp' => $request->noHp,
-    		'foto_terbaru' => $request->pasFoto,
-    	]);
+        $validation = Validator::make($request->all(), [
+            'nik' => "required|integer",
+            'ktm' => 'required|string',
+            // 'name' => 'required|string|255',
+            'tempatLahir' => 'required|string',
+            'tanggalLahir' => 'required|date',
+            'jenisKelamin' => 'required|in:Laki-Laki,Perempuan',
+            'provinsi' => "required|integer",
+            'kabupaten' => "required|integer",
+            'kecamatan' => "required|integer",
+            'kelurahan' => "required|integer",
+            'rt' => 'required|integer',
+            'rw' => 'required|integer',
+            'alamat' => 'required',
+            'komisariat' => 'required|integer',
+            'rayon' => 'required|integer',
+            'fakultas' => 'required',
+            'statusKawin' => 'required|in:kawin,belum kawin',
+            'pendidikan' => 'required|string',
+            'pekerjaan' => 'required|integer',
+            'golonganDarah' => 'required|string',
+            'noHp' => 'required|integer',
+            // 'pasFoto' => "required|mimes:jpg,png|max:10000",
 
-    	Kaderisasi::where('id_user', Auth::user()->id)->update([
-    		'komisariat' => $request->komisariatPenyelenggara,
-    		'rayon' => $request->rayonPenyelenggara,
-    		'tahun_bergabung' => $request->tahun,
-    		'angkatan_ke' => $request->angkatan,
-    		'kaderisasi_terakhir' => $request->kaderisasiTerakhir,
-    	]);
-    	return back();
+            'komisariatPenyelenggara' => 'required|integer',
+            'rayonPenyelenggara' => 'required|integer',
+            'tahun' => 'required|integer',
+            'kaderisasiTerakhir' => 'required|string',          
+        ]);
+
+        if($validation->fails()) {
+            return back()->withErrors($validation);
+        }
+
+        if($validation->passes()){
+            Profile::where('id_user', Auth::user()->id)->update([
+              'nik' => $request->nik,
+              'nim' => $request->ktm,
+              'nama_lengkap' => Auth::user()->name,
+              'tempat_lahir' => $request->tempatLahir,
+              'tanggal_lahir' => $request->tanggalLahir,
+              'jenis_kelamin' => $request->jenisKelamin,
+              'provinsi' => $request->provinsi,
+              'kota_kabupaten' => $request->kabupaten,
+              'kecamatan' => $request->kecamatan,
+              'desa_kelurahan' => $request->kelurahan,
+              'rt' => $request->rt,
+              'rw' => $request->rw,
+              'alamat_lengkap' => $request->alamat,
+              'komisariat' => $request->komisariat,
+              'rayon' => $request->rayon,
+              'fakultas' => $request->fakultas,
+              'status_pernikahan' => $request->statusKawin,
+              'pendidikan_terakhir' => $request->pendidikan,
+              'pekerjaan' => $request->pekerjaan,
+              'gol_darah' => $request->golonganDarah,
+              'no_hp' => $request->noHp,
+              'foto_terbaru' => $request->pasFoto,
+          ]);
+
+            Kaderisasi::where('id_user', Auth::user()->id)->update([
+              'komisariat' => $request->komisariatPenyelenggara,
+              'rayon' => $request->rayonPenyelenggara,
+              'tahun_bergabung' => $request->tahun,
+              'angkatan_ke' => $request->angkatan,
+              'kaderisasi_terakhir' => $request->kaderisasiTerakhir,
+          ]);
+            return redirect('/profile');
+        } else {
+            return back()->with('message', $validation->errors()->all());
+        }
     }
 }

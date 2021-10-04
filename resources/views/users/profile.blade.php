@@ -25,7 +25,7 @@
                     @csrf                                                
 
                     <h3>I. Data Diri:</h3>
-                    <div class="alert alert-warning" role="alert">
+                    <div class="alert alert-primary" role="alert">
                         <div class="ml-3 centere">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Wajib <nobr class="red-color">*</nobr>.
                         </div>
@@ -536,7 +536,7 @@
 
                     <h2>III. Data Pendukung:</h2>
 
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-primary" role="alert">
                         <div class="ml-3 centere">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Opsional, jika ada sebaiknya dilengkapi. Kosongkan jika tidak ada.
                         </div>

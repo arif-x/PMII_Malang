@@ -14,15 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+	return view('index');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::post('/profile', 'ProfileController@submit');
 Route::get('/get-regency/{prov_id}', 'WilayahController@kabupaten');
 Route::get('/get-district/{kab_id}', 'WilayahController@kecamatan');
 Route::get('/get-village/{kec_id}', 'WilayahController@kelurahan');
@@ -34,17 +30,30 @@ Route::group([
 ], function(){
 	Route::get('/profile', 'ProfileController@index');
 	Route::resource('/modul', 'ModulController');
+	Route::get('/modul/files/{post}.{format}', 'PDFViewerController@index');
+});
+
+Route::group([
+	'middleware' => 'auth',
+	'namespace' => 'Users',	
+], function(){
+	Route::post('/profile/submit', 'ProfileController@submit');
+});
+
+
+Route::group([
+	'middleware' => 'auth',
+], function(){
+	Route::get('/new-profile', 'TestProfileController@index');
 });
 
 Route::get('/test', 'TestController@index');	
-
-Route::get('/new-profile', 'TestProfileController@index');
 
 Route::get('auth/google', [App\Http\Controllers\Auth\LoginController::class, 'google']);
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'google_callback']);
 
 Route::get('/oursymlink', function () {
-    $target = '/home/pmiigali/ehe_pub/storage/app/public';
-    $shortcut = '/home/pmiigali/ehe.pmiigalileo.or.id/storage';
-    symlink($target, $shortcut);
+	$target = '/home/pmiigali/ehe_pub/storage/app/public';
+	$shortcut = '/home/pmiigali/ehe.pmiigalileo.or.id/storage';
+	symlink($target, $shortcut);
 });

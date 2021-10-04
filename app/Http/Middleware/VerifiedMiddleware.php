@@ -19,9 +19,7 @@ class VerifiedMiddleware
 
     public function handle($request, Closure $next)
     {
-        if (
-            // Profile
-            Profile::where('id_user', Auth::user()->id)->pluck('nik') == '[]' ||
+        if (Profile::where('id_user', Auth::user()->id)->pluck('nik') == '[]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('nim') == '[]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('tempat_lahir') == '[]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('tanggal_lahir') == '[]' ||
@@ -41,14 +39,11 @@ class VerifiedMiddleware
             Profile::where('id_user', Auth::user()->id)->pluck('gol_darah') == '[]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('no_hp') == '[]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('foto_terbaru') == '[]' ||
-
-            // Kaderisasi
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('komisariat') == '[]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('rayon') == '[]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('tahun_bergabung') == '[]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('angkatan_ke') == '[]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('kaderisasi_terakhir') == '[]' ||
-
             Profile::where('id_user', Auth::user()->id)->pluck('nik') == '[null]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('nim') == '[null]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('tempat_lahir') == '[null]' ||
@@ -69,15 +64,12 @@ class VerifiedMiddleware
             Profile::where('id_user', Auth::user()->id)->pluck('gol_darah') == '[null]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('no_hp') == '[null]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('foto_terbaru') == '[null]' ||
-
-            // Kaderisasi
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('komisariat') == '[null]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('rayon') == '[null]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('tahun_bergabung') == '[null]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('angkatan_ke') == '[null]' ||
-            Kaderisasi::where('id_user', Auth::user()->id)->pluck('kaderisasi_terakhir') == '[null]'
-        ){
-            return redirect('/home')->with('info', 'Lengkapi Biodata');            
+            Kaderisasi::where('id_user', Auth::user()->id)->pluck('kaderisasi_terakhir') == '[null]'){
+    return redirect('/new-profile')->with('info', 'Lengkapi Biodata');            
 } else {
     return $next($request);
 }          

@@ -23,6 +23,30 @@
     <script src="{{ URL::asset('lib/datatables/DataTables-1.10.23/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ URL::asset('lib/datatables/FixedColumns-3.3.2/js/dataTables.fixedColumns.min.js') }}"></script>  
 
+    <style type="text/css">
+        .btn-primary {
+            background-color: #106eb2 !important;
+        }
+
+        .btn-info {
+            background-color: #fff !important;
+            color: #106eb2 !important;
+        }
+
+        .alert-primary {
+            background-color: #106eb2 !important;
+            color: #fff !important;
+        }
+
+        .alert .ml-3 i {
+            vertical-align: middle;
+        }
+
+        .invalid-feedback {
+            text-transform: capitalize !important;
+        }
+    </style>
+
     <title>E-PMII Malang</title>
 </head>
 <body id="body-pd">
@@ -47,34 +71,38 @@
 
 
                 <div class="nav__list">
-                    <a href="#" class="nav__link" id="dashboards">
-                        <i class='bx bx-grid-alt nav__icon' ></i>
+                    <a href="/profile" class="nav__link" id="dashboards">
+                        <i class='bx bx-user nav__icon' ></i>
                         <span class="nav__name">Dashboard</span>
                     </a>
 
-                    <a href="#" class="nav__link" id="modules">
+                    <a href="/modul" class="nav__link" id="modules">
                         <i class='bx bx-book-content nav__icon' ></i>
                         <span class="nav__name">Data Modul</span>
                     </a>
 
-                    <a href="#" class="nav__link" id="videos">
+                    <a href="/video" class="nav__link" id="videos">
                         <i class='bx bx-video nav__icon' ></i>
                         <span class="nav__name">Data Video</span>
-                    </a>
+                    </a>                    
                 </div>
             </div>
 
-            <a href="#" class="nav__link">
+            <a class="nav__link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class='bx bx-log-out nav__icon' ></i>
-                <span class="nav__name">Log Out</span>
+                <span class="nav__name">Logout</span>
             </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </nav>
     </div>
 
-<div>
-    <h1>Components</h1>
-    @yield('content')
-</div>    
+    <div>
+        <h1>Components</h1>
+        @yield('content')
+    </div>    
     <!--===== MAIN JS =====-->
     <script src="assets/js/main_slider.js"></script>    
 </body>

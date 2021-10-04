@@ -20,7 +20,7 @@ class ModulController extends Controller
      */	
 	public function index(Request $request){ 
 		if ($request->ajax()) {
-			$data = Modul::get();
+			$data = Modul::where('id_user', Auth::user()->id)->get();
 			return Datatables::of($data)
 			->addIndexColumn()
 			->addColumn('action', function($row){
@@ -40,7 +40,9 @@ class ModulController extends Controller
 
 	public function store(Request $request){
 		$validation = Validator::make($request->all(), [
-			'select_file' => "required|mimes:pdf|max:10000"
+			'select_file' => "required|mimes:pdf|max:10000",
+			'judul' => 'required|string',
+			'keterangan' => 'required|string'
 		]);
 		if($validation->passes()){
 			$files = $request->file('select_file');
