@@ -8,18 +8,46 @@
 			<table class="table stripe row-border order-column data-table table-responsive" style="width: 100% !important">
 				<thead>
 					<tr>
-						<th>No.</th>
-						<th>Judul Modul</th>
-						<th>Tanggal</th>
-						<th>Keterangan</th>
-						<th>File</th>
-						<th>Format</th>
-						<th width="280px">Atur</th>
+						<th width="5%">No.</th>
+						<th width="20%">Judul Modul</th>
+						<th width="10%">Tanggal</th>
+						<th width="20%">Keterangan</th>
+						<th width="15%">File</th>
+						<th width="15%">Preview</th>
+						<th width="30%">Atur</th>
 					</tr>
 				</thead>
 				<tbody>
 				</tbody>
 			</table>
+
+			<div class="modal fade bd-example-modal-lg" id="onModalDelete" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content modal-long">
+						<div class="modal-header">
+							<h4 class="modal-title" id="onModalHeadingDelete"></h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form id="modulFormDelete" name="modulFormDelete" class="form-horizontal">
+								<input type="hidden" name="modul_id_delete" id="modul_id_delete" value="">
+
+								<div class="col-md-12">
+
+									<h4>Ingin Menghapus Modul <strong id="judul_file"></strong>?</h4>
+
+								</div>
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-info" id="saveBtnDelete" value="delete" style="width: 100%">Hapus
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<div class="modal fade bd-example-modal-lg" id="onModal" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
@@ -57,20 +85,9 @@
 										<label class="col-sm-12 control-label">Pilih File</label>
 										<div class="col-sm-12">
 											<input type="file" id="select_file" name="select_file" placeholder="Pilih File" class="form-control" required>
+											<small id="optionalFile">Opsional</small>
 										</div>
 									</div>
-									<!-- <div class="input-group">
-										<label class="col-sm-12 control-label">Pilih File</label>
-										<div class="col-sm-12">
-											<a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white" type="button" style="width:100% !important">
-												<i class="fa fa-picture-o"></i> Pilih File
-											</a>
-										</div>
-										<input id="thumbnail" class="form-control" type="hidden" name="filepath">
-									</div> -->
-									<!-- <div class="text-center">
-										<div id="holder" style="margin-top:15px;margin-bottom:15px;height:auto;"></div> 
-									</div> -->
 								</div>
 
 								<div class="col-md-12">
@@ -89,7 +106,8 @@
 						</div>
 					</div>					
 				</form>
-			</div>
+			</div>			
+
 		</div>
 	</div>
 </div>
@@ -111,8 +129,8 @@
 			{data: 'judul_post', name: 'judul_post'},
 			{data: 'tanggal_post', name: 'tanggal_post'},
 			{data: 'keterangan_post', name: 'keterangan_post'},
-			{data: 'post', name: 'post'},
-			{data: 'format_post', name: 'format_post'},
+			{data: 'postingan', name: 'postingan'},
+			{data: 'lihat', name: 'lihat', orderable: false, searchable: false},
 			{data: 'action', name: 'action', orderable: false, searchable: false},
 			]
 		});
@@ -122,6 +140,7 @@
 			$('#modulForm').trigger("reset");
 			$('#saveBtn').val("add-modul");
 			$('#onModal').modal('show');
+			$('#optionalFile').hide();
 		});      
 
 		$('#saveBtn').click(function (e) {
@@ -151,25 +170,52 @@
 				}
 			});
 		});
+
+		$('body').on('click', '.editModul', function () {
+			var modul_id = $(this).data('id');
+			$.get("{{ route('modul.index') }}" +'/' + modul_id +'/edit', function (data) {
+				$('#onModalHeading').html("Edit Modul");
+				$('#saveBtn').val("edit-event");
+				$('#onModal').modal('show');
+				$('#post_id').val(data.id);
+				$('#judul').val(data.judul_post);
+				$('#keterangan').val(data.keterangan_post);
+				$('#optionalFile').show();
+			})
+		});
+
+		$('body').on('click', '.deleteModul', function () {
+			var modul_id = $(this).data('id');
+			$.get("{{ route('modul.index') }}" +'/' + modul_id +'/edit', function (data) {
+				$('#onModalHeadingDelete').html("Hapus Modul");
+				$('#saveBtnDelete').val("delete-modul");
+				$('#onModalDelete').modal('show');
+				$('#modul_id_delete').val(data.id);
+				$('#judul_file').html(data.judul_post);
+			})
+		});
+
+		$('#saveBtnDelete').click(function (e) {
+			var modul_id =$("#modul_id_delete").val();
+			e.preventDefault();
+			$.ajax({
+				data: $('#modulFormDelete').serialize(),
+				url: "{{ route('modul.store') }}"+'/'+modul_id,
+				type: "DELETE",
+				dataType: 'json',
+				success: function (data) {
+					$('#modulFormDelete').trigger("reset");
+					$('#onModalDelete').modal('hide');
+					table.draw();
+				},
+				error: function (data) {
+					console.log('Error:', data);
+					$('#saveBtnDelete').html('Hapus');
+				}
+			});
+		});       
 	});
 </script>
-
-<script>
-	var route_prefix = "/filemanager?type=pdf";
-</script>
-
-<script>
-	{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
-</script>
-<script>
-	$('#lfm').filemanager();
-</script>
-
-<style type="text/css">
-	#holder p {
-		font-weight: bold;
-	}
-</style>
 
 <script type="text/javascript">
 	$('#modules').addClass('active');

@@ -16,6 +16,6 @@ class TestProfileController extends Controller
     	$provinsi = Provinsi::pluck('name', 'id');
     	$komisariat = Komisariat::pluck('nama_komisariat', 'id_komisariat');
     	$pekerjaan = Pekerjaan::pluck('pekerjan', 'id_pekerjan');
-    	return view('profile', compact('provinsi', 'komisariat', 'pekerjaan'));
+    	return view('users.new-profile', compact('provinsi', 'komisariat', 'pekerjaan'));
     }
 }

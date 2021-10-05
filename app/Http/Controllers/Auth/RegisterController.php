@@ -75,11 +75,28 @@ class RegisterController extends Controller
         $id = $user->id; // Get current user id
 
         Kaderisasi::create([
-            'id_user' => $id
+            'id_user' => $id,
+            'komisariat' => '-',
+            'rayon' => '-',
+            'tahun_bergabung' => '-',
+            'angkatan_ke' => '-',
+            'kaderisasi_terakhir' => '-',
         ]);
 
         Profile::create([
-            'id_user' => $id
+            'id_user' => $id,
+            'nama_lengkap' => '-',
+            'tanggal_lahir' => '-',
+            'jenis_kelamin' => '-',
+            'provinsi' => '-',
+            'kota_kabupaten' => '-',
+            'kecamatan' => '-',
+            'alamat_lengkap' => '-',
+            'status_pernikahan' => '-',
+            'pendidikan_terakhir' => '-',
+            'pekerjaan' => '-',
+            'no_hp' => '-',
+            'foto_terbaru' => '-',
         ]);
 
         return $user;

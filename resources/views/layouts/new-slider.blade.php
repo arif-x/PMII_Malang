@@ -72,20 +72,7 @@
 
 
                 <div class="nav__list">
-                    <a href="/profile" class="nav__link" id="dashboards">
-                        <i class='bx bx-user nav__icon' ></i>
-                        <span class="nav__name">Dashboard</span>
-                    </a>
-
-                    <a href="/modul" class="nav__link" id="modules">
-                        <i class='bx bx-book-content nav__icon' ></i>
-                        <span class="nav__name">Data Modul</span>
-                    </a>
-
-                    <a href="/video" class="nav__link" id="videos">
-                        <i class='bx bx-video nav__icon' ></i>
-                        <span class="nav__name">Data Video</span>
-                    </a>                    
+                                      
                 </div>
             </div>
 

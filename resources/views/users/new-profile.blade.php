@@ -1,4 +1,4 @@
-@extends('layouts.slider')
+@extends('layouts.new-slider')
 
 @section('content')
 <div class="row justify-content-center">
@@ -6,59 +6,32 @@
         <div class="row">
             <div class="col-md-6 mt-2 mb-3">
                 <h2>Profil</h2>
-                <p>Update Data Profile {{Auth::user()->name}}</p>
+                <p>Update Data Profil</p>
             </div>
             <div class="col-md-6" style="text-align: right; margin-top: auto; margin-bottom: auto">
-                <button class="btn btn-info mb-3" style="">
+                <!-- <button class="btn btn-info mb-3" style="">
                     <i class="fa fa-arrow-left"></i> Kembali
                 </button>
                 <button class="btn btn-primary mb-3" style="">
                     <i class="fa fa-save"></i> Simpan
-                </button>
+                </button> -->
             </div>
         </div>
         <div class="card">
 
             <div class="card-body">
 
-                <form method="POST" action="/profile/submit" id="profileForm">
+                <form method="POST" action="/new-profile/submit" id="profileForm"  enctype="multipart/form-data">
                     @csrf
+
+                    @if($errors->any())
+                    {{ implode('', $errors->all('<div>:message</div>')) }}
+                    @endif  
+
                     <h3>I. Data Diri:</h3>
                     <div class="alert alert-primary" role="alert">
                         <div class="ml-3">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Wajib <nobr class="red-color">*</nobr>.
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nik" class="col-form-label text-md-right">NIK <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="nik" type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" required autocomplete="new-nik" placeholder="NIK" class="@error('nik') is-invalid @enderror">
-                                    @error('nik')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="ktm" class="col-form-label text-md-right">KTM <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="ktm" type="number" class="form-control @error('ktm') is-invalid @enderror" name="ktm" required autocomplete="new-ktm" placeholder="NIM KTM">
-
-                                    @error('ktm')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -68,7 +41,7 @@
                                 <label for="nama" class="col-form-label text-md-right">Nama <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" required autocomplete="new-nama"  placeholder="Nama" readonly value="{{ Auth::user()->name }}">
+                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" required autocomplete="new-nama"  placeholder="Nama">
                                 </div>
                             </div>
                         </div>
@@ -91,21 +64,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <label for="tempatLahir" class="col-form-label text-md-right">Tempat Lahir <nobr class="red-color">*</nobr></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #3b5998"><i class="fa fa-map-marker" style="color: #fff"></i></span>
-                                </div>
-                                <input type="text" name="tempatLahir" class="form-control @error('tempatLahir') is-invalid @enderror" id="validationTooltipUsername" placeholder="Tampat Lahir" required>
-                            </div>
-                            @error('tempatLahir')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="tanggalLahir" class="col-form-label text-md-right">Tanggal Lahir <nobr class="red-color">*</nobr></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -140,7 +99,7 @@
                     </div>                        
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="provinsi" class="col-form-label text-md-right">Provinsi <nobr class="red-color">*</nobr></label>
 
@@ -154,7 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kabupaten" class="col-form-label text-md-right">Kabupaten/Kota <nobr class="red-color">*</nobr></label>
 
@@ -166,10 +125,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kecamatan" class="col-form-label text-md-right">Kecamatan <nobr class="red-color">*</nobr></label>
 
@@ -183,107 +140,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="kelurahan" class="col-form-label text-md-right">Desa/Kelurahan <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <div class="">
-                                        <select name="kelurahan" class="form-control">
-                                            <option value="">Pilih Desa/Kelurahan</option>  
-                                        </select>
-                                        <i><small class="form-text text-muted">Pilih kecamatan terelebih dahulu</small></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="rt" class="col-form-label text-md-right">RT <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="rt" type="number" class="form-control @error('rt') is-invalid @enderror" name="rt" placeholder="RT" required autocomplete="new-rt">
-
-                                    @error('rt')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="rw" class="col-form-label text-md-right">RW <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="rw" type="number" class="form-control @error('rw') is-invalid @enderror" name="rw" placeholder="RW" required autocomplete="new-rw">
-
-                                    @error('rw')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="komisariat" class="col-form-label text-md-right">Komisariat <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <select name="komisariat" class="form-control @error('komisariat') is-invalid @enderror">
-                                        <option value="">Pilih Komisariat</option>
-                                        @foreach ($komisariat as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('komisariat')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="rayon" class="col-form-label text-md-right">Rayon <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <select name="rayon" class="form-control @error('rayon') is-invalid @enderror">
-                                        <option value="">Pilih Rayon</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="fakultas" class="col-form-label text-md-right">Fakultas <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="fakultas" type="text" class="form-control @error('fakultas') is-invalid @enderror" placeholder="Fakultas" name="fakultas" required autocomplete="new-fakultas">
-
-                                    @error('fakultas')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row">
@@ -292,7 +148,12 @@
                                 <label for="pendidikan" class="col-form-label text-md-right">Pendidikan Terakhir <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="pendidikan" type="text" class="form-control @error('pendidikan') is-invalid @enderror" placeholder="Pendidikan" name="pendidikan" required autocomplete="new-pendidikan">
+                                    <select name="pendidikan" class="form-control">
+                                        <option value="">Pilih Pendidikan</option>
+                                        @foreach ($pendidikan as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
 
                                     @error('pendidikan')
                                     <span class="invalid-feedback" role="alert">
@@ -309,8 +170,8 @@
                                 <div class="">
                                     <select class="custom-select @error('statusKawin') is-invalid @enderror" name="statusKawin" required>
                                         <option value="">Pilih Status Perkawinan</option>
-                                        <option value="kawin">Kawin</option>
-                                        <option value="belum kawin">Belum Kawin</option>
+                                        <option value="Menikah">Menikah</option>
+                                        <option value="Belum Menikah">Belum Menikah</option>
                                     </select>
                                 </div>
                             </div>
@@ -337,22 +198,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="golonganDarah" class="col-form-label text-md-right">Golongan Darah <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <select class="custom-select @error('golonganDarah') is-invalid @enderror" name="golonganDarah" required>
-                                        <option value="">Pilih Golongan Darah</option>
-                                        <option value="o">O</option>
-                                        <option value="a">A</option>
-                                        <option value="b">B</option>
-                                        <option value="ab">AB</option>
-                                        <option value="tidak tahu">Tidak Tahu</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
                                 <label for="noHp" class="col-form-label text-md-right">No. HP <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
@@ -366,15 +211,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
+                        
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pasFoto" class="col-form-label text-md-right">Pas Foto <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="pasFoto" type="text" class="form-control @error('pasFoto') is-invalid @enderror" placeholder="Pas Foto" name="pasFoto" required autocomplete="new-pasFoto">
+                                    <input id="pasFoto" type="file" class="form-control @error('pasFoto') is-invalid @enderror" placeholder="Pas Foto" name="pasFoto" required autocomplete="new-pasFoto">
 
                                     @error('pasFoto')
                                     <span class="invalid-feedback" role="alert">
@@ -383,111 +226,11 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
 
                     <hr>
-                    <br>
-
-                    <h2>II. Data Kaderisasi:</h2>
-
-                    <div class="alert alert-primary" role="alert">
-                        <div class="ml-3 centere">
-                            <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Kaderisasi.
-                        </div>
-                    </div>
-
-                    <h3>MAPABA:</h3>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="komisariatPenyelenggara" class="col-form-label text-md-right">Komisariat Penyelenggara <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <div class="form-group">                    
-
-                                        <div class="">
-                                            <select name="komisariatPenyelenggara" class="form-control">
-                                                <option value="">Pilih komisariat Penyelenggara</option>
-                                                @foreach ($komisariat as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="rayonPenyelenggara" class="col-form-label text-md-right">Rayon Penyelenggara <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <div class="form-group">                    
-
-                                        <div class="">
-                                            <select name="rayonPenyelenggara" class="form-control">
-                                                <option value="">Pilih Rayon</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tahun" class="col-form-label text-md-right">Tahun Bergabung <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="tahun" type="number" class="form-control @error('tahun') is-invalid @enderror" name="tahun" placeholder="Tahun Bergabung" required autocomplete="new-tahun">
-
-                                    @error('tahun')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="angkatan" class="col-form-label text-md-right">Angkatan Ke <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="angkatan" type="number" class="form-control @error('angkatan') is-invalid @enderror" name="angkatan" placeholder="Angkatan Ke" required autocomplete="new-angkatan">
-
-                                    @error('angkatan')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="kaderisasiTerakhir" class="col-form-label text-md-right">Kaderisasi Terakhir <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="kaderisasiTerakhir" type="text" class="form-control @error('kaderisasiTerakhir') is-invalid @enderror" name="kaderisasiTerakhir" placeholder="Kaderisasi Terakhir" required autocomplete="new-kaderisasiTerakhir">
-
-                                    @error('kaderisasiTerakhir')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-                    <br>
+                    <!-- <br>
 
                     <h2>III. Data Pendukung:</h2>
 
@@ -602,7 +345,7 @@
                                 <input type="file" name="fotoKtm" class="form-control" id="fotoKtm">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="form-group row mb-0 mt-4">
@@ -675,52 +418,9 @@
                 $('select[name="kelurahan"]').empty();
             }
         });
-
-        $('select[name="komisariat"]').on('change', function() {
-            var komId = $(this).val();
-            if(komId) {
-                $.ajax({
-                    url: '/get-rayon/'+komId,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('select[name="rayon"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="rayon"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
-                    }
-                });
-            } else {
-                $('select[name="rayon"]').empty();
-            }
-        });
-
-        $('select[name="komisariatPenyelenggara"]').on('change', function() {
-            var komId = $(this).val();
-            if(komId) {
-                $.ajax({
-                    url: '/get-rayon/'+komId,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('select[name="rayonPenyelenggara"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="rayonPenyelenggara"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
-                    }
-                });
-            } else {
-                $('select[name="rayonPenyelenggara"]').empty();
-            }
-        });
     });
 </script>
 
-<script type="text/javascript">
-    $('#tempatLahir').keyup(function(){
-
-    });
-</script>
 <script type="text/javascript">
     $('#dashboards').addClass('active');
 </script>

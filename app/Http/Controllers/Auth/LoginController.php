@@ -10,6 +10,8 @@ use Auth;
 use Hash;
 use Socialite;
 use App\User;
+use App\Profile;
+use App\Kaderisasi;
 
 class LoginController extends Controller
 {
@@ -36,37 +38,55 @@ class LoginController extends Controller
 
             $user = Socialite::driver('google')->stateless()->user();
 
-            /// lakukan pengecekan apakah google id nya sudah ada apa belum
-            $isUser = User::where('google_id', $user->id)->first();
+            $isUser = User::where('email', $user->email)->first();
 
-            /// jika sudah ada, langsung login
             if($isUser){
 
                 Auth::login($isUser);
                 return redirect('/home');
 
-            } else { /// jika belum ada, register baru
+            } else { 
 
                 $createUser = new User;
                 $createUser->name =  $user->getName();
 
-                /// mendapatkan email dari google
                 if($user->getEmail() != null){
                     $createUser->email = $user->getEmail();
                     $createUser->email_verified_at = \Carbon\Carbon::now();
                 }  
 
-                /// tambahkan google id
-                $createUser->google_id = $user->getId();
-
-                /// membuat random password
                 $rand = rand(111111,999999);
                 $createUser->password = Hash::make($user->getName().$rand);
 
-                /// save
                 $createUser->save();
 
-                /// login
+                $id = $createUser->id; // Get current user id
+
+                Kaderisasi::create([
+                    'id_user' => $id,
+                    'komisariat' => '-',
+                    'rayon' => '-',
+                    'tahun_bergabung' => '-',
+                    'angkatan_ke' => '-',
+                    'kaderisasi_terakhir' => '-',
+                ]);
+
+                Profile::create([
+                    'id_user' => $id,
+                    'nama_lengkap' => '-',
+                    'tanggal_lahir' => '-',
+                    'jenis_kelamin' => '-',
+                    'provinsi' => '-',
+                    'kota_kabupaten' => '-',
+                    'kecamatan' => '-',
+                    'alamat_lengkap' => '-',
+                    'status_pernikahan' => '-',
+                    'pendidikan_terakhir' => '-',
+                    'pekerjaan' => '-',
+                    'no_hp' => '-',
+                    'foto_terbaru' => '-',
+                ]);               
+
                 Auth::login($createUser);
                 return redirect('/home');
             }

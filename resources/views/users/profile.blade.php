@@ -9,20 +9,24 @@
                 <p>Update Data Profile {{Auth::user()->name}}</p>
             </div>
             <div class="col-md-6" style="text-align: right; margin-top: auto; margin-bottom: auto">
-                <button class="btn btn-info mb-3" style="">
+                <!-- <button class="btn btn-info mb-3" style="">
                     <i class="fa fa-arrow-left"></i> kembali
                 </button>
                 <button class="btn btn-primary mb-3" style="">
                     <i class="fa fa-save"></i> Simpan
-                </button>
+                </button> -->
             </div>
         </div>
         <div class="card">
 
             <div class="card-body">
 
-                <form method="POST" action="/profile">
-                    @csrf                                                
+                <form method="POST" action="/profile/submit" id="profileForm"  enctype="multipart/form-data">
+                    @csrf        
+
+                    @if($errors->any())
+                    {{ implode('', $errors->all('<div>:message</div>')) }}
+                    @endif                                       
 
                     <h3>I. Data Diri:</h3>
                     <div class="alert alert-primary" role="alert">
@@ -34,44 +38,12 @@
                     @foreach($profile as $data)
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nik" class="col-form-label text-md-right">NIK <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="nik" type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" required autocomplete="new-nik" placeholder="NIK" value="{{ $data->nik }}">
-                                    @error('nik')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="ktm" class="col-form-label text-md-right">KTM <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="ktm" type="number" class="form-control @error('ktm') is-invalid @enderror" name="ktm" required autocomplete="new-ktm" placeholder="NIM KTM"  value="{{ $data->nim }}">
-
-                                    @error('ktm')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="nama" class="col-form-label text-md-right">Nama <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" required autocomplete="new-nama"  placeholder="Nama" readonly value="{{ Auth::user()->name }}">
+                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" required autocomplete="new-nama"  placeholder="Nama" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                         </div>
@@ -100,22 +72,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <label for="tempatLahir" class="col-form-label text-md-right">Tempat Lahir <nobr class="red-color">*</nobr></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #3b5998"><i class="fa fa-map-marker" style="color: #fff"></i></span>
-                                </div>
-                                <input type="text" name="tempatLahir" class="form-control" id="validationTooltipUsername" placeholder="Tampat Lahir" required value="{{ $data->tempat_lahir }}">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="tanggalLahir" class="col-form-label text-md-right">Tanggal Lahir <nobr class="red-color">*</nobr></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #3b5998"><i class="fa fa-calendar" style="color: #fff"></i></span>
                                 </div>
-                                <input type="date" name="tanggalLahir" class="form-control" id="validationTooltipUsername" placeholder="Tanggal Lahir" required value="{{ $data->tanggal_lahir }}">
+                                <input type="date" name="tanggalLahir" class="form-control" id="validationTooltipUsername" placeholder="Tanggal Lahir"  value="{{ $data->tanggal_lahir }}">
                             </div>
                         </div>
                     </div>
@@ -140,7 +103,7 @@
                     </div>                        
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="provinsi" class="col-form-label text-md-right">Provinsi <nobr class="red-color">*</nobr></label>
 
@@ -158,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kabupaten" class="col-form-label text-md-right">Kabupaten/Kota <nobr class="red-color">*</nobr></label>
 
@@ -174,10 +137,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kecamatan" class="col-form-label text-md-right">Kecamatan <nobr class="red-color">*</nobr></label>
 
@@ -195,114 +155,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="kelurahan" class="col-form-label text-md-right">Desa/Kelurahan <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <div class="">
-                                        <select name="kelurahan" class="form-control">
-                                            @if(is_null($data->desa_kelurahan))
-                                            <option value="">Pilih Desa/Kelurahan</option>
-                                            @else 
-                                            <option value="{{ $data->vil_id }}">{{ $data->vil_name }}</option>
-                                            @endif
-                                        </select>
-                                        <i><small class="form-text text-muted">Pilih kecamatan terelebih dahulu</small></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="rt" class="col-form-label text-md-right">RT <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="rt" type="number" class="form-control @error('rt') is-invalid @enderror" name="rt" placeholder="RT" required autocomplete="new-rt">
-
-                                    @error('rt')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="rw" class="col-form-label text-md-right">RW <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="rw" type="number" class="form-control @error('rw') is-invalid @enderror" name="rw" placeholder="RW" required autocomplete="new-rw">
-
-                                    @error('rw')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="komisariat" class="col-form-label text-md-right">Komisariat <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <select name="komisariat" class="form-control">
-                                        @if(is_null($data->komisariat))
-                                        <option value="">Pilih Komisariat</option>
-                                        @else 
-                                        <option value="{{ $data->id_komisariat }}">{{ $data->nama_komisariat }}</option>
-                                        @endif
-                                        @foreach ($komisariat as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="rayon" class="col-form-label text-md-right">Rayon <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <select name="rayon" class="form-control">
-                                        @if(is_null($data->rayon))
-                                        <option value="">Pilih Rayon</option>
-                                        @else 
-                                        <option value="{{ $data->id_rayon }}">{{ $data->nama_rayon }}</option>
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="fakultas" class="col-form-label text-md-right">Fakultas <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <input id="fakultas" type="text" class="form-control @error('fakultas') is-invalid @enderror" placeholder="Fakultas" name="fakultas" required autocomplete="new-fakultas" value="{{ $data->fakultas }}">
-
-                                    @error('fakultas')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row">
@@ -311,7 +163,16 @@
                                 <label for="pendidikan" class="col-form-label text-md-right">Pendidikan Terakhir <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="pendidikan" type="text" class="form-control @error('pendidikan') is-invalid @enderror" placeholder="Pendidikan" name="pendidikan" required autocomplete="new-pendidikan"  value="{{ $data->pendidikan_terakhir }}">
+                                    <select name="pendidikan" class="form-control">
+                                        @if(is_null($data->pendidikan_terakhir))
+                                        <option value="">Pilih Pendidikan_terakhir</option>
+                                        @else 
+                                        <option value="{{ $data->pendidikan_terakhir }}">{{ $data->nama_pendidikan }}</option>
+                                        @endif
+                                        @foreach ($pendidikan as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
 
                                     @error('pendidikan')
                                     <span class="invalid-feedback" role="alert">
@@ -323,17 +184,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="statusKawin" class="col-form-label text-md-right">Status Kawin <nobr class="red-color">*</nobr></label>
+                                <label for="statusKawin" class="col-form-label text-md-right">Status Pernikahan <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
                                     <select class="custom-select" name="statusKawin" required>
                                         @if(is_null($data->status_pernikahan))
-                                        <option value="">Pilih Status Perkawinan</option>
+                                        <option value="">Pilih Status Pernikahan</option>
                                         @else 
                                         <option value="{{ $data->status_pernikahan }}">{{ $data->status_pernikahan }}</option>
                                         @endif                                            
-                                        <option value="kawin">Kawin</option>
-                                        <option value="belum kawin">Belum Kawin</option>
+                                        <option value="Menikah">Menikah</option>
+                                        <option value="Belum Menikah">Belum Menikah</option>
                                     </select>
                                 </div>
                             </div>
@@ -364,26 +225,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="golonganDarah" class="col-form-label text-md-right">Golongan Darah <nobr class="red-color">*</nobr></label>
-
-                                <div class="">
-                                    <select class="custom-select" name="golonganDarah" required>
-                                        @if(is_null($data->gol_darah))
-                                        <option value="">Pilih Golongan Darah</option>
-                                        @else 
-                                        <option value="{{ $data->gol_darah }}">{{ $data->gol_darah }}</option>
-                                        @endif 
-                                        <option value="o">O</option>
-                                        <option value="a">A</option>
-                                        <option value="b">B</option>
-                                        <option value="ab">AB</option>
-                                        <option value="tidak tahu">Tidak Tahu</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
                                 <label for="noHp" class="col-form-label text-md-right">No. HP <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
@@ -397,15 +238,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pasFoto" class="col-form-label text-md-right">Pas Foto <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="pasFoto" type="text" class="form-control @error('pasFoto') is-invalid @enderror" placeholder="Pas Foto" name="pasFoto" required autocomplete="new-pasFoto" value="{{ $data->foto_terbaru }}">
+                                    <input id="pasFoto" type="file" class="form-control @error('pasFoto') is-invalid @enderror" placeholder="Pas Foto" name="pasFoto"  autocomplete="new-pasFoto" value="{{ $data->foto_terbaru }}">
 
                                     @error('pasFoto')
                                     <span class="invalid-feedback" role="alert">
@@ -437,7 +275,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="komisariatPenyelenggara" class="col-form-label text-md-right">Komisariat Penyelenggara <nobr class="red-color">*</nobr></label>
+                                <label for="komisariatPenyelenggara" class="col-form-label text-md-right">Komisariat <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
                                     <div class="form-group">                    
@@ -461,7 +299,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="rayonPenyelenggara" class="col-form-label text-md-right">Rayon Penyelenggara <nobr class="red-color">*</nobr></label>
+                                <label for="rayonPenyelenggara" class="col-form-label text-md-right">Rayon <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
                                     <div class="form-group">                    
@@ -517,7 +355,16 @@
                                 <label for="kaderisasiTerakhir" class="col-form-label text-md-right">Kaderisasi Terakhir <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="kaderisasiTerakhir" type="text" class="form-control @error('kaderisasiTerakhir') is-invalid @enderror" name="kaderisasiTerakhir" placeholder="Kaderisasi Terakhir" required autocomplete="new-kaderisasiTerakhir" value="{{ $kader->kaderisasi_terakhir }}">
+                                    <select name="kaderisasiTerakhir" class="form-control">
+                                        @if(is_null($kader->kaderisasi_terakhir))
+                                        <option value="">Pilih Kaderisasi Terakhir</option>
+                                        @else 
+                                        <option value="{{ $kader->kaderisasi_terakhir }}">{{ $kader->kad_terakhir }}</option>
+                                        @endif
+                                        @foreach ($kaderisasiterakhir as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
 
                                     @error('kaderisasiTerakhir')
                                     <span class="invalid-feedback" role="alert">
@@ -532,7 +379,7 @@
                     @endforeach
 
                     <hr>
-                    <br>
+ <!--                    <br>
 
                     <h2>III. Data Pendukung:</h2>
 
@@ -647,7 +494,7 @@
                                 <input type="file" name="fotoKtm" class="form-control" id="fotoKtm">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="form-group row mb-0 mt-4">
