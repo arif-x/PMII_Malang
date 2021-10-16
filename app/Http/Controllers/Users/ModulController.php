@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modul;
+use App\History;
 use Carbon\Carbon;
 use Auth;
-use DataTables;
 use Validator;
 use File;
 
@@ -19,34 +19,12 @@ class ModulController extends Controller
      *
      * @return \Illuminate\Http\Response
      */	
-	public function index(Request $request){ 
-		if ($request->ajax()) {
-			$data = Modul::where('id_user', Auth::user()->id)->get();
-			return Datatables::of($data)
-			->addIndexColumn()
-			->addColumn('action', function($row){
-
-				$btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editModul">Edit</a>';
-
-				$btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-info btn-sm deleteModul">Delete</a>';
-
-				return $btn;
-			})
-			->addColumn('lihat', function($row){
-				$reveal = '<a href="/modul/files/'.$row->post.'.'.$row->format_post.'" target="_blank">Lihat</a>';
-
-				return $reveal;
-			})
-			->addColumn('postingan', function($row){
-				$reveal = $row->post.'.'.$row->format_post;
-
-				return $reveal;
-			})
-			->rawColumns(['action', 'lihat', 'postingan'])
-			->make(true);
-		}
-
-		return view('users.modul');
+	public function index(Request $request){ 		
+		$data = Modul::join('profile', 'profile.id_user', '=', 'postingan.id_user')
+		->where('jenis_post', 1)
+		->select('postingan.*', 'profile.nama_lengkap')
+		->paginate(24);		
+		return view('users.modul', ['modul' => $data]);
 	}
 
 	public function store(Request $request){
@@ -60,12 +38,13 @@ class ModulController extends Controller
 			'keterangan' => 'required|string'
 		]);
 		if($validation->passes()){
-			$datas = Modul::where('id_user', Auth::user()->id)->where('id', $request->post_id)->first();
+			$datas = Modul::where('id_user', Auth::user()->id)->where('id_post', $request->post_id)->first();
 
 			if(empty($datas)){
 				$files = $request->file('select_file');
-				$new_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
+				$new_name = url('/storage/modul') . '/' . Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$file_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
+				$file_val = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$files->move(storage_path('app/public/modul'), $file_name);
 				$type = $files->getClientOriginalExtension();
 
@@ -77,13 +56,19 @@ class ModulController extends Controller
 						'tanggal_post' => Carbon::now()->format('d-m-Y'),
 						'keterangan_post' => $request->keterangan,
 						'post' => $new_name,
+						'file' => $file_val,
 						'format_post' => $type
 					]
 				);
 
-				return response()->json();
+				History::create([
+					'id_user' => Auth::user()->id,
+					'jenis' => 'Upload Modul ' . $file_name,					
+				]);
+
+				return back();
 			} else {
-				$datas = Modul::where('id_user', Auth::user()->id)->where('id', $request->post_id)->pluck('post');
+				$datas = Modul::where('id_user', Auth::user()->id)->where('id_post', $request->post_id)->pluck('post');
 				$fileData = str_replace('["', '', $datas);
 				$fileData = str_replace('"]', '', $fileData);
 
@@ -92,6 +77,7 @@ class ModulController extends Controller
 				$files = $request->file('select_file');
 				$new_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$file_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
+				$file_val = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$files->move(storage_path('app/public/modul'), $file_name);
 				$type = $files->getClientOriginalExtension();
 
@@ -103,13 +89,14 @@ class ModulController extends Controller
 						'tanggal_post' => Carbon::now()->format('d-m-Y'),
 						'keterangan_post' => $request->keterangan,
 						'post' => $new_name,
+						'file' => $file_val,
 						'format_post' => $type
 					]
 				);
-				return response()->json();
+				return back();
 			}			
 		} elseif($validator->passes()){
-			$datas = Modul::where('id_user', Auth::user()->id)->where('id', $request->post_id)->first();
+			$datas = Modul::where('id_user', Auth::user()->id)->where('id_post', $request->post_id)->first();
 			if(!empty($datas)){
 				Modul::where('id', $request->post_id)->update(
 					[
@@ -120,12 +107,10 @@ class ModulController extends Controller
 						'keterangan_post' => $request->keterangan,
 					]
 				);
-				return response()->json();
+				return back();
 			}
 		} else {
-			return response()->json([
-				'message'   => $validation->errors()->all(),
-			]);
+			return back()->with('message', $validation->errors()->all());
 		}
 	}
 

@@ -90,7 +90,7 @@ class ProfileController extends Controller
     if($validation->passes()){
 
       $files = $request->file('pasFoto');
-      $new_name = Auth::user()->id . '-' . Auth::user()->name;
+      $new_name = Auth::user()->id . '-' . Auth::user()->name.'.'.$files->getClientOriginalExtension();
       $files->move(storage_path('app/public/foto'), $new_name.'.'.$files->getClientOriginalExtension());
 
       Profile::where('id_user', Auth::user()->id)->update([

@@ -19,7 +19,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     protected function redirectTo(){
-        return '/profile';
+        return '/home';
     }
 
     public function __construct()

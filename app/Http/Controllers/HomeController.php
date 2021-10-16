@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Modul;
+use App\Video;
 
 class HomeController extends Controller
 {
@@ -21,8 +24,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
+    public function index(){
+        $modul = Modul::join('profile', 'profile.id_user', '=', 'postingan.id_user')
+        ->where('jenis_post', 1)
+        ->select('postingan.*', 'profile.nama_lengkap')
+        ->limit(6)
+        ->get();
+
+        $video = Video::join('profile', 'profile.id_user', '=', 'postingan.id_user')
+        ->where('jenis_post', 2)
+        ->select('postingan.*', 'profile.nama_lengkap')
+        ->limit(6)
+        ->get();
+        return view('home', ['moduls' => $modul, 'videos' => $video]);
     }
 }

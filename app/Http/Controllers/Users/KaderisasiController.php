@@ -16,6 +16,7 @@ class KaderisasiController extends Controller
 	public function index(){
 		$komisariat = Komisariat::pluck('nama_komisariat', 'id_komisariat');
 		$kaderisasi_terakhir = KaderisasiTerakhir::pluck('kaderisasi_terakhir', 'id_kaderisasi_terakhir');
+		
 		return view('users.kaderisasi', compact('komisariat', 'kaderisasi_terakhir'));
 	}
 

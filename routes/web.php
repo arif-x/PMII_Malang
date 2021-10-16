@@ -50,9 +50,26 @@ Route::group([
 	'namespace' => 'Users',	
 ], function(){
 	Route::get('/profile', 'ProfileController@index');
-	Route::resource('/modul', 'ModulController');
-	Route::get('/modul/files/{post}.{format}', 'PDFViewerController@index');
+	Route::get('/modul', 'ModulController@index');
+	Route::post('/modul/add', 'ModulController@store');
+	Route::get('/post/modul/{file}.{format}', 'PostController@modulSingle');
+	Route::get('/post/video/{file}.{format}', 'PostController@videoSingle');
+	Route::get('/video', 'VideoController@index');
+	Route::post('/video/add', 'VideoController@store');
 	Route::post('/profile/submit', 'ProfileController@store');	
+	Route::get('/history', 'HistoryController@index');
+	Route::get('/saved', 'WhistlistController@index');
+	Route::get('/modul/save/{post_id}', 'WhistlistController@addModul');
+	Route::get('/modul/remove/{post_id}', 'WhistlistController@removeModul');
+	Route::get('/video/save/{post_id}', 'WhistlistController@addVideo');
+	Route::get('/video/remove/{post_id}', 'WhistlistController@removeVideo');
+});
+
+Route::group([
+	// 'middleware' => ['kaderisasi', 'profile', 'auth'],
+	'namespace' => 'Users',	
+], function(){
+	Route::get('/modul', 'ModulController@index');
 });
 
 // Test

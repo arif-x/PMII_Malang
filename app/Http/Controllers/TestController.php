@@ -9,7 +9,7 @@ use App\Profile;
 class TestController extends Controller
 {
     public function index(){
-    	return view('test');
+    	return view('cuk');
     }
 
     public function store(Request $request){

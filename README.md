@@ -1,16 +1,14 @@
-<p align="center"><img src="public/assets/img/favicon1.png" width="400"></p>
+<p align="center"><img src="public/assets/img/favicon1.png" width="200"></p>
 
 ## PMII Malang
 
-## Deploy & Run
+# Perlu Dikerjakan
 
-How to Deploy and Run?
+- Fetch + Paginasi JSON Artikel
+- Aktivitas Publik User
+- Perbaikan FE + UI
 
-- Clone this repository
-- Run "composer install".
-- Set your database configuration in .env file
-- Create database and give name with same name in .env file
-- Refresh app key "php artisan key:generate"
-- Run database migration "php artisan migrate"
-- Run app "php artisan serve"
-- Enjoy
+# Note
+
+- RajaOngkir API masih perlu migrasi ke database app bukan ambil dari RajaOngkir langsung
+

@@ -607,6 +607,6 @@
     });
 </script>
 <script type="text/javascript">
-    $('#dashboards').addClass('active');
+    $('#profil').addClass('active');
 </script>
 @endsection
