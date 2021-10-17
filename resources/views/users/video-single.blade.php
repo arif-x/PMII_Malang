@@ -4,20 +4,22 @@
 <div class="mt-5">
     @foreach($videos as $video)
     <div class="row">
-        <div class="col-md-3 text-capitalize">                    
-            <img class="img-fluid" src="/storage/foto/{{ $video->foto_terbaru }}">
+        <div class="col-md-3 text-capitalize text-center">                    
+            <img class="img-fluid" style="max-width: 65%" src="/storage/foto/{{ $video->foto_terbaru }}">
         </div>
         <div class="col-md-9 text-capitalize">   
             <div class="row">            
-                <div class="col-md-11">
+                <div class="col-md-10">
                     <h4>
-                        <span class="text-left">{{ $video->judul_post }}. Oleh: {{ $video->nama_lengkap }}</span>
+                        <span class="text-left">{{ $video->judul_post }}</span>
+                        <br>
+                        <span class="text-left">By {{ $video->nama_lengkap }}</span>
                         <form method="POST" action="" hidden>
                             <input type="" name="post" value="{{ $video->id_post }}">
                         </form>
                     </h4>
                 </div>
-                <div class="col-md-1 text-center text-primary">                    
+                <div class="col-md-2 text-center text-primary">                    
                     <form id="he"></form>                                   
                     <div id="div-0" style="display: none">
                         <a id="kosong"><i class='bx bx-heart nav__icon text-primary' style="font-size: 4vh"></i><br>
@@ -29,16 +31,14 @@
                     </div>
                 </div>
             </div>
-            <p>Tags: {{ $video->jenis }}</p>
-            <p>{{ $video->keterangan_post }}</p>            
-            <div class="">seh</div>
+            <p>{{ $video->keterangan_post }}</p>                
+        </div>
+        <div class="col-md-12 mt-4">
             <div style="width: auto; height: auto">
-
                 <video height="100%" width="100%" controls class="video" preload="metadata"><source src="/storage/video/{{ $video->file }}.{{ $video->format_post }}" type="video/mp4" />
                 </video>
-
             </div>
-        </div>            
+        </div>
     </div>
     @endforeach
 </div>

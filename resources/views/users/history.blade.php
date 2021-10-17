@@ -2,26 +2,39 @@
 
 @section('content')
 <div class="mt-5">
-    <div class="col-md-12">        
-        <div class="row">
-            @foreach($hist as $history)
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12 text-left">
-                                {{ $history->jenis }}
-                            </div>
-                            <div class="col-md-12 text-right">
-                                <hr>
-                                <i>Pada {{ $history->created_at }}</i>
-                            </div>
-                        </div>
-                    </div>
+    <div class="col-md-12">
+        <h2>Aktifitas Terbaru</h2>
+    </div>
+    <div class="gr">
+        <div class="containers">
+            @foreach($hist as $data)
+            <div class="box">
+                <div class="image">
+                    @if($data->jenis_post == 1)
+                    <img src="/img/thumbnail_pdf.png" alt="">
+                    @elseif($data->jenis_post == 2)
+                    <img src="/img/thumbnile_video.png" alt="">
+                    @endif
+                </div>
+                <div class="name_job text-capitalize">{{ $data->judul_post }}</div>
+                <div class="text-center text-capitalize">
+                    @if($data->jenis_post == 1)
+                    Unggah Modul
+                    @elseif($data->jenis_post == 2)
+                    Unggah Video
+                    @endif
+                    <br>{{ $data->tanggal_post }}                        
+                </div>
+                <div class="btns">
+                    @if($data->jenis_post == 1)
+                    <a type="button" target="_blank" class="btn btn-primary" href="/post/modul/{{$data->file}}.{{$data->format_post}}" style="width: 100%">Lihat</a>
+                    @elseif($data->jenis_post == 2)
+                    <a type="button" target="_blank" class="btn btn-primary" href="/post/video/{{$data->file}}.{{$data->format_post}}" style="width: 100%">Lihat</a>
+                    @endif                    
                 </div>
             </div>
             @endforeach
-        </div>        
+        </div>
     </div>
 </div>
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Video;
-use App\History;
 use Carbon\Carbon;
 use Auth;
 use Validator;
@@ -21,8 +20,9 @@ class VideoController extends Controller
 	public function index(Request $request){ 		
 		$data = Video::join('profile', 'profile.id_user', '=', 'postingan.id_user')
 		->where('jenis_post', 2)
+		->where('postingan.id_user', Auth::user()->id)
 		->select('postingan.*', 'profile.nama_lengkap')
-		->paginate(24);		
+		->paginate(15);		
 		return view('users.video', ['video' => $data]);
 	}
 
@@ -59,11 +59,6 @@ class VideoController extends Controller
 						'format_post' => $type
 					]
 				);
-
-				History::create([
-					'id_user' => Auth::user()->id,
-					'jenis' => 'Upload Video ' . $file_name,					
-				]);
 
 				return back();
 			} else {

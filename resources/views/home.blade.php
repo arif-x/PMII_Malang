@@ -2,61 +2,65 @@
 
 @section('content')
 
-
 <div class="mt-5">
-	<h2>Modul</h2>
-	<div class="place__container-post container-post grid">
-		@foreach($moduls as $data)
-		<div class="place__card">
-			<img src="assets/img/place1.jpg" alt="" class="place__img">
-
-			<div class="place__content">
-				<span class="place__rating">						
-				</span>
-
-				<div class="place__data">
-					<h3 class="place__title text-capitalize">{{ $data->judul_post }}</h3>
+	<div class="col-md-12">
+		<h2>Modul</h2>
+	</div>
+	<div class="gr">
+		<div class="containers">
+			@foreach($moduls as $data)
+			<div class="box">
+				<div class="image">
+					<img src="/img/thumbnail_pdf.png" alt="">
+				</div>
+				<div class="name_job text-capitalize">{{ $data->judul_post }}</div>
+				<div class="text-center text-capitalize">
 					@if($data->jenis_post == 1)
-					<span class="place__subtitle">Modul</span>
+					Jenis: Modul
 					@elseif($data->jenis_post == 2)
-					<span class="place__subtitle">Video</span>
+					Jenis: Video
 					@endif
-					<span class="place__price  text-capitalize">Oleh: {{ $data->nama_lengkap }}</span>
-					<span class="place__price"><a target="_blank" class="text-white" href="/post/modul/{{ $data->file }}.{{ $data->format_post }}">Lihat</a></span>
+					<br>By {{ $data->nama_lengkap }}
+				</div>
+				<div class="btns">
+					<a type="button" target="_blank" class="btn btn-primary" href="/post/modul/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
 				</div>
 			</div>
+			@endforeach
 		</div>
-		@endforeach
-	</div>	
+	</div>
 </div>
 
-<div class="mt-5">
-	<h2>Video</h2>
-	<div class="place__container-post container-post grid">
-		@foreach($videos as $data)
-		<div class="place__card">
-			<img src="assets/img/place1.jpg" alt="" class="place__img">
+<hr>
 
-			<div class="place__content">
-				<span class="place__rating">						
-				</span>
-
-				<div class="place__data">
-					<h3 class="place__title text-capitalize">{{ $data->judul_post }}</h3>
+<div class="mt-3">
+	<div class="col-md-12">
+		<h2>Video</h2>
+	</div>
+	<div class="gr">
+		<div class="containers">
+			@foreach($videos as $data)
+			<div class="box">
+				<div class="image">
+					<img src="/img/thumbnile_video.png" alt="">
+				</div>
+				<div class="name_job text-capitalize">{{ $data->judul_post }}</div>
+				<div class="text-center text-capitalize">
 					@if($data->jenis_post == 1)
-					<span class="place__subtitle">Modul</span>
+					Jenis: Modul
 					@elseif($data->jenis_post == 2)
-					<span class="place__subtitle">Video</span>
+					Jenis: Video
 					@endif
-					<span class="place__price  text-capitalize">Oleh: {{ $data->nama_lengkap }}</span>
-					<span class="place__price"><a target="_blank" class="text-white" href="/post/modul/{{ $data->file }}.{{ $data->format_post }}">Lihat</a></span>
+					<br>By {{ $data->nama_lengkap }}
+				</div>
+				<div class="btns">
+					<a type="button" target="_blank" class="btn btn-primary" href="/post/modul/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
 				</div>
 			</div>
+			@endforeach
 		</div>
-		@endforeach
-	</div>	
+	</div>
 </div>
-
 
 <script type="text/javascript">
 	$('#home').addClass('active');

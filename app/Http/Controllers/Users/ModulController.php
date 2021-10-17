@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modul;
-use App\History;
 use Carbon\Carbon;
 use Auth;
 use Validator;
@@ -22,8 +21,9 @@ class ModulController extends Controller
 	public function index(Request $request){ 		
 		$data = Modul::join('profile', 'profile.id_user', '=', 'postingan.id_user')
 		->where('jenis_post', 1)
+		->where('postingan.id_user', Auth::user()->id)
 		->select('postingan.*', 'profile.nama_lengkap')
-		->paginate(24);		
+		->paginate(15);		
 		return view('users.modul', ['modul' => $data]);
 	}
 
@@ -60,11 +60,6 @@ class ModulController extends Controller
 						'format_post' => $type
 					]
 				);
-
-				History::create([
-					'id_user' => Auth::user()->id,
-					'jenis' => 'Upload Modul ' . $file_name,					
-				]);
 
 				return back();
 			} else {

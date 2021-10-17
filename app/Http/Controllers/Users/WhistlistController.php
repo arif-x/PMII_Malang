@@ -14,9 +14,11 @@ class WhistlistController extends Controller
     public function index(){
         $data = Whistlist::join('postingan', 'postingan.id_post', '=', 'save.id_post')
         ->join('jenis_post', 'jenis_post.id_jenis_post', '=', 'postingan.jenis_post')
+        ->join('profile', 'profile.id_user', '=', 'postingan.id_user')
         ->where('save.id_user', Auth::user()->id)
-        ->select('save.*', 'postingan.judul_post', 'jenis_post.jenis_post as jenis_postingan')
-        ->get();
+        ->select('save.*', 'postingan.judul_post', 'postingan.jenis_post', 'postingan.file', 'postingan.format_post', 'profile.nama_lengkap', 'jenis_post.jenis_post as jenis_postingan')
+        ->paginate(20);
+        // dd($data);
         return view('users.whistlist', ['wlist' => $data]);
     }
 

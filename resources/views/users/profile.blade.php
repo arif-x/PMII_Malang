@@ -78,7 +78,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #3b5998"><i class="fa fa-calendar" style="color: #fff"></i></span>
                                 </div>
-                                <input type="date" name="tanggalLahir" class="form-control" id="validationTooltipUsername" placeholder="Tanggal Lahir"  value="{{ $data->tanggal_lahir }}">
+                                <input type="date" name="tanggalLahir" class="form-control" id="validationTooltipUsername" placeholder="Tanggal Lahir"  value="{{ \Carbon\Carbon::createFromDate($data->tanggal_lahir)->format('Y-m-d')}}">
                             </div>
                         </div>
                     </div>

@@ -4,8 +4,8 @@
 <div class="mt-5">
     @foreach($moduls as $modul)
     <div class="row">
-        <div class="col-md-3 text-capitalize">                    
-            <img class="img-fluid" src="/storage/foto/{{ $modul->foto_terbaru }}">
+        <div class="col-md-3 text-capitalize mb-3 text-center">                    
+            <img class="img-fluid" style="max-width: 65%" src="/storage/foto/{{ $modul->foto_terbaru }}">
         </div>
         <div class="col-md-9 text-capitalize">   
             <div class="row">                            
@@ -27,9 +27,11 @@
                 </div>
             </div>
             <p>Tags: {{ $modul->jenis }}</p>
-            <p>{{ $modul->keterangan_post }}</p>
-            <div style="width: auto; height: 150vh">
-                <embed id="frPDF" height="100%" width="100%" src="/storage/modul/{{ $modul->file }}.{{ $modul->format_post }}"></embed>
+            <p>{{ $modul->keterangan_post }}</p>            
+        </div>
+        <div class="col-md-12 mt-4">
+            <div class="embed-responsive embed-responsive-1by1">
+                <embed class="embed-responsive-item" src="/storage/modul/{{ $modul->file }}.{{ $modul->format_post }}"></embed>
             </div>
         </div>
     </div>

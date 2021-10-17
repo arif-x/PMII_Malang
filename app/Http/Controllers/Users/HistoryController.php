@@ -13,8 +13,8 @@ use Auth;
 class HistoryController extends Controller
 {
     public function index(){
-    	$history = History::join('users', 'users.id', '=', 'history.id_user')
-    	->where('id_user', Auth::user()->id)->get();
+    	$history = History::join('users', 'users.id', '=', 'postingan.id_user')
+    	->where('id_user', Auth::user()->id)->orderBy('id', 'DESC')->paginate(20);
 
     	return view('users.history', ['hist' => $history]);
     }

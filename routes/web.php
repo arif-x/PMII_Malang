@@ -17,8 +17,6 @@ Route::get('/', function () {
 	return view('index');
 });
 
-Route::get('/home', 'HomeController@index');
-
 Auth::routes();
 
 Route::get('/get-regency/{prov_id}', 'WilayahController@kabupaten');
@@ -45,6 +43,7 @@ Route::group([
 });
 
 // Level 3
+Route::get('/home', 'HomeController@index');
 Route::group([
 	'middleware' => ['kaderisasi', 'profile', 'auth'],
 	'namespace' => 'Users',	
@@ -63,13 +62,6 @@ Route::group([
 	Route::get('/modul/remove/{post_id}', 'WhistlistController@removeModul');
 	Route::get('/video/save/{post_id}', 'WhistlistController@addVideo');
 	Route::get('/video/remove/{post_id}', 'WhistlistController@removeVideo');
-});
-
-Route::group([
-	// 'middleware' => ['kaderisasi', 'profile', 'auth'],
-	'namespace' => 'Users',	
-], function(){
-	Route::get('/modul', 'ModulController@index');
 });
 
 // Test
