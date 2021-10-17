@@ -67,58 +67,110 @@ class ProfileController extends Controller
   }
 
   public function store(Request $request){
-    $validation = Validator::make($request->all(), [
-      'nama' => 'required|string',
-      'tanggalLahir' => 'required|date',
-      'jenisKelamin' => 'required|in:Laki-Laki,Perempuan',
-      'provinsi' => "required|integer",
-      'kabupaten' => "required|integer",
-      'kecamatan' => "required|integer",
-      'alamat' => 'required',
-      'pendidikan' => 'required',
-      'statusKawin' => 'required|in:Menikah,Belum Menikah',
-      'pekerjaan' => 'required|integer',
-      'noHp' => 'required|integer',  
-      'pasFoto' => "required|image|mimes:jpg,png,jpeg",
 
-      'komisariatPenyelenggara' => 'required|integer',
-      'rayonPenyelenggara' => 'required|integer',
-      'tahun' => 'required|integer',
-      'kaderisasiTerakhir' => 'required|string',
-    ]);
+    if($request->hasFile('pasFoto')){
 
-    if($validation->passes()){
+      $validation = Validator::make($request->all(), [
+        'nama' => 'required|string',
+        'tanggalLahir' => 'required|date',
+        'jenisKelamin' => 'required|in:Laki-Laki,Perempuan',
+        'provinsi' => "required|integer",
+        'kabupaten' => "required|integer",
+        'kecamatan' => "required|integer",
+        'alamat' => 'required',
+        'pendidikan' => 'required',
+        'statusKawin' => 'required|in:Menikah,Belum Menikah',
+        'pekerjaan' => 'required|integer',
+        'noHp' => 'required|integer',  
+        'pasFoto' => "required|image|mimes:jpg,png,jpeg",
 
-      $files = $request->file('pasFoto');
-      $new_name = Auth::user()->id . '-' . Auth::user()->name.'.'.$files->getClientOriginalExtension();
-      $files->move(storage_path('app/public/foto'), $new_name);
-
-      Profile::where('id_user', Auth::user()->id)->update([
-        'nama_lengkap' => $request->nama,
-        'tanggal_lahir' => Carbon::parse($request->tanggalLahir)->format('d/m/Y'),
-        'jenis_kelamin' => $request->jenisKelamin,
-        'provinsi' => $request->provinsi,
-        'kota_kabupaten' => $request->kabupaten,
-        'kecamatan' => $request->kecamatan,
-        'alamat_lengkap' => $request->alamat,
-        'status_pernikahan' => $request->statusKawin,
-        'pendidikan_terakhir' => $request->pendidikan,
-        'pekerjaan' => $request->pekerjaan,
-        'no_hp' => $request->noHp,
-        'foto_terbaru' => $new_name,
+        'komisariatPenyelenggara' => 'required|integer',
+        'rayonPenyelenggara' => 'required|integer',
+        'tahun' => 'required|integer',
+        'kaderisasiTerakhir' => 'required|string',
       ]);
 
-      Kaderisasi::where('id_user', Auth::user()->id)->update([
-        'komisariat' => $request->komisariatPenyelenggara,
-        'rayon' => $request->rayonPenyelenggara,
-        'tahun_bergabung' => $request->tahun,
-        'angkatan_ke' => $request->angkatan,
-        'kaderisasi_terakhir' => $request->kaderisasiTerakhir
+      if($validation->passes()){
+
+        $files = $request->file('pasFoto');
+        $new_name = Auth::user()->id . '-' . Auth::user()->name.'.'.$files->getClientOriginalExtension();
+        $files->move(storage_path('app/public/foto'), $new_name);
+
+        Profile::where('id_user', Auth::user()->id)->update([
+          'nama_lengkap' => $request->nama,
+          'tanggal_lahir' => Carbon::parse($request->tanggalLahir)->format('d/m/Y'),
+          'jenis_kelamin' => $request->jenisKelamin,
+          'provinsi' => $request->provinsi,
+          'kota_kabupaten' => $request->kabupaten,
+          'kecamatan' => $request->kecamatan,
+          'alamat_lengkap' => $request->alamat,
+          'status_pernikahan' => $request->statusKawin,
+          'pendidikan_terakhir' => $request->pendidikan,
+          'pekerjaan' => $request->pekerjaan,
+          'no_hp' => $request->noHp,
+          'foto_terbaru' => $new_name,
+        ]);
+
+        Kaderisasi::where('id_user', Auth::user()->id)->update([
+          'komisariat' => $request->komisariatPenyelenggara,
+          'rayon' => $request->rayonPenyelenggara,
+          'tahun_bergabung' => $request->tahun,
+          'angkatan_ke' => $request->angkatan,
+          'kaderisasi_terakhir' => $request->kaderisasiTerakhir
+        ]);
+
+        return back();
+      } else {
+        return redirect()->back()->withErrors($validation);
+      }
+    } elseif(!$request->hasFile('pasFoto')){
+      $validation = Validator::make($request->all(), [
+        'nama' => 'required|string',
+        'tanggalLahir' => 'required|date',
+        'jenisKelamin' => 'required|in:Laki-Laki,Perempuan',
+        'provinsi' => "required|integer",
+        'kabupaten' => "required|integer",
+        'kecamatan' => "required|integer",
+        'alamat' => 'required',
+        'pendidikan' => 'required',
+        'statusKawin' => 'required|in:Menikah,Belum Menikah',
+        'pekerjaan' => 'required|integer',
+        'noHp' => 'required|integer',  
+
+        'komisariatPenyelenggara' => 'required|integer',
+        'rayonPenyelenggara' => 'required|integer',
+        'tahun' => 'required|integer',
+        'kaderisasiTerakhir' => 'required|string',
       ]);
 
-      return redirect('/home');
-    } else {
-          return redirect()->back()->withErrors($validation);
+      if($validation->passes()){
+
+        Profile::where('id_user', Auth::user()->id)->update([
+          'nama_lengkap' => $request->nama,
+          'tanggal_lahir' => Carbon::parse($request->tanggalLahir)->format('d/m/Y'),
+          'jenis_kelamin' => $request->jenisKelamin,
+          'provinsi' => $request->provinsi,
+          'kota_kabupaten' => $request->kabupaten,
+          'kecamatan' => $request->kecamatan,
+          'alamat_lengkap' => $request->alamat,
+          'status_pernikahan' => $request->statusKawin,
+          'pendidikan_terakhir' => $request->pendidikan,
+          'pekerjaan' => $request->pekerjaan,
+          'no_hp' => $request->noHp,
+        ]);
+
+        Kaderisasi::where('id_user', Auth::user()->id)->update([
+          'komisariat' => $request->komisariatPenyelenggara,
+          'rayon' => $request->rayonPenyelenggara,
+          'tahun_bergabung' => $request->tahun,
+          'angkatan_ke' => $request->angkatan,
+          'kaderisasi_terakhir' => $request->kaderisasiTerakhir
+        ]);
+
+        return back();
+      } else {
+        return redirect()->back()->withErrors($validation);
+      }
     }
   }
 }

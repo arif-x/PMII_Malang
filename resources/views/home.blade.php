@@ -4,7 +4,14 @@
 
 <div class="mt-5">
 	<div class="col-md-12">
-		<h2>Modul</h2>
+		<div class="row">
+			<div class="col-md-10">
+				<h2>Modul</h2>
+			</div>
+			<div class="col-md-2 text-center">
+				<a href="/modul" type="button" class="btn btn-primary">Lihat Semua</a>
+			</div>
+		</div>
 	</div>
 	<div class="gr">
 		<div class="containers">
@@ -35,7 +42,14 @@
 
 <div class="mt-3">
 	<div class="col-md-12">
-		<h2>Video</h2>
+		<div class="row">
+			<div class="col-md-10">
+				<h2>Video</h2>
+			</div>
+			<div class="col-md-2 text-center">
+				<a href="/video" type="button" class="btn btn-primary">Lihat Semua</a>
+			</div>
+		</div>
 	</div>
 	<div class="gr">
 		<div class="containers">

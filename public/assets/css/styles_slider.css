@@ -197,5 +197,11 @@ a{
   }
 }
 
+.bag-primary {
+  color: #fff !important;
+  background-color: #106eb2 !important;
+}
 
-
+.card-def {
+  border: 1px solid #106eb2 !important; 
+}

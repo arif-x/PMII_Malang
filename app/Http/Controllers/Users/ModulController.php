@@ -21,8 +21,9 @@ class ModulController extends Controller
 	public function index(Request $request){ 		
 		$data = Modul::join('profile', 'profile.id_user', '=', 'postingan.id_user')
 		->where('jenis_post', 1)
-		->where('postingan.id_user', Auth::user()->id)
+		// ->where('postingan.id_user', Auth::user()->id)
 		->select('postingan.*', 'profile.nama_lengkap')
+		->orderBy('id_post', 'DESC')
 		->paginate(15);		
 		return view('users.modul', ['modul' => $data]);
 	}

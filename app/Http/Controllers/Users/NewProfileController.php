@@ -22,9 +22,9 @@ class NewProfileController extends Controller
       'kecamatan' => "required|integer",
       'alamat' => 'required',
       'pendidikan' => 'required',
-      'statusKawin' => 'required|in:kawin,belum kawin',
+      'statusKawin' => 'required|in:Menikah,Belum Menikah',
       'pekerjaan' => 'required|integer',
-      'noHp' => 'required|integer',  
+      'noHp' => 'required|numeric',  
       'pasFoto' => "required|image|mimes:jpg,png,jpeg",
     ]);
 

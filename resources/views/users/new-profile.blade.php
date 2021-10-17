@@ -165,11 +165,11 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="statusKawin" class="col-form-label text-md-right">Status Kawin <nobr class="red-color">*</nobr></label>
+                                <label for="statusKawin" class="col-form-label text-md-right">Status pernikahan <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
                                     <select class="custom-select @error('statusKawin') is-invalid @enderror" name="statusKawin" required>
-                                        <option value="">Pilih Status Perkawinan</option>
+                                        <option value="">Pilih Status Pernikahan</option>
                                         <option value="Menikah">Menikah</option>
                                         <option value="Belum Menikah">Belum Menikah</option>
                                     </select>

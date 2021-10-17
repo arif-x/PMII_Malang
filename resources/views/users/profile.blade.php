@@ -43,7 +43,7 @@
                                 <label for="nama" class="col-form-label text-md-right">Nama <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
-                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" required autocomplete="new-nama"  placeholder="Nama" value="{{ Auth::user()->name }}">
+                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" required autocomplete="new-nama"  placeholder="Nama" value="{{ $data->nama_lengkap }}">
                                 </div>
                             </div>
                         </div>
@@ -240,10 +240,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="pasFoto" class="col-form-label text-md-right">Pas Foto <nobr class="red-color">*</nobr></label>
+                                <label for="pasFoto" class="col-form-label text-md-right">Pas Foto <nobr class="red-color"></nobr></label>
 
                                 <div class="">
                                     <input id="pasFoto" type="file" class="form-control @error('pasFoto') is-invalid @enderror" placeholder="Pas Foto" name="pasFoto"  autocomplete="new-pasFoto" value="{{ $data->foto_terbaru }}">
+
+                                    <i><small class="form-text text-muted">Opsional</small></i>
 
                                     @error('pasFoto')
                                     <span class="invalid-feedback" role="alert">

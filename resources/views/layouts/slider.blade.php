@@ -107,6 +107,11 @@
                         <a href="/profile" class="nav__link" id="profil">
                             <i class='bx bx-user nav__icon' ></i>
                             <span class="nav__name">Profil</span>
+                        </a>    
+
+                        <a href="/" class="nav__link" id="profil">
+                            <i class='bx bx-home nav__icon' ></i>
+                            <span class="nav__name">Kembali ke Awal</span>
                         </a>                   
                     </div>
                 </div>

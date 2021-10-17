@@ -20,8 +20,9 @@ class VideoController extends Controller
 	public function index(Request $request){ 		
 		$data = Video::join('profile', 'profile.id_user', '=', 'postingan.id_user')
 		->where('jenis_post', 2)
-		->where('postingan.id_user', Auth::user()->id)
+		// ->where('postingan.id_user', Auth::user()->id)
 		->select('postingan.*', 'profile.nama_lengkap')
+		->orderBy('id_post', 'DESC')
 		->paginate(15);		
 		return view('users.video', ['video' => $data]);
 	}

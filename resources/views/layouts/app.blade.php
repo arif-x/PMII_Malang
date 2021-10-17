@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <link rel="shortcut icon" href="assets/img/favicon1.png" type="image/png">
-
-    <!--=============== REMIXICONS ===============-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <script src="{{ URL::asset('lib/jquery/jquery.min.js') }}"></script>
-
-
-    <!--=============== SWIPER CSS ===============-->
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/swiper-bundle.min.css') }}">
-
-    <!--=============== CSS ===============-->
+    <!-- ===== BOX ICONS ===== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/styles_slider.css') }}">    
+    
+    <!-- Styles -->
+    <link href="{{ asset('lib/datatables/DataTables-1.10.23/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::asset('lib/bootstrap/css/bootstrap.min.css') }}">
+    <link href="{{ asset('lib/datatables/FixedColumns-3.3.2/css/fixedColumns.bootstrap4.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::asset('lib/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/styles.css') }}">
 
-    <style type="text/css">
-        .centere {
-            display: flex;
-            align-items: center;            
-        }
+    <script src="{{ URL::asset('lib/datatables/jQuery-3.3.1/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ URL::asset('lib/datatables/DataTables-1.10.23/js/jquery.dataTables.min.js') }}"></script>    
+    <script src="{{ URL::asset('lib/datatables/Bootstrap-4-4.1.1/js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('lib/datatables/DataTables-1.10.23/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ URL::asset('lib/datatables/FixedColumns-3.3.2/js/dataTables.fixedColumns.min.js') }}"></script>     
 
-        .form-control:focus {
-            box-shadow:none;
-        }
+    <!-- <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+        <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script> -->
 
-        .red-color {
-            color: red;
-        }
+        <style type="text/css">
+            .btn-primary {
+                background-color: #106eb2 !important;
+            }
 
-        select, .custom-select {
-            text-transform: capitalize !important;
-        }
-    </style>
-</head>
-<body>
-    <div id="app">
+            .btn-info {
+                background-color: #fff !important;
+                color: #106eb2 !important;
+                border-color: #106eb2 !important;
+            }
 
-        <main class="py-4">
+            .alert-primary {
+                background-color: #106eb2 !important;
+                color: #fff !important;
+            }
+
+            .alert .ml-3 i {
+                vertical-align: middle;
+            }
+
+            .invalid-feedback {
+                text-transform: capitalize !important;
+            }
+        </style>
+
+        <title>E-PMII Malang</title>
+    </head>
+    <body style="margin: 0">
+        <div class="mt-5">            
             @yield('content')
-        </main>
-    </div>
-    <!--========== SCROLL UP ==========-->
-    <a href="#" class="scrollup" id="scroll-up">
-        <i class="ri-arrow-up-line scrollup__icon"></i>
-    </a>
-
-    <!--=============== SCROLL REVEAL===============-->
-    <script src="{{ URL::asset('assets/js/scrollreveal.min.js') }}"></script>
-
-    <!--=============== SWIPER JS ===============-->
-    <script src="{{ URL::asset('assets/js/swiper-bundle.min.js') }}"></script>
-</body>
-</html>
+        </div>    
+        <!--===== MAIN JS =====-->
+        <script src="{{ URL::asset('assets/js/main_slider.js') }}"></script>        
+    </body>
+    </html>

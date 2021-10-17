@@ -28,12 +28,14 @@ class HomeController extends Controller
         $modul = Modul::join('profile', 'profile.id_user', '=', 'postingan.id_user')
         ->where('jenis_post', 1)
         ->select('postingan.*', 'profile.nama_lengkap')
+        ->orderBy('id_post', 'DESC')
         ->limit(5)
         ->get();
 
         $video = Video::join('profile', 'profile.id_user', '=', 'postingan.id_user')
         ->where('jenis_post', 2)
         ->select('postingan.*', 'profile.nama_lengkap')
+        ->orderBy('id_post', 'DESC')
         ->limit(5)
         ->get();
         return view('home', ['moduls' => $modul, 'videos' => $video]);

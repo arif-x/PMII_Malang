@@ -17,6 +17,7 @@ class WhistlistController extends Controller
         ->join('profile', 'profile.id_user', '=', 'postingan.id_user')
         ->where('save.id_user', Auth::user()->id)
         ->select('save.*', 'postingan.judul_post', 'postingan.jenis_post', 'postingan.file', 'postingan.format_post', 'profile.nama_lengkap', 'jenis_post.jenis_post as jenis_postingan')
+        ->orderBy('id_save', 'DESC')
         ->paginate(20);
         // dd($data);
         return view('users.whistlist', ['wlist' => $data]);

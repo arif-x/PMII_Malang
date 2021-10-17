@@ -49,13 +49,13 @@ Route::group([
 	'namespace' => 'Users',	
 ], function(){
 	Route::get('/profile', 'ProfileController@index');
+	Route::post('/profile/submit', 'ProfileController@store');	
 	Route::get('/modul', 'ModulController@index');
 	Route::post('/modul/add', 'ModulController@store');
 	Route::get('/post/modul/{file}.{format}', 'PostController@modulSingle');
 	Route::get('/post/video/{file}.{format}', 'PostController@videoSingle');
 	Route::get('/video', 'VideoController@index');
-	Route::post('/video/add', 'VideoController@store');
-	Route::post('/profile/submit', 'ProfileController@store');	
+	Route::post('/video/add', 'VideoController@store');	
 	Route::get('/history', 'HistoryController@index');
 	Route::get('/saved', 'WhistlistController@index');
 	Route::get('/modul/save/{post_id}', 'WhistlistController@addModul');
