@@ -57,7 +57,7 @@
             e.preventDefault();
             $.ajax({
                 data: $('#he').serialize(),
-                url: "/modul/save/{{$modul->id_post}}",
+                url: "/module/save/{{$modul->id_post}}",
                 type: "GET",
                 dataType: 'json',
                 success: function (data) {

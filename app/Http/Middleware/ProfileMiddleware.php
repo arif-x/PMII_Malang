@@ -56,7 +56,7 @@ class ProfileMiddleware
             Profile::where('id_user', Auth::user()->id)->pluck('pekerjaan') == '[null]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('no_hp') == '[null]' ||
             Profile::where('id_user', Auth::user()->id)->pluck('foto_terbaru') == '[null]'){
-            return redirect('/new-profile')->with('info', 'Lengkapi Biodata');            
+            return redirect('/new-profile')->with('info', 'Mohon Lengkapi Biodata Terlebih Dahulu!');            
         } else {
             return $next($request);
         }          

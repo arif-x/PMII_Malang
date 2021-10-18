@@ -4,12 +4,11 @@
 <div class="mt-5">
 	<div class="col-md-12">
 		<div class="row">
-			<div class="col-md-6">
-				<h2>Video</h2>
-				<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Tambah Modul" class="btn btn-primary btn-sm mb-4 addVideo">Tambah Video</a>
+			<div class="col-md-10 mb-4">
+				<h2>Video</h2>				
 			</div>
-			<div class="col-md-6">
-
+			<div class="col-md-2 text-center">
+				<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Tambah Modul" class="btn btn-primary btn-sm mb-4 addVideo">Tambah Video</a>
 			</div>
 		</div>	
 	</div>
@@ -31,7 +30,7 @@
 					<br>By {{ $data->nama_lengkap }}
 				</div>
 				<div class="btns">
-					<a type="button" target="_blank" class="btn btn-primary" href="/post/video/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
+					<a type="button" target="_blank" class="btn btn-primary" href="/video/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
 				</div>
 			</div>
 			@endforeach

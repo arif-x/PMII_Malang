@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-	return view('index');
-});
+Route::get('/', 'IndexController@index');
 
 Auth::routes();
 
@@ -50,16 +48,16 @@ Route::group([
 ], function(){
 	Route::get('/profile', 'ProfileController@index');
 	Route::post('/profile/submit', 'ProfileController@store');	
-	Route::get('/modul', 'ModulController@index');
-	Route::post('/modul/add', 'ModulController@store');
-	Route::get('/post/modul/{file}.{format}', 'PostController@modulSingle');
-	Route::get('/post/video/{file}.{format}', 'PostController@videoSingle');
+	Route::get('/module', 'ModulController@index');
+	Route::post('/module/add', 'ModulController@store');
+	Route::get('/module/{file}.{format}', 'PostController@modulSingle');
+	Route::get('/video/{file}.{format}', 'PostController@videoSingle');
 	Route::get('/video', 'VideoController@index');
 	Route::post('/video/add', 'VideoController@store');	
 	Route::get('/history', 'HistoryController@index');
 	Route::get('/saved', 'WhistlistController@index');
-	Route::get('/modul/save/{post_id}', 'WhistlistController@addModul');
-	Route::get('/modul/remove/{post_id}', 'WhistlistController@removeModul');
+	Route::get('/module/save/{post_id}', 'WhistlistController@addModul');
+	Route::get('/module/remove/{post_id}', 'WhistlistController@removeModul');
 	Route::get('/video/save/{post_id}', 'WhistlistController@addVideo');
 	Route::get('/video/remove/{post_id}', 'WhistlistController@removeVideo');
 });

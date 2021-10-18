@@ -797,7 +797,7 @@
   align-items: center;
   padding: 20px;
   margin: 2px;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   border: 1px solid #106eb2;
 }
 .box .quote i{
@@ -898,4 +898,31 @@
 
 #myBtn:hover {
   background-color: #555; 
+}
+
+.btn-primary {
+  background-color: #106eb2 !important;
+}
+
+.btn-info {
+  background-color: #fff !important;
+  color: #106eb2 !important;
+  border-color: #106eb2 !important;
+}
+
+.alert-primary {
+  background-color: #106eb2 !important;
+  color: #fff !important;
+}
+
+.alert .ml-3 i {
+  vertical-align: middle;
+}
+
+.invalid-feedback {
+  text-transform: capitalize !important;
+}
+
+.btn {
+  border-radius: 0px !important;
 }

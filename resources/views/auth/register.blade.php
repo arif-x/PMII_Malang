@@ -1,72 +1,124 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>E-PMII Malang</title>
+    <link rel="shortcut icon" href="assets/img/favicon1.png" type="image/png">
+    <!--===============================================================================================-->  
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/auth/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/auth/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/auth/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/auth/vendor/animate/animate.css">
+    <!--===============================================================================================-->  
+    <link rel="stylesheet" type="text/css" href="/auth/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/auth/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/auth/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->  
+    <link rel="stylesheet" type="text/css" href="/auth/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/auth/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/auth/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bag-primary">Daftar</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <span class="login100-form-title">
                         <div class="text-center">
-                        <img src="/assets/img/ic_logo_grup.png" class="img-fluid mb-3" style="max-width: 30%;">
+                            <a href="/"><img src="/assets/img/ic_logo_grup.png" class="img-fluid mb-3" style="max-width: 30%;">
+                            </a>
+                        </div>
+                    </span>
+
+                    <span class="login100-form-title p-b-26">
+                        Daftar
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+                        <input class="input100" type="text" name="email"value="{{ old('email') }}" required autocomplete="email">                        
+                        <span class="focus-input100" data-placeholder="Email"></span>                        
+                    </div>                    
+
+                    <input type="hidden" class="form-control @error('email') is-invalid @enderror">
+                    @error('email') 
+                    <span class="invalid-feedback login 100-form-title p-b-26" role="alert">
+                        <strong class="text-capitalize">{{ $message }}</strong>
+                    </span>
+                    @enderror
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <input class="input100" type="password" name="password">
+                        <span class="focus-input100" data-placeholder="Password"></span>
                     </div>
-                        @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Daftar
+                            </button>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                    <div class="text-center p-t-15 p-b-10">
+                        <span class="txt1">
+                            Atau daftar dengan
+                        </span>
+                    </div>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <a href="{{ url('/auth/google') }}" class="login100-form-btn"><i class="fa fa-google"></i>&nbsp Google</a>
                         </div>
+                    </div>
 
-                        <div class="form-group row mb-2">
-                            <div class="col-md-12 text-center">
-                                <button type="submit" class="btn btn-primary">
-                                    Daftar
-                                </button>
-                            </div>
-                        </div>
+                    <div class="text-center p-t-15">
+                        <span class="txt1">
+                            Sudah punya akun?
+                        </span>
 
-                        <div class="text-center mb-2">
-                            Atau Daftar dengan
-                        </div>
-                        <div class="form-group row mb-2">
-                            <div class="col-md-12 text-center">
-                                <a href="{{ url('/auth/google') }}" class="btn btn-primary"><i class="fa fa-google"></i> Google</a>
-                            </div>
-                        </div>
-
-                        <div class="text-center mb-2">
-                            Sudah Punya Akun? <a href="/login">Login</a>
-                        </div>
-                        
-                    </form>
-                </div>
+                        <a class="txt2" href="/register">
+                            Login
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-@endsection
+    
+
+    <div id="dropDownSelect1"></div>
+    
+    <!--===============================================================================================-->
+    <script src="/auth/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/auth/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/auth/vendor/bootstrap/js/popper.js"></script>
+    <script src="/auth/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/auth/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/auth/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/auth/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/auth/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/auth/js/main.js"></script>
+
+</body>
+</html>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="shortcut icon" href="/assets/img/favicon1.png" type="image/png">
 
     <!-- ===== BOX ICONS ===== -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -25,31 +26,6 @@
 
     <!-- <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
         <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script> -->
-
-        <style type="text/css">
-            .btn-primary {
-                background-color: #106eb2 !important;
-            }
-
-            .btn-info {
-                background-color: #fff !important;
-                color: #106eb2 !important;
-                border-color: #106eb2 !important;
-            }
-
-            .alert-primary {
-                background-color: #106eb2 !important;
-                color: #fff !important;
-            }
-
-            .alert .ml-3 i {
-                vertical-align: middle;
-            }
-
-            .invalid-feedback {
-                text-transform: capitalize !important;
-            }
-        </style>
 
         <title>E-PMII Malang</title>
     </head>
@@ -84,7 +60,7 @@
                             <span class="nav__name">Dashboard</span>
                         </a>               
 
-                        <a href="/modul" class="nav__link" id="modules">
+                        <a href="/module" class="nav__link" id="modules">
                             <i class='bx bx-book-content nav__icon' ></i>
                             <span class="nav__name">Data Modul</span>
                         </a>

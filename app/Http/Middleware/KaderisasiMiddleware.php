@@ -35,7 +35,7 @@ class KaderisasiMiddleware
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('tahun_bergabung') == '[null]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('angkatan_ke') == '[null]' ||
             Kaderisasi::where('id_user', Auth::user()->id)->pluck('kaderisasi_terakhir') == '[null]'){
-            return redirect('/new-kaderisasi')->with('info', 'Lengkapi Data Kaderisasi');            
+            return redirect('/new-kaderisasi')->with('info', 'Mohon Lengkapi Data Kaderisasi Terlebih Dahulu!');            
         } else {
             return $next($request);
         }          

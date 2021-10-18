@@ -4,12 +4,11 @@
 <div class="mt-5">
 	<div class="col-md-12">
 		<div class="row">
-			<div class="col-md-6">
-				<h2>Modul</h2>
-				<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Tambah Modul" class="btn btn-primary btn-sm mb-4 addModul">Tambah Modul</a>
+			<div class="col-md-10">
+				<h2>Modul</h2>				
 			</div>
-			<div class="col-md-6">
-
+			<div class="col-md-2 text-center">
+				<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Tambah Modul" class="btn btn-primary btn-sm mb-4 addModul">Tambah Modul</a>
 			</div>
 		</div>	
 	</div>
@@ -31,7 +30,7 @@
 					<br>By {{ $data->nama_lengkap }}
 				</div>
 				<div class="btns">
-					<a type="button" target="_blank" class="btn btn-primary" href="/post/modul/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
+					<a type="button" target="_blank" class="btn btn-primary" href="/module/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
 				</div>
 			</div>
 			@endforeach
@@ -44,7 +43,7 @@
 		<!-- <button onclick="topFunction()" id="myBtn" class="addModul" title="Go to top">+</button> -->
 	</div>
 
-	<div class="modal fade bd-example-modal-lg" id="onModalDelete" aria-hidden="true">
+	<!-- <div class="modal fade bd-example-modal-lg" id="onModalDelete" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content modal-long">
 				<div class="modal-header">
@@ -70,7 +69,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="modal fade bd-example-modal-lg" id="onModal" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -82,7 +81,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form id="modulForm" method="POST" action="/modul/add" name="modulForm" class="form-horizontal" enctype="multipart/form-data">
+					<form id="modulForm" method="POST" action="/module/add" name="modulForm" class="form-horizontal" enctype="multipart/form-data">
 						@csrf
 
 						<input type="hidden" name="post_id" id="post_id" value="">

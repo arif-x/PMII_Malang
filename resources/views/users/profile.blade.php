@@ -6,7 +6,9 @@
         <div class="row">
             <div class="col-md-6 mt-2 mb-3">
                 <h2>Profil</h2>
-                <p>Update Data Profile {{Auth::user()->name}}</p>
+                @foreach($profile as $data)
+                <p class="text-capitalize">Update Data Profile {{ $data->nama_lengkap }}</p>
+                @endforeach
             </div>
             <div class="col-md-6" style="text-align: right; margin-top: auto; margin-bottom: auto">
                 <!-- <button class="btn btn-info mb-3" style="">
@@ -21,12 +23,15 @@
 
             <div class="card-body">
 
+                @if($errors->any())
+                <div class="mt-2 mb-5 bg-warning" style="padding: 20px">
+                    <h1>Error</h1>
+                    <li class="text-capitalize" style="font-size: 20px;">{{ implode('', $errors->all(':message')) }}</li>
+                </div>
+                @endif
+
                 <form method="POST" action="/profile/submit" id="profileForm"  enctype="multipart/form-data">
                     @csrf        
-
-                    @if($errors->any())
-                    {{ implode('', $errors->all('<div>:message</div>')) }}
-                    @endif                                       
 
                     <h3>I. Data Diri:</h3>
                     <div class="alert alert-primary" role="alert">
@@ -78,7 +83,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #3b5998"><i class="fa fa-calendar" style="color: #fff"></i></span>
                                 </div>
-                                <input type="date" name="tanggalLahir" class="form-control" id="validationTooltipUsername" placeholder="Tanggal Lahir"  value="{{ \Carbon\Carbon::createFromDate($data->tanggal_lahir)->format('Y-m-d')}}">
+                                @php
+                                $var = $data->tanggal_lahir;
+                                $date = str_replace('/', '-', $var);
+                                @endphp
+                                <input type="date" name="tanggalLahir" class="form-control" id="validationTooltipUsername" placeholder="Tanggal Lahir" value="{{ date('Y-m-d', strtotime($date)) }}">
                             </div>
                         </div>
                     </div>

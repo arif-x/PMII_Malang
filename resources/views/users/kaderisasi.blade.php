@@ -17,6 +17,12 @@
                 </button> -->
             </div>
         </div>
+        @if ($message = Session::get('info'))
+        <div class="col-md-12 alert alert-info alert-block margin-tengah">
+            <button type="button" class="close" data-dismiss="alert">×</button>    
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
         <div class="card">
 
             <div class="card-body">

@@ -27,9 +27,9 @@
                 </div>
                 <div class="btns">
                     @if($data->jenis_post == 1)
-                    <a type="button" target="_blank" class="btn btn-primary" href="/post/modul/{{$data->file}}.{{$data->format_post}}" style="width: 100%">Lihat</a>
+                    <a type="button" target="_blank" class="btn btn-primary" href="/module/{{$data->file}}.{{$data->format_post}}" style="width: 100%">Lihat</a>
                     @elseif($data->jenis_post == 2)
-                    <a type="button" target="_blank" class="btn btn-primary" href="/post/video/{{$data->file}}.{{$data->format_post}}" style="width: 100%">Lihat</a>
+                    <a type="button" target="_blank" class="btn btn-primary" href="/video/{{$data->file}}.{{$data->format_post}}" style="width: 100%">Lihat</a>
                     @endif                    
                 </div>
             </div>

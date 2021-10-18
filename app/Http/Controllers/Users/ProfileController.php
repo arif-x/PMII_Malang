@@ -81,7 +81,7 @@ class ProfileController extends Controller
         'pendidikan' => 'required',
         'statusKawin' => 'required|in:Menikah,Belum Menikah',
         'pekerjaan' => 'required|integer',
-        'noHp' => 'required|integer',  
+        'noHp' => 'required|numeric',  
         'pasFoto' => "required|image|mimes:jpg,png,jpeg",
 
         'komisariatPenyelenggara' => 'required|integer',
@@ -93,7 +93,7 @@ class ProfileController extends Controller
       if($validation->passes()){
 
         $files = $request->file('pasFoto');
-        $new_name = Auth::user()->id . '-' . Auth::user()->name.'.'.$files->getClientOriginalExtension();
+        $new_name = Auth::user()->id . '-' . $request->nama.'.'.$files->getClientOriginalExtension();
         $files->move(storage_path('app/public/foto'), $new_name);
 
         Profile::where('id_user', Auth::user()->id)->update([
@@ -135,7 +135,7 @@ class ProfileController extends Controller
         'pendidikan' => 'required',
         'statusKawin' => 'required|in:Menikah,Belum Menikah',
         'pekerjaan' => 'required|integer',
-        'noHp' => 'required|integer',  
+        'noHp' => 'required|numeric',  
 
         'komisariatPenyelenggara' => 'required|integer',
         'rayonPenyelenggara' => 'required|integer',

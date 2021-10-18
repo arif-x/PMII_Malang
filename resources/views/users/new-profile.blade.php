@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-12 mt-3">
+    <div class="col-md-12 mt-3">        
         <div class="row">
             <div class="col-md-6 mt-2 mb-3">
                 <h2>Profil</h2>
-                <p>Update Data Profil</p>
+                <p>Isian Data Profil</p>
             </div>
             <div class="col-md-6" style="text-align: right; margin-top: auto; margin-bottom: auto">
                 <!-- <button class="btn btn-info mb-3" style="">
@@ -17,6 +17,12 @@
                 </button> -->
             </div>
         </div>
+        @if ($message = Session::get('info'))
+        <div class="col-md-12 alert alert-info alert-block margin-tengah">
+            <button type="button" class="close" data-dismiss="alert">×</button>    
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
         <div class="card">
 
             <div class="card-body">

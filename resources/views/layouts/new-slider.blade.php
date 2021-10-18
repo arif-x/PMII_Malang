@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="shortcut icon" href="assets/img/favicon1.png" type="image/png">
 
     <!-- ===== BOX ICONS ===== -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -72,26 +73,29 @@
 
 
                 <div class="nav__list">
-                                      
-                </div>
+                   <a href="/" class="nav__link" id="profil">
+                    <i class='bx bx-home nav__icon' ></i>
+                    <span class="nav__name">Kembali ke Awal</span>
+                </a>             
             </div>
+        </div>
 
-            <a class="nav__link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class='bx bx-log-out nav__icon' ></i>
-                <span class="nav__name">Logout</span>
-            </a>
+        <a class="nav__link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class='bx bx-log-out nav__icon' ></i>
+            <span class="nav__name">Logout</span>
+        </a>
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-        </nav>
-    </div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </nav>
+</div>
 
-    <div>
-        <h1>Components</h1>
-        @yield('content')
-    </div>    
-    <!--===== MAIN JS =====-->
-    <script src="assets/js/main_slider.js"></script>    
+<div>
+    <h1>Components</h1>
+    @yield('content')
+</div>    
+<!--===== MAIN JS =====-->
+<script src="assets/js/main_slider.js"></script>    
 </body>
 </html>

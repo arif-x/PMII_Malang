@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>E-PMII Malang</title>
 
     <!-- ===== BOX ICONS ===== -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -48,6 +49,10 @@
 
             .invalid-feedback {
                 text-transform: capitalize !important;
+            }
+
+            .bag-primary {
+
             }
         </style>
 

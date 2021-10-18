@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Modul;
 use App\Video;
 use App\Whistlist;
+use Auth;
 
 class PostController extends Controller
 {
@@ -27,7 +28,7 @@ class PostController extends Controller
         $id_plucked = str_replace(']', '', $id);
 
         $save = Modul::join('save', 'save.id_user', '=', 'save.id_user')
-        ->where('save.id_post', $id_plucked)
+        ->where('save.id_post', $id_plucked)->where('save.id_user', Auth::user()->id)
         ->select('save.*', 'postingan.id_post')
         ->get();
     	return view('users.modul-single', ['moduls' => $modul], compact('save', 'id'));
@@ -50,7 +51,7 @@ class PostController extends Controller
         $id_plucked = str_replace(']', '', $id);
 
         $save = Video::join('save', 'save.id_user', '=', 'save.id_user')
-        ->where('save.id_post', $id_plucked)
+        ->where('save.id_post', $id_plucked)->where('save.id_user', Auth::user()->id)
         ->select('save.*', 'postingan.id_post')
         ->get();
 
