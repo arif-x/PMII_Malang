@@ -27,7 +27,7 @@ Route::group([
 	'middleware' => 'auth',
 	'namespace' => 'Users',	
 ], function(){
-	Route::get('/new-profile', 'ProfileController@newIndex');
+	Route::get('/new-profile', 'NewProfileController@newIndex');
 	Route::post('/new-profile/submit', 'NewProfileController@store');	
 });
 
@@ -60,12 +60,23 @@ Route::group([
 	Route::get('/module/remove/{post_id}', 'WhistlistController@removeModul');
 	Route::get('/video/save/{post_id}', 'WhistlistController@addVideo');
 	Route::get('/video/remove/{post_id}', 'WhistlistController@removeVideo');
+	Route::get('/data-artikel', 'ArtikelController@getJson');
+
+	Route::get('/get-user-province', 'DataWilayahController@getProvince');
+	Route::get('/get-user-city', 'DataWilayahController@getCity');
+	Route::get('/get-user-subdistrict', 'DataWilayahController@getSubdistrict');
 });
 
 // Test
 
 Route::get('/test', 'TestController@index');
 Route::post('/test-cuk', 'TestController@store');
+
+Route::get('/get-provinsi', 'WilayahController@provinsi');
+Route::get('/get-kabupaten/{province_id}', 'WilayahController@kabupaten');
+Route::get('/get-kecamatan/{city_id}', 'WilayahController@kecamatan');
+
+Route::get('/get-koordinat/{prov}/{city}/{kec}', 'WilayahController@koordinat');
 
 Route::get('auth/google', [App\Http\Controllers\Auth\LoginController::class, 'google']);
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'google_callback']);

@@ -7,43 +7,42 @@ use Illuminate\Http\Request;
 use App\Komisariat;
 use App\Provinsi;
 use App\Profile;
+use App\Kabupaten;
+use App\Kecamatan;
 use App\Pekerjaan;
 use App\Kaderisasi;
 use App\Pendidikan;
 use App\KaderisasiTerakhir;
 use App\User;
+use App\KoordinatUser;
+use App\Koordinat;
+use App\KoordinatKab;
 use Carbon\Carbon;
 use Auth;
 use Validator;
+use Http;
 
 class ProfileController extends Controller
-{
-  public function newIndex(){
-    $provinsi = Provinsi::pluck('name', 'id');
-    $komisariat = Komisariat::pluck('nama_komisariat', 'id_komisariat');
-    $pekerjaan = Pekerjaan::pluck('pekerjan', 'id_pekerjan');
-    $pendidikan = Pendidikan::pluck('pendidikan', 'id_pendidikan');
-    return view('users.new-profile', compact('provinsi', 'komisariat', 'pekerjaan', 'pendidikan'));
-  }
-  
+{  
+
   public function index(){
     $profile = Profile::where('id_user', Auth::user()->id)
-    ->join('provinces', 'provinces.id', '=', 'profile.provinsi')
-    ->join('regencies', 'regencies.id', '=', 'profile.kota_kabupaten')
-    ->join('districts', 'districts.id', '=', 'profile.kecamatan')
     ->join('pekerjaan', 'pekerjaan.id_pekerjan', '=', 'profile.pekerjaan')
     ->join('pendidikan', 'pendidikan.id_pendidikan', '=', 'profile.pendidikan_terakhir')
+    ->join('wilayah_provinsi', 'wilayah_provinsi.id', '=', 'profile.provinsi')
+    ->join('wilayah_kabupaten', 'wilayah_kabupaten.id', '=', 'profile.kota_kabupaten')
+    ->join('wilayah_kecamatan', 'wilayah_kecamatan.id', '=', 'profile.kecamatan')
     ->select(
       'profile.*', 
-      'provinces.id as prov_id', 
-      'provinces.name as prov_name', 
-      'regencies.id as reg_id',
-      'regencies.name as reg_name',
-      'districts.id as dis_id',
-      'districts.name as dis_name',
       'pekerjaan.id_pekerjan as id_kerja',
-      'pekerjaan.pekerjan as nama_kerja',
-      'pendidikan.pendidikan as nama_pendidikan'
+      'pekerjaan.pekerjan as nama_kerja',      
+      'pendidikan.pendidikan as nama_pendidikan',
+      'wilayah_provinsi.id as prov_id',
+      'wilayah_provinsi.name as nama_prov',
+      'wilayah_kabupaten.id as kab_id',
+      'wilayah_kabupaten.name as nama_kab',
+      'wilayah_kecamatan.id as kec_id',
+      'wilayah_kecamatan.name as nama_kec',
     )->get();
     $kaderisasi = Kaderisasi::where('id_user', Auth::user()->id)
     ->join('komisariat', 'komisariat.id_komisariat', '=', 'kaderisasi.komisariat')
@@ -54,16 +53,18 @@ class ProfileController extends Controller
       'komisariat.id_komisariat',
       'komisariat.nama_komisariat',
       'rayon.id_rayon',
-      'rayon.nama_rayon',
+      'rayon.nama_rayon',      
       'kaderisasi_terakhir.kaderisasi_terakhir as kad_terakhir'
     )
     ->get();
+
     $pendidikan = Pendidikan::pluck('pendidikan', 'id_pendidikan');
     $kaderisasiterakhir = KaderisasiTerakhir::pluck('kaderisasi_terakhir', 'id_kaderisasi_terakhir');
     $provinsi = Provinsi::pluck('name', 'id');
     $komisariat = Komisariat::pluck('nama_komisariat', 'id_komisariat');
-    $pekerjaan = Pekerjaan::pluck('pekerjan', 'id_pekerjan');
-    return view('users.profile', compact('provinsi', 'komisariat', 'pekerjaan', 'profile', 'kaderisasi', 'pendidikan', 'kaderisasiterakhir'));
+    $pekerjaan = Pekerjaan::pluck('pekerjan', 'id_pekerjan'); 
+
+    return view('users.profile', compact('komisariat', 'pekerjaan', 'profile', 'kaderisasi', 'pendidikan', 'kaderisasiterakhir', 'provinsi'));
   }
 
   public function store(Request $request){
@@ -166,6 +167,73 @@ class ProfileController extends Controller
           'angkatan_ke' => $request->angkatan,
           'kaderisasi_terakhir' => $request->kaderisasiTerakhir
         ]);
+
+        $prov = Provinsi::where('id', $request->provinsi)->value('id');        
+
+        $kabData = Kabupaten::where('id', $request->kabupaten)->value('id');
+        $kab = (int)substr($kabData, 2);        
+
+        $kecData = Kecamatan::where('id', $request->kecamatan)->value('id');
+        $kec = (int)substr($kecData, 4);        
+
+        $koordinat = Koordinat::where('province_code', $prov)
+        ->where('kabupaten_code', $kab) 
+        ->where('kecamatan_code', $kec)        
+        ->first();
+
+        if(empty($koordinat)){
+          $lat2 = KoordinatKab::where('kode', $prov.substr($kabData, 2))->value('lat');
+          $lng2 = KoordinatKab::where('kode', $prov.substr($kabData, 2))->value('lng');
+
+          $users = KoordinatUser::where('id_user', Auth::user()->id)->first();
+          if(empty($users)){
+            KoordinatUser::create(            
+              [
+                'id_user' => Auth::user()->id,
+                'lat' => $lat2,
+                'lng' => $lng2,
+              ]
+            );            
+          } else {
+            KoordinatUser::where('id_user', Auth::user()->id)->update(            
+              [
+                'id_user' => Auth::user()->id,
+                'lat' => $lat2,
+                'lng' => $lng2,
+              ]
+            );
+          } 
+          return back();
+        }
+
+        $lat = Koordinat::where('province_code', $prov)
+        ->where('kabupaten_code', $kab) 
+        ->where('kecamatan_code', $kec)        
+        ->value('lat');
+
+        $lng = Koordinat::where('province_code', $prov)
+        ->where('kabupaten_code', $kab) 
+        ->where('kecamatan_code', $kec)        
+        ->value('lng');
+
+        $users = KoordinatUser::where('id_user', Auth::user()->id)->first();
+        if(empty($users)){
+          KoordinatUser::create(            
+            [
+              'id_user' => Auth::user()->id,
+              'lat' => $lat,
+              'lng' => $lng,
+            ]
+          );            
+        } else {
+          KoordinatUser::where('id_user', Auth::user()->id)->update(            
+            [
+              'id_user' => Auth::user()->id,
+              'lat' => $lat,
+              'lng' => $lng,
+            ]
+          );
+        }    
 
         return back();
       } else {

@@ -119,26 +119,27 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kabupaten" class="col-form-label text-md-right">Kabupaten/Kota <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
                                     <select name="kabupaten" class="form-control">
-                                        <option value="">Pilih Kabupaten</option>
+                                        <option value="">Pilih Kabupaten/Kota</option>
                                     </select>
                                     <i><small class="form-text text-muted">Pilih provinsi terelebih dahulu</small></i>
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kecamatan" class="col-form-label text-md-right">Kecamatan <nobr class="red-color">*</nobr></label>
 
                                 <div class="">
                                     <div class="">
-                                        <select name="kecamatan" class="form-control">
+                                        <select name="kecamatan" class="form-control" style="text-transform: uppercase;">
                                             <option value="">Pilih Kabupaten</option>
                                         </select>
                                         <i><small class="form-text text-muted">Pilih kabupaten terelebih dahulu</small></i>
@@ -236,123 +237,6 @@
                     </div>
 
                     <hr>
-                    <!-- <br>
-
-                    <h2>III. Data Pendukung:</h2>
-
-                    <div class="alert alert-primary" role="alert">
-                        <div class="ml-3 centere">
-                            <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Opsional, jika ada sebaiknya dilengkapi. Kosongkan jika tidak ada.
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="noWa" class="col-form-label text-md-right">No. WA</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #1BC5BD"><i class="fa fa-whatsapp" style="color: #fff"></i></span>
-                                </div>
-                                <input type="number" name="noWa" placeholder="08123456789" class="form-control" id="validationTooltipUsername">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="email" class="col-form-label text-md-right">Email</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #F64E60"><i class="fa fa-envelope" style="color: #fff"></i></span>
-                                </div>
-                                <input type="email" name="email" placeholder="username@gmail.com" class="form-control" id="validationTooltipUsername">                                    
-                            </div>
-                            <i><small class="form-text text-muted">Contoh: username@gmail.com</small></i>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="facebook" class="col-form-label text-md-right">Facebook</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #3b5998"><i class="fa fa-facebook" style="color: #fff"></i></span>
-                                </div>
-                                <input type="text" name="facebook" placeholder="facebook.com/username" class="form-control" id="validationTooltipUsername">
-                            </div>
-                            <i><small class="form-text text-muted">Contoh: facebook.com/username</small></i>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="twitter" class="col-form-label text-md-right">Twitter</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #1da1f2"><i class="fa fa-twitter" style="color: #fff"></i></span>
-                                </div>
-                                <input type="text" name="twitter" placeholder="twitter.com/username" class="form-control" id="validationTooltipUsername">
-                            </div>
-                            <i><small class="form-text text-muted">Contoh: twitter.com/username</small></i>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="instagram" class="col-form-label text-md-right">Instagram</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #e1306c"><i class="fa fa-instagram" style="color: #fff"></i></span>
-                                </div>
-                                <input type="text" name="instagram" placeholder="instagram.com/username" class="form-control" id="validationTooltipUsername">
-                            </div>
-                            <i><small class="form-text text-muted">Contoh: instagram.com/username</small></i>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="linkedin" class="col-form-label text-md-right">LinkedIn</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="validationTooltipUsernamePrepend" style="background: #0077b5"><i class="fa fa-linkedin" style="color: #fff"></i></span>
-                                </div>
-                                <input type="text" name="linkedin" placeholder="linkedin.com/in/username" class="form-control" id="validationTooltipUsername">
-                            </div>
-                            <i><small class="form-text text-muted">Contoh: linkedin.com/in/username</small></i>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="fotoResmi" class="col-form-label text-md-right">Foto Resmi</label>
-                            <div class="input-group">
-                                <input type="file" name="fotoResmi" class="form-control" id="fotoResmi">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="fotoKTP" class="col-form-label text-md-right">Foto KTP</label>
-                            <div class="input-group">
-                                <input type="file" name="fotoKTP" class="form-control" id="fotoKTP">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="fotoKtm" class="col-form-label text-md-right">Foto KTM</label>
-                            <div class="input-group">
-                                <input type="file" name="fotoKtm" class="form-control" id="fotoKtm">
-                            </div>
-                        </div>
-                    </div> -->
-
 
                     <div class="form-group row mb-0 mt-4">
                         <div class="col-md-12">
@@ -368,62 +252,43 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $('select[name="provinsi"]').on('change', function() {
+        var kab = $(this).val();
+        if(kab) {
+            $.ajax({
+                url: '/get-kabupaten/'+kab,
+                type: "GET",
+                dataType: "json",
+                success:function(data) {
+                    $('select[name="kabupaten"]').empty();
+                    $('select[name="kecamatan"]').empty();
+                    $.each(data, function(key, value) {
+                        $('select[name="kabupaten"]').append('<option value="'+ key +'">'+ value +'</option>');
+                    });
+                }
+            });
+        } else {
+            $('select[name="kabupaten"]').empty();                
+        }
+    });
 
-        $('select[name="provinsi"]').on('change', function() {
-            var provId = $(this).val();
-            if(provId) {
-                $.ajax({
-                    url: '/get-regency/'+provId,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('select[name="kabupaten"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="kabupaten"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
-                    }
-                });
-            } else {
-                $('select[name="kabupaten"]').empty();
-            }
-        });
-        $('select[name="kabupaten"]').on('change', function() {
-            var kabId = $(this).val();
-            if(kabId) {
-                $.ajax({
-                    url: '/get-district/'+kabId,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('select[name="kecamatan"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="kecamatan"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
-                    }
-                });
-            } else {
-                $('select[name="kecamatan"]').empty();
-            }
-        });
-        $('select[name="kecamatan"]').on('change', function() {
-            var kecId = $(this).val();                 
-            if(kecId) {
-                $.ajax({
-                    url: '/get-village/'+ kecId,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('select[name="kelurahan"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="kelurahan"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
-                    }
-                });
-            } else {
-                $('select[name="kelurahan"]').empty();
-            }
-        });
+    $('select[name="kabupaten"]').on('change', function() {
+        var kec = $(this).val();
+        if(kec) {
+            $.ajax({
+                url: '/get-kecamatan/'+kec,
+                type: "GET",
+                dataType: "json",
+                success:function(data) {
+                    $('select[name="kecamatan"]').empty();
+                    $.each(data, function(key, value) {
+                        $('select[name="kecamatan"]').append('<option value="'+ key +'">'+ value +'</option>');
+                    });
+                }
+            });
+        } else {
+            $('select[name="kecamatan"]').empty();
+        }
     });
 </script>
 

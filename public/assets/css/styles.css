@@ -1081,6 +1081,8 @@ input {
   margin: 2px;
   border: 1px solid #106eb2;
   background-color: #FAFDFF;
+  color: #000 !important;
+  font-style: 'Open Sans', sans-serif;
 }
 .box .quote i{
   margin-top: 10px;
@@ -1094,12 +1096,12 @@ input {
   width: 150px;
   /*background: #000;*/
   padding: 3px;
-  border-radius: 50%;
+  /*border-radius: 50%;*/
 }
 .box .image img{
   height: 100%;
   width: 100%;
-  border-radius: 50%;
+  /*border-radius: 50%;*/
   object-fit: cover;
   border: 2px solid #fff;
 }
@@ -1108,6 +1110,7 @@ input {
   margin-top: 8px;
   font-size: 16px;
   font-weight: 400;
+  /*color: #A3A9AE;*/
 }
 .box .name_job{
   margin: 10px 0 3px 0;

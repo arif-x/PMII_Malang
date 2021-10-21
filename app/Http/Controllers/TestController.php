@@ -9,7 +9,8 @@ use App\Profile;
 class TestController extends Controller
 {
     public function index(){
-    	return view('test');
+    	$myProv = Profile::where('id_user', Auth::user()->id)->value('provinsi');
+    	echo $myProv;
     }
 
     public function store(Request $request){

@@ -3,14 +3,10 @@
 @section('content')
 <div class="mt-5">
 	<div class="col-md-12">
-		<div class="row">
-			<div class="col-md-10 mb-4">
-				<h2>Video</h2>				
-			</div>
-			<div class="col-md-2 text-center">
-				<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Tambah Modul" class="btn btn-primary btn-sm mb-4 addVideo">Tambah Video</a>
-			</div>
-		</div>	
+		<div class="col-md-12 one-line">	
+			<h2>Video</h2>
+			<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Tambah Modul" class="btn btn-primary btn-sm mb-4 addVideo">Tambah Video</a>
+		</div>
 	</div>
 
 	<div class="gr">
@@ -21,13 +17,15 @@
 					<img src="/img/thumbnile_video.png" alt="">
 				</div>
 				<div class="name_job text-capitalize">{{ $data->judul_post }}</div>
-				<div class="text-center text-capitalize">
-					@if($data->jenis_post == 1)
-					Jenis: Modul
-					@elseif($data->jenis_post == 2)
-					Jenis: Video
-					@endif
-					<br>By {{ $data->nama_lengkap }}
+				<div class="text-center text-capitalize">					
+					{{ $data->nama_lengkap }}<br>
+					<p style="font-size: 80%" class="text-center">
+						@if($data->jenis_post == 1)
+						Modul
+						@elseif($data->jenis_post == 2)
+						Video
+						@endif
+					</p>
 				</div>
 				<div class="btns">
 					<a type="button" target="_blank" class="btn btn-primary" href="/video/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>

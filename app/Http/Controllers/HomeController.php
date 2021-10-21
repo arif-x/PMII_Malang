@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Http;
 use App\Modul;
 use App\Video;
 
@@ -38,6 +39,19 @@ class HomeController extends Controller
         ->orderBy('id_post', 'DESC')
         ->limit(5)
         ->get();
-        return view('home', ['moduls' => $modul, 'videos' => $video]);
+
+        $apiURL = 'http://api_sahabat.sahabat.or.id/api/Artikel';
+        $postInput = [
+            'TOKEN' => 'yogiganteng',
+            'page' => 1,
+        ];
+        $headers = [
+            
+        ];
+
+        $response = Http::withHeaders($headers)->post($apiURL, $postInput);
+        $responseBody = json_decode($response->getBody(), true);
+
+        return view('home', ['moduls' => $modul, 'videos' => $video, 'cuk' => $responseBody]);
     }
 }

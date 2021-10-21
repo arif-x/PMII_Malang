@@ -72,6 +72,7 @@
                     <strong class="text-white">|</strong>
                     <a class="btn btn-primary" style="padding: 15px;" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                     @else
                     <a href="/login" class="btn btn-primary" style="padding: 15px"><strong>Join Now</strong></a>
                     @if (Route::has('register'))                    
@@ -242,16 +243,18 @@
                                 <img src="/img/thumbnail_pdf.png" alt="">
                             </div>
                             <div class="name_job text-capitalize">{{ $data->judul_post }}</div>
-                            <div class="text-center text-capitalize">
-                                @if($data->jenis_post == 1)
-                                Jenis: Modul
-                                @elseif($data->jenis_post == 2)
-                                Jenis: Video
-                                @endif
-                                <br>By {{ $data->nama_lengkap }}
+                            <div class="text-center text-capitalize">                                
+                                {{ $data->nama_lengkap }}<br>
+                                <p style="font-size: 80%" class="text-center">
+                                    @if($data->jenis_post == 1)
+                                    Modul
+                                    @elseif($data->jenis_post == 2)
+                                    Video
+                                    @endif
+                                </p>
                             </div>
                             <div class="btns">
-                                <a type="button" target="_blank" class="btn btn-primary" href="/video/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
+                                <a type="button" target="_blank" class="btn btn-primary" href="/modul/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
                             </div>
                         </div>
                         @endforeach
@@ -270,12 +273,14 @@
                             </div>
                             <div class="name_job text-capitalize">{{ $data->judul_post }}</div>
                             <div class="text-center text-capitalize">
-                                @if($data->jenis_post == 1)
-                                Jenis: Modul
-                                @elseif($data->jenis_post == 2)
-                                Jenis: Video
-                                @endif
-                                <br>By {{ $data->nama_lengkap }}
+                                {{ $data->nama_lengkap }}<br>
+                                <p style="font-size: 80%" class="text-center">
+                                    @if($data->jenis_post == 1)
+                                    Modul
+                                    @elseif($data->jenis_post == 2)
+                                    Video
+                                    @endif
+                                </p>
                             </div>
                             <div class="btns">
                                 <a type="button" target="_blank" class="btn btn-primary" href="/video/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
