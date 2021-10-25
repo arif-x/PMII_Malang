@@ -214,7 +214,7 @@
     $(document).ready(function() {
         var data_id = "{{ $id }}";
         console.log = data_id;
-        $.get("{{ route('all.index') }}" +'/' + data_id +'/edit', function (data) {
+        $.get("/admin/kader/all" +'/' + data_id +'/edit', function (data) {
             $('#name_detail').html(data[0].nama_lengkap);
             $('#nama_lengkap').val(data[0].nama_lengkap);
             $('#tanggal_lahir').val(data[0].tanggal_lahir);

@@ -91,6 +91,8 @@ a{
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+  overflow-y: scroll;
+  bottom: 0
 }
 
 .nav__logo, .nav__link{

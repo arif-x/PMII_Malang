@@ -2,29 +2,36 @@
 
 @section('content')
 
-<div class="container mt-4">
+<div class="mt-4">
 	<h1 style="margin-botton: 20px;">Pendidikan</h1>
 	<a class="btn btn-primary" href="javascript:void(0)" id="createBtn" style="padding-botton: 20px;"> Tambah Pendidikan</a>
 	<br />
 	<br />
-	<table class="table table-bordered data-table">
-		<thead>
-			<tr>
-				<th width="5%">No</th>
-				<th width="75%">Nama Pendidikan</th>
-				<th width="20%">Atur</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div style="width: 100%">
+		<div class="">
+			<table class="table table-bordered data-table table-responsive" style="width: 100% !important">
+				<thead>
+					<tr>
+						<th width="5%">No</th>
+						<th width="75%">Nama Pendidikan</th>
+						<th width="20%">Atur</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 <div class="modal fade" id="addModal" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title" id="addModalHeader"></h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 			<div class="modal-body">
 				<form id="addForm" name="addForm" class="form-horizontal">

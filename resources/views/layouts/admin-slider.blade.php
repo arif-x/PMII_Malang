@@ -63,29 +63,39 @@
                     </a>               
 
                     <a href="/admin/postingan/all" class="nav__link" id="postingan">
-                        <i class='bx bx-post-content nav__icon' ></i>
+                        <i class='bx bx-book-content nav__icon' ></i>
                         <span class="nav__name">Data Postingan</span>
                     </a> 
 
                     <a href="/admin/komisariat" class="nav__link" id="komisariat">
-                        <i class='bx bx-book-content nav__icon' ></i>
+                        <i class='bx bx-home-alt nav__icon' ></i>
                         <span class="nav__name">Data Komisariat</span>
                     </a>                 
 
                     <a href="/admin/rayon" class="nav__link" id="rayon">
-                        <i class='bx bx-book-content nav__icon' ></i>
+                        <i class='bx bx-home nav__icon' ></i>
                         <span class="nav__name">Data Rayon</span>
                     </a> 
 
                     <a href="/admin/pekerjaan" class="nav__link" id="pekerjaan">
-                        <i class='bx bx-book-content nav__icon' ></i>
+                        <i class='bx bx-briefcase nav__icon' ></i>
                         <span class="nav__name">Data Pekerjaan</span>
                     </a> 
 
                     <a href="/admin/pendidikan" class="nav__link" id="pendidikan">
-                        <i class='bx bx-book-content nav__icon' ></i>
+                        <i class='bx bxs-graduation nav__icon' ></i>
                         <span class="nav__name">Data Pendidikan</span>
                     </a>     
+
+                    <a href="/profile" class="nav__link" id="profil">
+                        <i class='bx bx-user nav__icon' ></i>
+                        <span class="nav__name">Profil</span>
+                    </a>      
+
+                    <a href="/profile" class="nav__link" id="profil">
+                        <i class='bx bx-user nav__icon' ></i>
+                        <span class="nav__name">Profil</span>
+                    </a>      
 
                     <a href="/profile" class="nav__link" id="profil">
                         <i class='bx bx-user nav__icon' ></i>

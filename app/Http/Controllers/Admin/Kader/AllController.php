@@ -13,6 +13,7 @@ use App\Pekerjaan;
 use App\Pendidikan;
 use App\Kader;
 use App\KaderisasiTerakhir;
+use App\KoordinatUser;
 
 class AllController extends Controller
 {
@@ -43,11 +44,65 @@ class AllController extends Controller
 		$pendidikan = Pendidikan::pluck('pendidikan', 'id_pendidikan');
 		$kaderisasi = KaderisasiTerakhir::pluck('kaderisasi_terakhir', 'id_kaderisasi_terakhir');
 		$tahun = DB::table('kaderisasi')->groupBy('angkatan_ke')
-        ->orderByRaw("cast(tahun_bergabung as unsigned) DESC")
-        ->select('tahun_bergabung')
-        ->pluck('tahun_bergabung', 'tahun_bergabung');
+		->orderByRaw("cast(tahun_bergabung as unsigned) DESC")
+		->select('tahun_bergabung')
+		->pluck('tahun_bergabung', 'tahun_bergabung');
 
-		return view('admin.kader', compact('provinsi', 'komisariat', 'pekerjaan', 'pendidikan', 'tahun', 'kaderisasi'));
+		$kaders = Kader::join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
+		->join('komisariat', 'komisariat.id_komisariat', '=', 'kaderisasi.komisariat')
+		->join('kaderisasi_terakhir', 'kaderisasi_terakhir.id_kaderisasi_terakhir', '=', 'kaderisasi.kaderisasi_terakhir')
+		->groupBy('kaderisasi_terakhir.kaderisasi_terakhir')
+		->select('kaderisasi_terakhir.kaderisasi_terakhir', DB::raw('COUNT(kaderisasi_terakhir.kaderisasi_terakhir) as jumlah_kaderisasi', 'kaderisasi_terakhir.kaderisasi_terakhir'))
+		->get();
+
+		$pendidikans = Kader::join('pendidikan', 'pendidikan.id_pendidikan', '=', 'profile.pendidikan_terakhir')
+		->groupBy('pendidikan.pendidikan')
+		->select('pendidikan.pendidikan', DB::raw('COUNT(pendidikan.pendidikan) as jumlah_pendidikan', 'pendidikan.pendidikan'))
+		->get();
+
+		$pekerjaans = Kader::join('pekerjaan', 'id_pekerjan', '=', 'profile.pekerjaan')
+		->groupBy('pekerjaan.pekerjan')
+		->select('pekerjaan.pekerjan as kerja', DB::raw('COUNT(pekerjaan.pekerjan) as jumlah_pekerjaan', 'pekerjaan.pekerjan'))
+		->get();
+
+		$komisariats = Kader::join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
+		->join('komisariat', 'komisariat.id_komisariat', '=', 'kaderisasi.komisariat')
+		->groupBy('komisariat.nama_komisariat')
+		->select('komisariat.nama_komisariat', DB::raw('COUNT(komisariat.nama_komisariat) as jumlah_komisariat', 'komisariat.nama_komisariat'))
+		->get();
+
+		$rayons = Kader::join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
+		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
+		->groupBy('rayon.nama_rayon')
+		->select('rayon.nama_rayon', DB::raw('COUNT(rayon.nama_rayon) as jumlah_rayon', 'rayon.nama_rayon'))
+		->get();
+
+		$provinsis = Kader::join('wilayah_provinsi', 'wilayah_provinsi.id', '=', 'profile.provinsi')
+		->groupBy('wilayah_provinsi.id')
+		->select('wilayah_provinsi.name', DB::raw('COUNT(wilayah_provinsi.name) as jumlah_provinsi', 'wilayah_provinsi.name'))
+		->get();
+
+		$kabupatens = Kader::join('wilayah_kabupaten', 'wilayah_kabupaten.id', '=', 'profile.kota_kabupaten')
+		->groupBy('wilayah_kabupaten.id')
+		->select('wilayah_kabupaten.name', DB::raw('COUNT(wilayah_kabupaten.name) as jumlah_kabupaten', 'wilayah_kabupaten.name'))
+		->get();
+
+		$koordinats = KoordinatUser::join('profile', 'profile.id_user', '=', 'koordinat_user.id_user')
+		->join("wilayah_kabupaten","wilayah_kabupaten.id", "=", "profile.kota_kabupaten")
+		->groupBy('koordinat_user.lat', 'koordinat_user.lng')
+		->select('koordinat_user.lat', 'koordinat_user.lng', 'wilayah_kabupaten.name as kab',  DB::raw('COUNT(koordinat_user.id_user) as jml', 'profile.nama_lengkap'), DB::raw('GROUP_CONCAT(profile.nama_lengkap SEPARATOR ",") as nama'))
+		->get();
+
+		return view('admin.kader', compact('provinsi', 'komisariat', 'pekerjaan', 'pendidikan', 'tahun', 'kaderisasi'), [
+			'koordinats' => $koordinats,
+			'kaders' => $kaders,
+			'pendidikans' => $pendidikans,
+			'pekerjaans' => $pekerjaans,
+			'komisariats' => $komisariats,
+			'rayons' => $rayons,
+			'provinsis' => $provinsis,
+			'kabupatens' => $kabupatens
+		]);
 	}
 
 	// public function store(Request $request){

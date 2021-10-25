@@ -173,15 +173,15 @@ class ProfileController extends Controller
         $kabData = Kabupaten::where('id', $request->kabupaten)->value('id');
         $kab = (int)substr($kabData, 2);        
 
-        $kecData = Kecamatan::where('id', $request->kecamatan)->value('id');
-        $kec = (int)substr($kecData, 4);        
+        // $kecData = Kecamatan::where('id', $request->kecamatan)->value('id');
+        // $kec = (int)substr($kecData, 4);        
 
-        $koordinat = Koordinat::where('province_code', $prov)
-        ->where('kabupaten_code', $kab) 
-        ->where('kecamatan_code', $kec)        
-        ->first();
+        // $koordinat = Koordinat::where('province_code', $prov)
+        // ->where('kabupaten_code', $kab) 
+        // ->where('kecamatan_code', $kec)        
+        // ->first();
 
-        if(empty($koordinat)){
+        // if(empty($koordinat)){
           $lat2 = KoordinatKab::where('kode', $prov.substr($kabData, 2))->value('lat');
           $lng2 = KoordinatKab::where('kode', $prov.substr($kabData, 2))->value('lng');
 
@@ -203,37 +203,37 @@ class ProfileController extends Controller
               ]
             );
           } 
-          return back();
-        }
+        //   return back();
+        // }
 
-        $lat = Koordinat::where('province_code', $prov)
-        ->where('kabupaten_code', $kab) 
-        ->where('kecamatan_code', $kec)        
-        ->value('lat');
+        // $lat = Koordinat::where('province_code', $prov)
+        // ->where('kabupaten_code', $kab) 
+        // ->where('kecamatan_code', $kec)        
+        // ->value('lat');
 
-        $lng = Koordinat::where('province_code', $prov)
-        ->where('kabupaten_code', $kab) 
-        ->where('kecamatan_code', $kec)        
-        ->value('lng');
+        // $lng = Koordinat::where('province_code', $prov)
+        // ->where('kabupaten_code', $kab) 
+        // ->where('kecamatan_code', $kec)        
+        // ->value('lng');
 
-        $users = KoordinatUser::where('id_user', Auth::user()->id)->first();
-        if(empty($users)){
-          KoordinatUser::create(            
-            [
-              'id_user' => Auth::user()->id,
-              'lat' => $lat,
-              'lng' => $lng,
-            ]
-          );            
-        } else {
-          KoordinatUser::where('id_user', Auth::user()->id)->update(            
-            [
-              'id_user' => Auth::user()->id,
-              'lat' => $lat,
-              'lng' => $lng,
-            ]
-          );
-        }    
+        // $users = KoordinatUser::where('id_user', Auth::user()->id)->first();
+        // if(empty($users)){
+        //   KoordinatUser::create(            
+        //     [
+        //       'id_user' => Auth::user()->id,
+        //       'lat' => $lat,
+        //       'lng' => $lng,
+        //     ]
+        //   );            
+        // } else {
+        //   KoordinatUser::where('id_user', Auth::user()->id)->update(            
+        //     [
+        //       'id_user' => Auth::user()->id,
+        //       'lat' => $lat,
+        //       'lng' => $lng,
+        //     ]
+        //   );
+        // }    
 
         return back();
       } else {

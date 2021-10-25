@@ -12,17 +12,15 @@ use App\Kader;
 use App\Kaderisasi;
 use App\Postingan;
 use Carbon\Carbon;
+use App\KoordinatUser;
 
 class TestController extends Controller
 {
 	public function index(){
-		$data = Profile::join('kaderisasi', 'kaderisasi.id_user', 'profile.id_user')
-		->join('komisariat', 'komisariat.id_komisariat', '=', 'kaderisasi.komisariat')
-		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
-		->join('postingan', 'postingan.id_user', '=', 'profile.id_user')
-		->select('profile.nama_lengkap')
-		->where('kaderisasi.komisariat', 2)
-		->get();
+		$data = Kader::join('wilayah_kabupaten', 'wilayah_kabupaten.id', '=', 'profile.kota_kabupaten')
+		->groupBy('wilayah_kabupaten.id')
+		->select('wilayah_kabupaten.name', DB::raw('COUNT(wilayah_kabupaten.name) as jumlah_kabupaten', 'wilayah_kabupaten.name'))
+		->get('wilayah_kabupaten.name', 'jumlah_kabupaten');
 
 		echo $data;
 	}

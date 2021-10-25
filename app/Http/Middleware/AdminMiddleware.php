@@ -16,7 +16,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->level == 1){
+        if(Auth::user()->level != 3){
             return redirect('/home');
         } else {
             return $next($request);

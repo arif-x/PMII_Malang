@@ -2,70 +2,77 @@
 
 @section('content')
 
-<div class="container mt-4">
+<div class="mt-4">
 	<h1 style="margin-botton: 20px;">Komisariat</h1>
 	<a class="btn btn-primary" href="javascript:void(0)" id="createBtn" style="padding-botton: 20px;"> Tambah Komisariat</a>
 	<br />
 	<br />
-	<table class="table table-bordered data-table">
-		<thead>
-			<tr>
-				<th width="5%">No</th>
-				<th width="75%">Nama Komisariat</th>
-				<th width="20%">Atur</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div style="width: 100%">
+		<div class="">
+			<table class="table table-bordered data-table table-responsive" style="width: 100% !important">
+				<thead>
+					<tr>
+						<th width="5%">No</th>
+						<th width="75%">Nama Komisariat</th>
+						<th width="20%">Atur</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	<div class="modal fade" id="addModal" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="addModalHeader"></h4>
-			</div>
-			<div class="modal-body">
-				<form id="addForm" name="addForm" class="form-horizontal">
-					<input type="hidden" name="kom_id" id="kom_id">
-					<div class="form-group">
-						<label for="nama" class="col-sm-12 control-label">Nama Komisariat</label>
-						<div class="col-sm-12">
-							<input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" value="" maxlength="50" required="">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="addModalHeader"></h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="addForm" name="addForm" class="form-horizontal">
+						<input type="hidden" name="kom_id" id="kom_id">
+						<div class="form-group">
+							<label for="nama" class="col-sm-12 control-label">Nama Komisariat</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" value="" maxlength="50" required="">
+							</div>
 						</div>
-					</div>
 
-					<div class="col-sm-12">
-						<button type="submit" class="btn btn-primary w-100" id="saveBtn" value="create">Simpan
-						</button>
-					</div>
-				</form>
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-primary w-100" id="saveBtn" value="create">Simpan
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<div class="modal fade" id="deleteModal" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="deleteModalHeader"></h4>
-			</div>
-			<div class="modal-body">
-				<form id="deleteForm" name="deleteForm" class="form-horizontal">
-					<input type="hidden" name="kom_id_delete" id="kom-id-delete">
-					<div class="container">
-						<h5>Ingin Menghapus <strong id="nama-delete"></strong>?</h5>
-					</div>
+	<div class="modal fade" id="deleteModal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="deleteModalHeader"></h4>
+				</div>
+				<div class="modal-body">
+					<form id="deleteForm" name="deleteForm" class="form-horizontal">
+						<input type="hidden" name="kom_id_delete" id="kom-id-delete">
+						<div class="container">
+							<h5>Ingin Menghapus <strong id="nama-delete"></strong>?</h5>
+						</div>
 
-					<div class="col-sm-12">
-						<button type="submit" class="btn btn-danger w-100" id="deleteBtn" value="delete">Hapus
-						</button>
-					</div>
-				</form>
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-danger w-100" id="deleteBtn" value="delete">Hapus
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 

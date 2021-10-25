@@ -2,6 +2,16 @@
 
 @section('content')
 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+
 <div class="mt-4">
 	<h1 style="margin-bottom: 20px;">Kader</h1>
 	<!-- Button trigger modal -->
@@ -238,6 +248,633 @@
 		</div>
 	</div>
 </div>
+
+<hr>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="mt-5">
+			<figure class="highcharts-figure">
+				<div id="kaderisasi-terakhir"></div>
+				<p class="highcharts-description">
+
+				</p>
+			</figure>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="mt-5">
+			<figure class="highcharts-figure">
+				<div id="pendidikan-terakhir"></div>
+				<p class="highcharts-description">
+
+				</p>
+			</figure>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="mt-5">
+			<figure class="highcharts-figure">
+				<div id="komisariats"></div>
+				<p class="highcharts-description">
+
+				</p>
+			</figure>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="mt-5">
+			<figure class="highcharts-figure">
+				<div id="rayons"></div>
+				<p class="highcharts-description">
+
+				</p>
+			</figure>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="mt-5">
+			<figure class="highcharts-figure">
+				<div id="provinsis"></div>
+				<p class="highcharts-description">
+					
+				</p>
+			</figure>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="mt-5">
+			<figure class="highcharts-figure">
+				<div id="kabupatens"></div>
+				<p class="highcharts-description">
+
+				</p>
+			</figure>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="mt-5">
+			<figure class="highcharts-figure">
+				<div id="pekerjaans"></div>
+				<p class="highcharts-description">
+
+				</p>
+			</figure>
+		</div>
+	</div>
+
+</div>
+
+<style type="text/css">
+	#map {
+		position: relative;
+		width: 100%;
+		height: 500px;
+	}
+</style>
+
+<div class="mt-5 mb-3">
+	<h5 class="text-center">Data Persebaran Kader Berdasarkan Peta</h5>
+	<div id="map"></div>
+</div>
+
+
+<!-- Script Chart Kaderisasi Terakhir -->
+<script type="text/javascript">
+	Highcharts.chart('kaderisasi-terakhir', {
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Data Kader Berdasarkan Kaderisasi Terakhir'
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			type: 'category',
+			labels: {
+				rotation: -45,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Jumlah Kader'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			pointFormat: 'Jumlah Kader <b>{point.y:.0f}</b>'
+		},
+		series: [{
+			name: 'Jumlah Kader',
+			data: [
+			@foreach ($kaders as $kader)
+
+			['{{ $kader->kaderisasi_terakhir }}', {{ $kader->jumlah_kaderisasi }}],
+
+			@endforeach
+			
+			],
+			dataLabels: {
+				enabled: true,
+				rotation: -90,
+				color: '#FFFFFF',
+				align: 'right',
+				y: 10,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		}]
+	});
+</script>
+
+<!-- Script Chart Pendidikan Terakhir -->
+<script type="text/javascript">
+	Highcharts.chart('pendidikan-terakhir', {
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Jumlah Kader Berdasarkan Pendidikan Terakhir'
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			type: 'category',
+			labels: {
+				rotation: -45,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Jumlah Kader Berdasarkan Pendidikan Terakhir'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			pointFormat: 'Jumlah Kader <b>{point.y:.0f}</b>'
+		},
+		series: [{
+			name: 'Jumlah Kader',
+			data: [
+			@foreach ($pendidikans as $pendidikan)
+
+			['{{ $pendidikan->pendidikan }}', {{ $pendidikan->jumlah_pendidikan }}],
+
+			@endforeach
+			
+			],
+			dataLabels: {
+				enabled: true,
+				rotation: -90,
+				color: '#FFFFFF',
+				align: 'right',
+				y: 10,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		}]
+	});
+</script>
+
+<!-- Script Chart Pekerjaan -->
+<script type="text/javascript">
+	Highcharts.chart('pekerjaans', {
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Jumlah Kader Berdasarkan Pekerjaan'
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			type: 'category',
+			labels: {
+				rotation: -45,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Jumlah Kader Berdasarkan Pekerjaan'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			pointFormat: 'Jumlah Kader <b>{point.y:.0f}</b>'
+		},
+		series: [{
+			name: 'Jumlah Kader',
+			data: [
+			@foreach ($pekerjaans as $pekerjaan)
+
+			['{{ $pekerjaan->kerja }}', {{ $pekerjaan->jumlah_pekerjaan }}],
+
+			@endforeach
+			
+			],
+			dataLabels: {
+				enabled: true,
+				rotation: -90,
+				color: '#FFFFFF',
+				align: 'right',
+				y: 10,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		}]
+	});
+</script>
+
+<!-- Script Chart Komisariat -->
+<script type="text/javascript">
+	Highcharts.chart('komisariats', {
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Jumlah Kader Berdasarkan Komisariat'
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			type: 'category',
+			labels: {
+				rotation: -45,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Jumlah Kader Berdasarkan Komisariat'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			pointFormat: 'Jumlah Kader <b>{point.y:.0f}</b>'
+		},
+		series: [{
+			name: 'Jumlah Kader',
+			data: [
+			@foreach ($komisariats as $komisariat)
+
+			['{{ $komisariat->nama_komisariat }}', {{ $komisariat->jumlah_komisariat }}],
+
+			@endforeach
+			
+			],
+			dataLabels: {
+				enabled: true,
+				rotation: -90,
+				color: '#FFFFFF',
+				align: 'right',
+				y: 10,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		}]
+	});
+</script>
+
+<!-- Script Chart Rayon -->
+<script type="text/javascript">
+	Highcharts.chart('rayons', {
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Jumlah Kader Berdasarkan Rayon'
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			type: 'category',
+			labels: {
+				rotation: -45,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Jumlah Kader Berdasarkan Rayon'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			pointFormat: 'Jumlah Kader <b>{point.y:.0f}</b>'
+		},
+		series: [{
+			name: 'Jumlah Kader',
+			data: [
+			@foreach ($rayons as $rayon)
+
+			['{{ $rayon->nama_rayon }}', {{ $rayon->jumlah_rayon }}],
+
+			@endforeach
+			
+			],
+			dataLabels: {
+				enabled: true,
+				rotation: -90,
+				color: '#FFFFFF',
+				align: 'right',
+				y: 10,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		}]
+	});
+</script>
+
+<!-- Script Chart Provinsi -->
+<script type="text/javascript">
+	Highcharts.chart('provinsis', {
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Jumlah Kader Berdasarkan Provinsi'
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			type: 'category',
+			labels: {
+				rotation: -45,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Jumlah Kader Berdasarkan Provinsi'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			pointFormat: 'Jumlah Kader <b>{point.y:.0f}</b>'
+		},
+		series: [{
+			name: 'Jumlah Kader',
+			data: [
+			@foreach ($provinsis as $provinsi)
+
+			['{{ $provinsi->name }}', {{ $provinsi->jumlah_provinsi }}],
+
+			@endforeach
+			
+			],
+			dataLabels: {
+				enabled: true,
+				rotation: -90,
+				color: '#FFFFFF',
+				align: 'right',
+				y: 10,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		}]
+	});
+</script>
+
+<!-- Script Chart Kabupaten -->
+<script type="text/javascript">
+	Highcharts.chart('kabupatens', {
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Jumlah Kader Berdasarkan Kabupaten'
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			type: 'category',
+			labels: {
+				rotation: -45,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Jumlah Kader Berdasarkan Kabupaten'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			pointFormat: 'Jumlah Kader <b>{point.y:.0f}</b>'
+		},
+		series: [{
+			name: 'Jumlah Kader',
+			data: [
+			@foreach ($kabupatens as $kabupaten)
+
+			['{{ $kabupaten->name }}', {{ $kabupaten->jumlah_kabupaten }}],
+
+			@endforeach
+			
+			],
+			dataLabels: {
+				enabled: true,
+				rotation: -90,
+				color: '#FFFFFF',
+				align: 'right',
+				y: 10,
+				style: {
+					fontSize: '13px',
+					fontFamily: 'Verdana, sans-serif'
+				}
+			}
+		}]
+	});
+</script>
+
+<!-- Script Map -->
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiYXJpcG9uIiwiYSI6ImNrbjV3cmZ5NTA4aDUyd25zenk3MmlwYzgifQ.YbJ_Ir794eD8VlrVvpX64g';
+	var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v11',            
+		center: [112.6326321, -7.9666204],
+		zoom: 7
+	});
+
+	map.addControl(
+		new MapboxGeocoder({
+			accessToken: mapboxgl.accessToken,
+			mapboxgl: mapboxgl
+		})
+		);
+
+	map.addControl(new mapboxgl.NavigationControl());
+
+	map.addControl(
+		new mapboxgl.GeolocateControl({
+			positionOptions: {
+				enableHighAccuracy: true
+			},
+			trackUserLocation: true
+		})
+		);
+
+	map.on('load', function() {
+		map.resize();
+	});
+
+	map.on('load', function () {
+        // Add an image to use as a custom marker
+        map.loadImage(
+        	'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', 
+        	function (error, image) {
+        		if (error) throw error;
+        		map.addImage('custom-marker', image);
+                    map.addSource('points', {
+                    	'type': 'geojson',
+                    	'data': {
+                    		'type': 'FeatureCollection',
+                    		'features': [
+                    		@foreach ($koordinats as $koordinat)
+                    		{                    			
+                    			"type": "Feature",
+                    			"properties": {
+                    				"title": "{{ $koordinat->kab }}",
+                    				"description": "<strong>{{ $koordinat->kab }}<br>Jumlah Kader: {{ $koordinat->jml }}</strong><br><?php echo str_replace(',', '<br>- ', '- '.$koordinat->nama) ?>",
+                    				"marker-color": "#f86767",
+                    				"marker-size": "large",
+                    				"marker-symbol": "star"
+                    			},
+                    			"geometry": {
+                    				"type": "Point",
+                    				"coordinates": ['{{ $koordinat->lng }}', '{{ $koordinat->lat }}']
+                    			}
+                    		},
+                    		@endforeach
+                    		]
+                    	}
+                    });
+
+                    // Add a symbol layer
+                    map.addLayer({
+                    	'id': 'points',
+                    	'type': 'symbol',
+                    	'source': 'points',
+                    	'layout': {
+                    		'icon-image': 'custom-marker',
+                            'text-field': ['get', 'title'],
+                            'text-font': [
+                            'Open Sans Semibold',
+                            'Arial Unicode MS Bold'
+                            ],
+                            'text-offset': [0, 1.25],
+                            'text-anchor': 'top'
+                        }
+                    });
+
+                    map.on('click', 'points', function (e) {
+                    	var coordinates = e.features[0].geometry.coordinates.slice();
+                    	var description = e.features[0].properties.description;
+                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        	coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                        }
+
+                        new mapboxgl.Popup()
+                        .setLngLat(coordinates)
+                        .setHTML(description)
+                        .addTo(map);
+                    });
+
+                    map.on('mouseenter', 'points', function () {
+                    	map.getCanvas().style.cursor = 'pointer';
+                    });
+
+                    map.on('mouseleave', 'points', function () {
+                    	map.getCanvas().style.cursor = '';
+                    });
+                }
+                );
+    });
+</script>
 
 <script type="text/javascript">
 	$(function () {

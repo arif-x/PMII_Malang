@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@index');
 
+// Authentication
 Auth::routes();
+Route::get('auth/google', [App\Http\Controllers\Auth\LoginController::class, 'google']);
+Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'google_callback']);
 
-Route::get('/get-regency/{prov_id}', 'WilayahController@kabupaten');
-Route::get('/get-district/{kab_id}', 'WilayahController@kecamatan');
-Route::get('/get-village/{kec_id}', 'WilayahController@kelurahan');
-Route::get('/get-rayon/{kom_id}', 'WilayahController@rayon');
 
+// =============================================== User Section ===============================================
 // Level 1
 Route::group([
 	'middleware' => 'auth',
@@ -61,18 +61,19 @@ Route::group([
 	Route::get('/video/save/{post_id}', 'WhistlistController@addVideo');
 	Route::get('/video/remove/{post_id}', 'WhistlistController@removeVideo');
 	Route::get('/data-artikel', 'ArtikelController@getJson');
-
-	Route::get('/get-user-province', 'DataWilayahController@getProvince');
-	Route::get('/get-user-city', 'DataWilayahController@getCity');
-	Route::get('/get-user-subdistrict', 'DataWilayahController@getSubdistrict');
 });
 
-// Admin
-
+// =============================================== Admin Section ===============================================
 Route::group([
 	'middleware' => ['admin', 'auth'],
 	'namespace' => 'Admin'
 ], function(){
+	Route::get('/admin', function(){
+		return redirect('/admin/kader');
+	});
+	Route::get('/admin/kader', function(){
+		return redirect('/admin/kader/all');
+	});
 	Route::resource('/admin/komisariat', 'KomisariatController');
 	Route::resource('/admin/pekerjaan', 'PekerjaanController');
 	Route::resource('/admin/pendidikan', 'PendidikanController');
@@ -92,21 +93,24 @@ Route::group([
 		Route::resource('/admin/postingan/filter', 'FilterController');
 		Route::get('/admin/postingan/detail/{id}', 'DetailController@index');
 	});
+	Route::group([
+		'namespace' => 'Export'
+	], function(){
+		Route::get('/export-kader', 'KaderController@export');
+	});
 });
 
 // Test
 Route::get('/test', 'TestController@index');
 Route::post('/test-cuk', 'TestController@store');
+Route::get('/get-koordinat/{prov}/{city}/{kec}', 'WilayahController@koordinat');
 
+// Data Wilayah
 Route::get('/get-provinsi', 'WilayahController@provinsi');
 Route::get('/get-kabupaten/{province_id}', 'WilayahController@kabupaten');
 Route::get('/get-kecamatan/{city_id}', 'WilayahController@kecamatan');
 
-Route::get('/get-koordinat/{prov}/{city}/{kec}', 'WilayahController@koordinat');
-
-Route::get('auth/google', [App\Http\Controllers\Auth\LoginController::class, 'google']);
-Route::get('auth/google/callback', [App\Http\Controllers\Auth\LoginController::class, 'google_callback']);
-
+// Comment After Create Symlink in Hosting
 Route::get('/oursymlink', function () {
 	$target = '/home/pmiigali/ehe_pub/storage/app/public';
 	$shortcut = '/home/pmiigali/ehe.pmiigalileo.or.id/storage';
