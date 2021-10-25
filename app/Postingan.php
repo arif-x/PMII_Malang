@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rayon extends Model
+class Postingan extends Model
 {
-    protected $table = "rayon";
-    public $timestamps = false;
+    protected $table = "postingan";
     protected $guarded = [];
 }

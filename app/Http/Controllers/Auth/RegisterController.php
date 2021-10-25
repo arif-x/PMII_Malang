@@ -68,6 +68,7 @@ class RegisterController extends Controller
         $user = User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'level' => 1,
         ]);
 
         $id = $user->id; // Get current user id

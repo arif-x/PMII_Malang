@@ -58,6 +58,8 @@ class LoginController extends Controller
                 $rand = rand(111111,999999);
                 $createUser->password = Hash::make($user->getName().$rand);
 
+                $createUser->level = 1;
+
                 $createUser->save();
 
                 $id = $createUser->id; // Get current user id

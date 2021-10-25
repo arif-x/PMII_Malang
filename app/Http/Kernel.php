@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         // Custom
         'profile' => \App\Http\Middleware\ProfileMiddleware::class,
         'kaderisasi' => \App\Http\Middleware\KaderisasiMiddleware::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ];
 }

@@ -67,8 +67,34 @@ Route::group([
 	Route::get('/get-user-subdistrict', 'DataWilayahController@getSubdistrict');
 });
 
-// Test
+// Admin
 
+Route::group([
+	'middleware' => ['admin', 'auth'],
+	'namespace' => 'Admin'
+], function(){
+	Route::resource('/admin/komisariat', 'KomisariatController');
+	Route::resource('/admin/pekerjaan', 'PekerjaanController');
+	Route::resource('/admin/pendidikan', 'PendidikanController');
+	Route::resource('/admin/rayon', 'RayonController');
+	Route::get('/admin/get-kom/{id}', 'RayonController@getKom');
+	Route::group([
+		'namespace' => 'Kader'
+	], function(){
+		Route::resource('/admin/kader/all', 'AllController');		
+		Route::resource('/admin/kader/filter', 'FilterController');
+		Route::get('/admin/kader/detail/{id}', 'DetailController@index');
+	});
+	Route::group([
+		'namespace' => 'Postingan'
+	], function(){
+		Route::resource('/admin/postingan/all', 'AllController');
+		Route::resource('/admin/postingan/filter', 'FilterController');
+		Route::get('/admin/postingan/detail/{id}', 'DetailController@index');
+	});
+});
+
+// Test
 Route::get('/test', 'TestController@index');
 Route::post('/test-cuk', 'TestController@store');
 
