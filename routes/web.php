@@ -96,7 +96,7 @@ Route::group([
 	Route::group([
 		'namespace' => 'Export'
 	], function(){
-		Route::get('/export-kader', 'KaderController@export');
+		Route::get('/admin/kader/export-kader', 'KaderController@export');
 	});
 });
 

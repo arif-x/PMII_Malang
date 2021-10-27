@@ -17,10 +17,23 @@ use App\KoordinatUser;
 class TestController extends Controller
 {
 	public function index(){
-		$data = Kader::join('wilayah_kabupaten', 'wilayah_kabupaten.id', '=', 'profile.kota_kabupaten')
-		->groupBy('wilayah_kabupaten.id')
-		->select('wilayah_kabupaten.name', DB::raw('COUNT(wilayah_kabupaten.name) as jumlah_kabupaten', 'wilayah_kabupaten.name'))
-		->get('wilayah_kabupaten.name', 'jumlah_kabupaten');
+		$data = Profile::join('pekerjaan', 'pekerjaan.id_pekerjan', '=', 'profile.pekerjaan')
+		->join('pendidikan', 'pendidikan.id_pendidikan', '=', 'profile.pendidikan_terakhir')
+		->join('wilayah_provinsi', 'wilayah_provinsi.id', '=', 'profile.provinsi')
+		->join('wilayah_kabupaten', 'wilayah_kabupaten.id', '=', 'profile.kota_kabupaten')
+		->join('wilayah_kecamatan', 'wilayah_kecamatan.id', '=', 'profile.kecamatan')
+		->select(
+			'profile.*', 
+			'pekerjaan.id_pekerjan as id_kerja',
+			'pekerjaan.pekerjan as nama_kerja',      
+			'pendidikan.pendidikan as nama_pendidikan',
+			'wilayah_provinsi.id as prov_id',
+			'wilayah_provinsi.name as nama_prov',
+			'wilayah_kabupaten.id as kab_id',
+			'wilayah_kabupaten.name as nama_kab',
+			'wilayah_kecamatan.id as kec_id',
+			'wilayah_kecamatan.name as nama_kec',
+		)->get();
 
 		echo $data;
 	}

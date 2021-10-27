@@ -11,17 +11,9 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class KaderExport implements FromView, ShouldAutoSize, WithColumnFormatting
+class KaderExport implements FromView, ShouldAutoSize
 {
 	use Exportable;
-
-	public function columnFormats(): array
-	{
-		return [
-			'O' => NumberFormat::FORMAT_TEXT,
-			'P' => NumberFormat::FORMAT_TEXT
-		];
-	}
 
 	public function view(): View
 	{
