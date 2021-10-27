@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'profile' => \App\Http\Middleware\ProfileMiddleware::class,
         'kaderisasi' => \App\Http\Middleware\KaderisasiMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'komisariat' => \App\Http\Middleware\AdminKomisariatMiddleware::class,
+        'rayon' => \App\Http\Middleware\AdminRayonMiddleware::class,
     ];
 }

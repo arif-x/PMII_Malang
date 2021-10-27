@@ -24,7 +24,7 @@ class KaderImport implements ToModel, WithStartRow
     */
     public function model(array $row)
     {
-    	return new DHKP([
+    	return new Profile([
     		'nop' => $row[1],
     		'alamat' => $row[2],
     		'rt_rw' => $row[3],

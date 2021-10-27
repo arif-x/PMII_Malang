@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class AdminMiddleware
+class AdminRayonMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,8 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->level < 4){
+        // Level 2 => Rayon
+        if(Auth::user()->level > 2){
             return redirect('/home');
         } else {
             return $next($request);

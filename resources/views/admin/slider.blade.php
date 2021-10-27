@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="mt-4">
-	<h1 style="margin-botton: 20px;">Rayon</h1>
-	<a class="btn btn-primary" href="javascript:void(0)" id="createBtn" style="padding-botton: 20px;"> Tambah Rayon</a>
+	<h1 style="margin-botton: 20px;">Slider</h1>
+	<a class="btn btn-primary" href="javascript:void(0)" id="createBtn" style="padding-botton: 20px;"> Tambah Slider</a>
 	<br />
 	<br />
 	<div style="width: 100%">
@@ -13,9 +13,8 @@
 				<thead>
 					<tr>
 						<th width="5%">No</th>
-						<th width="40%">Nama Rayon</th>
-						<th width="35%">Nama Komisariat</th>
-						<th width="20%">Atur</th>
+						<th width="">Gambar</th>
+						<th width="">Atur</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,23 +35,12 @@
 			</div>
 			<div class="modal-body">
 				<form id="addForm" name="addForm" class="form-horizontal">
-					<input type="hidden" name="rayon_id" id="rayon_id">
-					<div class="form-group">
-						<label for="nama" class="col-sm-12 control-label">Nama Rayon</label>
-						<div class="col-sm-12">
-							<input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama" value="" maxlength="50" required="">
-						</div>
-					</div>
+					<input type="hidden" name="slider_id" id="slider_id">
 
 					<div class="form-group">
-						<label for="nama" class="col-sm-12 control-label">Nama Komisariat</label>
+						<label for="image" class="col-sm-12 control-label">Gambar</label>
 						<div class="col-sm-12">
-							<select name="komisariat" class="form-control" id="koms">
-								<option id="selected" value="">Pilih</option>
-								@foreach ($komisariat as $key => $value)
-								<option value="{{ $key }}">{{ $value }}</option>
-								@endforeach
-							</select>
+							<input type="file" class="form-control" id="image" name="image" placeholder="Masukkan Nama" value="" maxlength="50" required>
 						</div>
 					</div>
 
@@ -73,7 +61,7 @@
 			</div>
 			<div class="modal-body">
 				<form id="deleteForm" name="deleteForm" class="form-horizontal">
-					<input type="hidden" name="rayon_id_delete" id="kom-id-delete">
+					<input type="hidden" name="slider_id_delete" id="kom-id-delete">
 					<div class="container">
 						<h5>Ingin Menghapus <strong id="nama-delete"></strong>?</h5>
 					</div>
@@ -98,32 +86,29 @@
 		var table = $('.data-table').DataTable({
 			processing: true,
 			serverSide: true,
-			ajax: "/admin/rayon",
+			ajax: "/admin/slider",
 			columns: [
 			{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-			{data: 'nama_rayon', name: 'nama_rayon'},
-			{data: 'nama_komisariat', name: 'nama_komisariat'},
+			{data: 'images', name: 'images', orderable: false, searchable: false},
 			{data: 'action', name: 'action', orderable: false, searchable: false},
 			]
 		});
 		$('#createBtn').click(function () {
-			$('#saveBtn').val("add rayon");
-			$('#rayon_id').val('');
+			$('#saveBtn').val("add Slider");
+			$('#slider_id').val('');
+			$('#gambar').val('');
 			$('#addForm').trigger("reset");
-			$('#addModalHeader').html("Tambah rayon");
-			$('#addModal').modal('show');
+			$('#addModalHeader').html("Tambah Slider");
+			$('#addModal').modal('show');			
 		});
 
 		$('body').on('click', '.edits', function () {
-			var rayon_id = $(this).data('id');
-			$.get("/admin/rayon" +'/' + rayon_id +'/edit', function (data) {
-				$('#addModalHeader').html("Edit rayon");
-				$('#saveBtn').val("edit rayon");
+			var slider_id = $(this).data('id');
+			$.get("/admin/slider" +'/' + slider_id +'/edit', function (data) {
+				$('#addModalHeader').html("Edit Slider");
+				$('#saveBtn').val("edit Slider");
 				$('#addModal').modal('show');
-				$('#rayon_id').val(data.id_rayon);
-				$('#nama').val(data.nama_rayon);				
-				$("#koms option:selected").removeAttr('selected');
-				$("#koms option[value=" + data.id_komisariat + "]").attr('selected', 'selected');
+				$('#slider_id').val(data[0].id_slider);
 			})
 		});
 
@@ -131,10 +116,12 @@
 			e.preventDefault();
 			$(this).html('Memproses..');
 			$.ajax({
-				data: $('#addForm').serialize(),
-				url: "{{ route('rayon.store') }}",
+				data: new FormData($("#addForm")[0]),
+				url: "/admin/slider",
 				type: "POST",
-				dataType: 'json',
+				cache:false,
+				contentType: false,
+				processData: false,
 				success: function (data) {
 					$('#addForm').trigger("reset");
 					$('#addModal').modal('hide');
@@ -149,11 +136,11 @@
 		});
 
 		$('body').on('click', '.deletes', function () {
-			var rayon_id = $(this).data("id");			
+			var slider_id = $(this).data("id");			
 			if(confirm("Are You sure want to delete !")){
 				$.ajax({
 					type: "DELETE",
-					url: "{{ route('rayon.store') }}"+'/'+rayon_id,
+					url: "/admin/slider"+'/'+slider_id,
 					success: function (data) {
 						table.draw();
 					},
@@ -165,36 +152,11 @@
 
 			}			
 		});
-
-		// $('body').on('click', '.deletes', function () {
-		// 	var rayon_id = $(this).data('id');
-		// 	$.get("/admin/rayon" +'/' + rayon_id +'/edit', function (data) {
-		// 		$('#deleteModalHeader').html("Hapus rayon");
-		// 		$('#deleteBtn').val("edit kom");
-		// 		$('#deleteModal').modal('show');
-		// 		$('#kom-id-delete').val(data.id_rayon);
-		// 		$('#nama-delete').html(data.pekerjan);
-		// 	})
-		// });
-
-		// $('#deleteBtn').click(function (e) {
-		// 	var data = $("#kom-id-delete").val();
-		// 	$.ajax({
-		// 		type: "DELETE",
-		// 		url: "{{ route('rayon.store') }}"+'/'+data,
-		// 		dataType: 'json',
-		// 		success: function (data) {
-		// 			table.draw();
-		// 		},
-		// 		error: function (data) {
-		// 			console.log('Error:', data);
-		// 		}
-		// 	});
-		// });
 	});
 </script>
 
 <script type="text/javascript">
-	$('#rayon').addClass('active');
+	$('#Slider').addClass('active');
 </script>
+
 @endsection
