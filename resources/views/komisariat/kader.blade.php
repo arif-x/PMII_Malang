@@ -14,7 +14,7 @@
 	<h1 style="margin-bottom: 20px;">Kader</h1>
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Filter</button>
-	<!-- <a href="/admin/kader/export-kader" type="button" class="btn btn-primary">Export ke Excel (.xlxs)</a> -->
+	<a href="/admin-komisariat/export/kader" type="button" class="btn btn-primary">Export ke Excel (.xlxs)</a>
 	<br />
 	<br />
 

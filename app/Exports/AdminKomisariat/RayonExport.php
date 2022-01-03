@@ -4,6 +4,7 @@ namespace App\Exports\AdminKomisariat;
 
 use App\Rayon;
 use App\Kaderisasi;
+use Auth;
 
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;

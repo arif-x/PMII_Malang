@@ -4,7 +4,7 @@
 
 <div class="mt-4">
 	<h1 style="margin-botton: 20px;">Rayon</h1>
-	<!-- <a class="btn btn-primary" href="javascript:void(0)" id="createBtn" style="padding-botton: 20px;"> Tambah Rayon</a> -->
+	<a href="/admin-komisariat/export/rayon" type="button" class="btn btn-primary">Export ke Excel (.xlxs)</a>
 	<br />
 	<br />
 	<div style="width: 100%">

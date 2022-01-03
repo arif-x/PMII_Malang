@@ -109,7 +109,7 @@ class ProfileController extends Controller
           'pendidikan_terakhir' => $request->pendidikan,
           'pekerjaan' => $request->pekerjaan,
           'no_hp' => $request->noHp,
-          'foto_terbaru' => $new_name,
+          'foto_terbaru' => env('APP_URL').'/storage/foto/'.$new_name,
         ]);
 
         Kaderisasi::where('id_user', Auth::user()->id)->update([

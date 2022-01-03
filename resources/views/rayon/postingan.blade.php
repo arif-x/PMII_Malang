@@ -4,6 +4,8 @@
 
 <div class="mt-4">
 	<h1 style="margin-bottom: 20px;">Postingan</h1>
+	<a href="/admin-rayon/export/post" type="button" class="btn btn-primary">Export ke Excel (.xlxs)</a>
+	<br>
 
 	<div style="width: 100%">
 		<div class="">

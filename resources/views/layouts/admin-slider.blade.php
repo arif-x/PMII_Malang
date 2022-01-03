@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NobleUI Responsive Bootstrap 4 Dashboard Template</title>
+    <title>E-PMII Kota Malang</title>
     <!-- core:css -->
     <link rel="stylesheet" href="{{ URL::asset('/assets/vendors/core/core.css') }}">
     <!-- endinject -->
@@ -33,7 +33,7 @@
         <nav class="sidebar">
             <div class="sidebar-header">
                 <a href="#" class="sidebar-brand">
-                    Noble<span>UI</span>
+                    E-PMII <span>Malang</span>
                 </a>
                 <div class="sidebar-toggler not-active">
                     <span></span>
@@ -104,6 +104,7 @@
                     <li class="nav-item nav-category">Logout</li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                             <i class="link-icon" data-feather="log-out"></i>
                             <span class="link-title">Logout</span>
                         </a>
@@ -124,7 +125,10 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown nav-profile">
                             <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="https://via.placeholder.com/30x30" alt="profile">
+                                @php
+                                $profile = \App\Profile::where(['id_user' => Auth::user()->id])->first()->foto_terbaru;
+                                @endphp
+                                <img src="{{ $profile }}" alt="profile">
                             </a>
                         </li>
                     </ul>

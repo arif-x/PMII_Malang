@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>E-PMII Malang</title>
-    <link rel="shortcut icon" href="assets/img/favicon1.png" type="image/png">
+    <link rel="shortcut icon" href="landing/img/favicon1.png" type="image/png">
 <!--===============================================================================================-->  
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 <!--===============================================================================================-->
@@ -38,7 +38,7 @@
                     @csrf
                     <span class="login100-form-title">
                         <div class="text-center">
-                            <a href="/"><img src="/assets/img/ic_logo_grup.png" class="img-fluid mb-3" style="max-width: 30%;">
+                            <a href="/"><img src="/landing/img/ic_logo_grup.png" class="img-fluid mb-3" style="max-width: 30%;">
                             </a>
                         </div>
                     </span>

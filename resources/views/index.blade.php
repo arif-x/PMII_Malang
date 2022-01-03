@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="assets/img/favicon1.png" type="image/png">
+    <link rel="shortcut icon" href="landing/img/favicon1.png" type="image/png">
 
     <!--=============== REMIXICONS ===============-->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <!--=============== SWIPER CSS ===============-->
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('landing/css/swiper-bundle.min.css') }}">
 
     <!--=============== CSS ===============-->
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('landing/css/styles.css') }}">
 
     <title>E-PMII Malang</title>
 </head>
@@ -33,12 +33,24 @@
                     <li class="nav__item">
                         <a href="#discover" class="nav__link">Team</a>
                     </li>
+                    @if (Route::has('login'))
+                    @auth
                     <li class="nav__item">
-                        <a href="#modul" class="nav__link">Modul</a>
+                        <a href="{{ url('/home') }}" class="nav__link">Home</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#video" class="nav__link">Video</a>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav__link">Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
                     </li>
+                    @else
+                    <li class="nav__item">
+                        <a href="/login" class="nav__link">Daftar/Login</a>
+                    </li>
+                    @if (Route::has('register'))                    
+                    @endif
+                    @endauth
+                    @endif
                     <li>
                         <div class="nav__dark">
                             <!-- Theme change button -->
@@ -60,26 +72,12 @@
     <main class="main">
         <!--==================== HOME ====================-->
         <section class="home" id="home">
-            <img src="assets/img/home11.jpg" alt="" class="home__img">
+            <img src="landing/img/home11.jpg" alt="" class="home__img">
 
             <div class="home__container container grid">
                 <div class="home__data">
                     <!-- <span class="home__data-subtitle">Cross your limit</span> -->
                     <h1 class="home__data-title">PMII Kota<br> <b>Malang Pelopor</b><br>PMII Digital</h1>
-                    @if (Route::has('login'))
-                    @auth
-                    <a href="{{ url('/home') }}" class="btn btn-primary" style="padding: 15px">Home</a>
-                    <strong class="text-white">|</strong>
-                    <a class="btn btn-primary" style="padding: 15px;" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
-                    @else
-                    <a href="/login" class="btn btn-primary" style="padding: 15px"><strong>Join Now</strong></a>
-                    @if (Route::has('register'))                    
-                    @endif
-                    @endauth
-                    @endif
-
                 </div>
 
                 <div class="home__social">
@@ -106,7 +104,7 @@
                     </div>
 
                     <div class="home__info-overlay">
-                        <img src="assets/img/home21.jpg" alt="" class="home__info-img">
+                        <img src="landing/img/home21.jpg" alt="" class="home__info-img">
                     </div>
                 </div>
             </div>
@@ -123,11 +121,11 @@
 
                 <div class="about__img">
                     <div class="about__img-overlay">
-                        <img src="assets/img/about11.jpg" alt="" class="about__img-one">
+                        <img src="landing/img/about11.jpg" alt="" class="about__img-one">
                     </div>
 
                     <div class="about__img-overlay">
-                        <img src="assets/img/about21.jpg" alt="" class="about__img-two">
+                        <img src="landing/img/about21.jpg" alt="" class="about__img-two">
                     </div>
                 </div>
             </div>
@@ -141,7 +139,7 @@
                 <div class="swiper-wrapper">
                     <!--==================== DISCOVER 1 ====================-->
                     <div class="discover__card swiper-slide">
-                        <img src="assets/img/discover11.jpg" alt="" class="discover__img">
+                        <img src="landing/img/discover11.jpg" alt="" class="discover__img">
                         <div class="discover__data">
                             <h2 class="discover__title">Wangg Surya Putra</h2>
                             <span class="discover__description">Kepala Suku</span>
@@ -150,7 +148,7 @@
 
                     <!--==================== DISCOVER 2 ====================-->
                     <div class="discover__card swiper-slide">
-                        <img src="assets/img/discover11.jpg" alt="" class="discover__img">
+                        <img src="landing/img/discover11.jpg" alt="" class="discover__img">
                         <div class="discover__data">
                             <h2 class="discover__title">Paijo</h2>
                             <span class="discover__description">Bagian Paijo</span>
@@ -159,7 +157,7 @@
 
                     <!--==================== DISCOVER 3 ====================-->
                     <div class="discover__card swiper-slide">
-                        <img src="assets/img/discover11.jpg" alt="" class="discover__img">
+                        <img src="landing/img/discover11.jpg" alt="" class="discover__img">
                         <div class="discover__data">
                             <h2 class="discover__title">Paijo</h2>
                             <span class="discover__description">Bagian Paijo</span>
@@ -168,7 +166,7 @@
 
                     <!--==================== DISCOVER 4 ====================-->
                     <div class="discover__card swiper-slide">
-                        <img src="assets/img/discover11.jpg" alt="" class="discover__img">
+                        <img src="landing/img/discover11.jpg" alt="" class="discover__img">
                         <div class="discover__data">
                             <h2 class="discover__title">Paijo</h2>
                             <span class="discover__description">Bagian Paijo</span>
@@ -202,11 +200,11 @@
 
                 <div class="epxerience__img grid">
                     <div class="experience__overlay">
-                        <img src="assets/img/home11.jpg" alt="" class="experience__img-one">
+                        <!-- <img src="landing/img/home11.jpg" alt="" class="experience__img-one"> -->
                     </div>
 
                     <div class="experience__overlay">
-                        <img src="assets/img/experience21.jpg" alt="" class="experience__img-two">
+                        <!-- <img src="landing/img/experience21.jpg" alt="" class="experience__img-two"> -->
                     </div>
                 </div>
             </div>
@@ -222,7 +220,7 @@
 
                 <div class="video__content">
                     <video id="video-file">
-                        <source src="assets/video/video.mp4" type="video/mp4">
+                        <source src="landing/video/video.mp4" type="video/mp4">
                         </video>
 
                         <button class="button button--flex video__button" id="video-button">
@@ -230,65 +228,6 @@
                         </button>
                     </div>
                 </div>
-            </section>
-
-            <!--==================== PLACES ====================-->
-            <section class="place section" id="modul">
-                <h2 class="section__title">Choose Your Modul</h2>
-                <div class="gr">
-                    <div class="containers">
-                        @foreach($modul as $data)
-                        <div class="box">
-                            <div class="image">
-                                <img src="/img/thumbnail_pdf.png" alt="">
-                            </div>
-                            <div class="name_job text-capitalize">{{ $data->judul_post }}</div>
-                            <div class="text-center text-capitalize">                                
-                                {{ $data->nama_lengkap }}<br>
-                                <p style="font-size: 80%" class="text-center">
-                                    @if($data->jenis_post == 1)
-                                    Modul
-                                    @elseif($data->jenis_post == 2)
-                                    Video
-                                    @endif
-                                </p>
-                            </div>
-                            <div class="btns">
-                                <a type="button" target="_blank" class="btn btn-primary" href="/modul/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </section>
-
-            <section class="place section" id="video">
-                <h2 class="section__title">Choose Your Video</h2>
-                <div class="gr">
-                    <div class="containers">
-                        @foreach($video as $data)
-                        <div class="box">
-                            <div class="image">
-                                <img src="/img/thumbnail_pdf.png" alt="">
-                            </div>
-                            <div class="name_job text-capitalize">{{ $data->judul_post }}</div>
-                            <div class="text-center text-capitalize">
-                                {{ $data->nama_lengkap }}<br>
-                                <p style="font-size: 80%" class="text-center">
-                                    @if($data->jenis_post == 1)
-                                    Modul
-                                    @elseif($data->jenis_post == 2)
-                                    Video
-                                    @endif
-                                </p>
-                            </div>
-                            <div class="btns">
-                                <a type="button" target="_blank" class="btn btn-primary" href="/video/{{ $data->file }}.{{ $data->format_post }}" style="width: 100%">Lihat</a>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>     
             </section>
 
             <!--==================== SUBSCRIBE ====================-->
@@ -315,19 +254,19 @@
             <section class="sponsor section">
                 <div class="sponsor__container container grid">
                     <div class="sponsor__content">
-                        <img src="assets/img/sponsors11.png" alt="" class="sponsor__img">
+                        <img src="landing/img/sponsors11.png" alt="" class="sponsor__img">
                     </div>
                     <div class="sponsor__content">
-                        <img src="assets/img/sponsors2.png" alt="" class="sponsor__img">
+                        <img src="landing/img/sponsors2.png" alt="" class="sponsor__img">
                     </div>
                     <div class="sponsor__content">
-                        <img src="assets/img/sponsors3.png" alt="" class="sponsor__img">
+                        <img src="landing/img/sponsors3.png" alt="" class="sponsor__img">
                     </div>
                     <div class="sponsor__content">
-                        <img src="assets/img/sponsors4.png" alt="" class="sponsor__img">
+                        <img src="landing/img/sponsors4.png" alt="" class="sponsor__img">
                     </div>
                     <div class="sponsor__content">
-                        <img src="assets/img/sponsors5.png" alt="" class="sponsor__img">
+                        <img src="landing/img/sponsors5.png" alt="" class="sponsor__img">
                     </div>
                 </div>
             </section>
@@ -419,12 +358,12 @@
         </a>
 
         <!--=============== SCROLL REVEAL===============-->
-        <script src="{{ URL::asset('assets/js/scrollreveal.min.js') }}"></script>
+        <script src="{{ URL::asset('landing/js/scrollreveal.min.js') }}"></script>
         
         <!--=============== SWIPER JS ===============-->
-        <script src="{{ URL::asset('assets/js/swiper-bundle.min.js') }}"></script>
+        <script src="{{ URL::asset('landing/js/swiper-bundle.min.js') }}"></script>
 
         <!--=============== MAIN JS ===============-->
-        <script src="{{ URL::asset('assets/js/main.js') }}"></script>
+        <script src="{{ URL::asset('landing/js/main.js') }}"></script>
     </body>
     </html>

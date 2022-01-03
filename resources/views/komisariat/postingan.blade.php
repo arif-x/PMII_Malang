@@ -6,6 +6,7 @@
 	<h1 style="margin-bottom: 20px;">Postingan</h1>
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Filter</button>	
+	<a href="/admin-komisariat/export/post" type="button" class="btn btn-primary">Export ke Excel (.xlxs)</a>
 	<br />
 	<br />
 

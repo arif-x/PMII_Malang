@@ -4,6 +4,7 @@ namespace App\Exports\AdminKomisariat;
 
 use App\Postingan;
 use App\Kaderisasi;
+use Auth;
 
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -22,9 +23,9 @@ class PostinganExport implements FromView, ShouldAutoSize
 
 		$data = Postingan::join('profile', 'profile.id_user', '=', 'postingan.id_user')
 		->join('jenis_post', 'jenis_post.id_jenis_post', '=', 'postingan.jenis_post')
-		->join('kaderiasi.id_user', '=', 'profile.id_user')
+		->join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 		->select('jenis_post.jenis_post as kategori', 'profile.nama_lengkap', 'postingan.*')
-		->where('kaderiasi.komisariat', $idKomAdmin)
+		->where('kaderisasi.komisariat', $idKomAdmin)
 		->get();
 		return view('admin.export-excel.export-postingan', [        	
 			'datas' => $data
