@@ -8,4 +8,5 @@ class Whistlist extends Model
 {
     protected $table = "save";
     protected $guarded = [];
+    public $timestamps = false;
 }

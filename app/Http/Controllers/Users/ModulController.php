@@ -24,7 +24,7 @@ class ModulController extends Controller
 		// ->where('postingan.id_user', Auth::user()->id)
 		->select('postingan.*', 'profile.nama_lengkap')
 		->orderBy('id_post', 'DESC')
-		->paginate(15);		
+		->paginate(10);		
 		return view('users.modul', ['modul' => $data]);
 	}
 
@@ -43,7 +43,7 @@ class ModulController extends Controller
 
 			if(empty($datas)){
 				$files = $request->file('select_file');
-				$new_name = url('/storage/modul') . '/' . Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
+				$new_name = url('/storage/modul') . '/' . Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
 				$file_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
 				$file_val = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$files->move(storage_path('app/public/modul'), $file_name);
@@ -71,6 +71,7 @@ class ModulController extends Controller
 				unlink(storage_path('app/public/modul/'.$fileData.'.pdf'));
 
 				$files = $request->file('select_file');
+				$new_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$new_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$file_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
 				$file_val = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');

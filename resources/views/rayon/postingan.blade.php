@@ -37,7 +37,7 @@
 		var table = $('.data-table').DataTable({
 			processing: true,
 			serverSide: true,
-			ajax: "/admin-rayon/postingan/all",
+			ajax: "/admin-rayon/postingan",
 			columns: [
 			{data: 'DT_RowIndex', name: 'DT_RowIndex'},
 			{data: 'judul_post', name: 'judul_post'},

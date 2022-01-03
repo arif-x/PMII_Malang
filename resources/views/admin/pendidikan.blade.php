@@ -5,6 +5,7 @@
 <div class="mt-4">
 	<h1 style="margin-botton: 20px;">Pendidikan</h1>
 	<a class="btn btn-primary" href="javascript:void(0)" id="createBtn" style="padding-botton: 20px;"> Tambah Pendidikan</a>
+	<a href="/admin/export/pendidikan" type="button" class="btn btn-primary">Export ke Excel (.xlxs)</a>
 	<br />
 	<br />
 	<div style="width: 100%">

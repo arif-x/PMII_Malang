@@ -19,7 +19,7 @@ use App\Menu;
 class TestController extends Controller
 {
 	public function index(){
-		$data = Menu::where('id_menu', 6)->value('gambar_menu');
+		$data = env('APP_URL');
 
 		echo $data;
 	}

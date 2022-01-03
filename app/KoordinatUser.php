@@ -8,4 +8,5 @@ class KoordinatUser extends Model
 {
     protected $table = "koordinat_user";
     protected $guarded = [];
+    public $timestamps = false;
 }

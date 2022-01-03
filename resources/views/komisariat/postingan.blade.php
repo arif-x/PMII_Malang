@@ -78,7 +78,7 @@
 		var table = $('.data-table').DataTable({
 			processing: true,
 			serverSide: true,
-			ajax: "/admin-komisariat/postingan/all",
+			ajax: "/admin-komisariat/postingan",
 			columns: [
 			{data: 'DT_RowIndex', name: 'DT_RowIndex'},
 			{data: 'judul_post', name: 'judul_post'},

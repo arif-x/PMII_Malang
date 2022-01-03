@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
 {
-    protected $table = 'postingan';
-    protected $guarded = [];
+	protected $table = 'postingan';
+	protected $guarded = [];
+	public $timestamps = false;
 }

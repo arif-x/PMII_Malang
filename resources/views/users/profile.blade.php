@@ -1,8 +1,7 @@
 @extends('layouts.slider')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-12 mt-3">
+    <div class="container">
         <div class="row">
             <div class="col-md-6 mt-2 mb-3">
                 <h2>Profil</h2>
@@ -11,12 +10,6 @@
                 @endforeach
             </div>
             <div class="col-md-6" style="text-align: right; margin-top: auto; margin-bottom: auto">
-                <!-- <button class="btn btn-info mb-3" style="">
-                    <i class="fa fa-arrow-left"></i> kembali
-                </button>
-                <button class="btn btn-primary mb-3" style="">
-                    <i class="fa fa-save"></i> Simpan
-                </button> -->
             </div>
         </div>
         <div class="card">
@@ -404,7 +397,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <script type="text/javascript">
     $(document).ready(function() {

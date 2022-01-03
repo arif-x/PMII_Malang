@@ -9,4 +9,5 @@ class Kaderisasi extends Model
     protected $table = "kaderisasi";
 
     protected $guarded = [];
+    public $timestamps = false;
 }

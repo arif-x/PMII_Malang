@@ -3,118 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="shortcut icon" href="/assets/img/favicon1.png" type="image/png">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NobleUI Responsive Bootstrap 4 Dashboard Template</title>
+    <!-- core:css -->
+    <link rel="stylesheet" href="{{ URL::asset('/assets/vendors/core/core.css') }}">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="{{ URL::asset('/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <script src="{{ URL::asset('/lib/jquery/jquery.min.js') }}"></script> 
+    <!-- end plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{ URL::asset('/assets/fonts/feather-font/css/iconfont.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
+    <!-- endinject -->
+    <!-- Layout styles -->  
+    <link rel="stylesheet" href="{{ URL::asset('/assets/css/demo_1/style.css') }}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{{ URL::asset('/assets/images/favicon.png') }}" />
 
-    <!-- ===== BOX ICONS ===== -->
-    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-    <!-- ===== CSS ===== -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/styles_slider.css') }}">    
-    
-    <!-- Styles -->
-    <link href="{{ asset('lib/datatables/DataTables-1.10.23/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ URL::asset('lib/bootstrap/css/bootstrap.min.css') }}">
-    <link href="{{ asset('lib/datatables/FixedColumns-3.3.2/css/fixedColumns.bootstrap4.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ URL::asset('lib/font-awesome/css/font-awesome.min.css') }}">
+    <script src="{{ URL::asset('/assets/vendors/datatables.net/jquery.dataTables.js') }}" defer></script>
+    <script src="{{ URL::asset('/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script> 
+    <link rel="stylesheet" href="{{ URL::asset('/lib/datatables/DataTables-1.10.23/css/dataTables.bootstrap4.css') }}">
 
-    <script src="{{ URL::asset('lib/datatables/jQuery-3.3.1/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ URL::asset('lib/datatables/DataTables-1.10.23/js/jquery.dataTables.min.js') }}"></script>    
-    <script src="{{ URL::asset('lib/datatables/Bootstrap-4-4.1.1/js/bootstrap.min.js') }}"></script>
-    <script src="{{ URL::asset('lib/datatables/DataTables-1.10.23/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ URL::asset('lib/datatables/FixedColumns-3.3.2/js/dataTables.fixedColumns.min.js') }}"></script>     
-
-    <title>E-PMII Malang</title>
 </head>
-<body id="body-pd">
-    <header class="header shadow-sm" id="header">
-        <div class="header__toggle">
-            <i class='bx bx-menu' id="header-toggle"></i>
-        </div>
+<body>
+    <div class="main-wrapper">
 
-        <div class="header__img">
-            @php
-            $profile = \App\Profile::where(['id_user' => Auth::user()->id])->first()->foto_terbaru;
-            @endphp
-            <img src="/storage/foto/{{ $profile }}" alt="">
-        </div>
-    </header>
-
-    <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div>
-
-                <div class="nav__logo">
-                    <i class='bx bx-layer nav__logo-icon'></i>
-                    <span class="nav__logo-name">E-PMII Malang</span>
-                </div>
-
-
-                <div class="nav__list">     
-
-                    <a href="/home" class="nav__link" id="home">
-                        <i class='bx bx-grid-alt nav__icon' ></i>
-                        <span class="nav__name">Dashboard</span>
-                    </a> 
-
-                    <a href="/admin/kader/all" class="nav__link" id="kader">
-                        <i class='bx bx-user nav__icon' ></i>
-                        <span class="nav__name">Data Kader</span>
-                    </a>               
-
-                    <a href="/admin/postingan/all" class="nav__link" id="postingan">
-                        <i class='bx bx-book-content nav__icon' ></i>
-                        <span class="nav__name">Data Postingan</span>
-                    </a> 
-
-                    <a href="/admin/komisariat" class="nav__link" id="komisariat">
-                        <i class='bx bx-home-alt nav__icon' ></i>
-                        <span class="nav__name">Data Komisariat</span>
-                    </a>                 
-
-                    <a href="/admin/rayon" class="nav__link" id="rayon">
-                        <i class='bx bx-home nav__icon' ></i>
-                        <span class="nav__name">Data Rayon</span>
-                    </a> 
-
-                    <a href="/admin/pekerjaan" class="nav__link" id="pekerjaan">
-                        <i class='bx bx-briefcase nav__icon' ></i>
-                        <span class="nav__name">Data Pekerjaan</span>
-                    </a> 
-
-                    <a href="/admin/pendidikan" class="nav__link" id="pendidikan">
-                        <i class='bx bxs-graduation nav__icon' ></i>
-                        <span class="nav__name">Data Pendidikan</span>
-                    </a>   
-
-                    <a href="/admin/slider" class="nav__link" id="slider">
-                        <i class='bx bx-slider nav__icon' ></i>
-                        <span class="nav__name">Data Slider</span>
-                    </a>  
-
-                    <a href="/admin/menu" class="nav__link" id="menu">
-                        <i class='bx bx-menu-alt-left nav__icon' ></i>
-                        <span class="nav__name">Data Menu</span>
-                    </a>               
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-brand">
+                    Noble<span>UI</span>
+                </a>
+                <div class="sidebar-toggler not-active">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
-
-            <a class="nav__link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class='bx bx-log-out nav__icon' ></i>
-                <span class="nav__name">Logout</span>
-            </a>
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
+            <div class="sidebar-body">
+                <ul class="nav">
+                    <li class="nav-item nav-category">Main</li>
+                    <li class="nav-item">
+                        <a href="/home" class="nav-link">
+                            <i class="link-icon" data-feather="box"></i>
+                            <span class="link-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Pendataan</li>
+                    <li class="nav-item">
+                        <a href="/admin/kader" class="nav-link">
+                            <i class="link-icon" data-feather="user"></i>
+                            <span class="link-title">Kader</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Postingan</li>
+                    <li class="nav-item">
+                        <a href="/admin/postingan" class="nav-link">
+                            <i class="link-icon" data-feather="book"></i>
+                            <span class="link-title">Postingan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Konfigurasi App</li>
+                    <li class="nav-item">
+                        <a href="/admin/komisariat" class="nav-link">
+                            <i class="link-icon" data-feather="home"></i>
+                            <span class="link-title">Komisariat</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/rayon" class="nav-link">
+                            <i class="link-icon" data-feather="home"></i>
+                            <span class="link-title">Rayon</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/pendidikan" class="nav-link">
+                            <i class="link-icon" data-feather="bookmark"></i>
+                            <span class="link-title">Pendidikan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/pekerjaan" class="nav-link">
+                            <i class="link-icon" data-feather="briefcase"></i>
+                            <span class="link-title">Pekerjaan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/menu" class="nav-link">
+                            <i class="link-icon" data-feather="menu"></i>
+                            <span class="link-title">Data Menu</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/slider" class="nav-link">
+                            <i class="link-icon" data-feather="sliders"></i>
+                            <span class="link-title">Data Slider</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Logout</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="link-icon" data-feather="log-out"></i>
+                            <span class="link-title">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
+        <!-- partial -->
+
+        <div class="page-wrapper">
+
+            <!-- partial:partials/_navbar.html -->
+            <nav class="navbar">
+                <a href="#" class="sidebar-toggler">
+                    <i data-feather="menu"></i>
+                </a>
+                <div class="navbar-content">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown nav-profile">
+                            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="https://via.placeholder.com/30x30" alt="profile">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- partial -->
+
+            <div class="page-content">
+                <div class="card">
+                    <div class="card-body">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div>
-        <h1>Components</h1>
-        @yield('content')
-    </div>    
-    <!--===== MAIN JS =====-->
-    <script src="{{ URL::asset('assets/js/main_slider.js') }}"></script>        
+    <!-- core:js -->
+    <script src="{{ URL::asset('/assets/vendors/core/core.js') }}"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="{{ URL::asset('/assets/vendors/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/jquery.flot/jquery.flot.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/jquery.flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/vendors/progressbar.js/progressbar.min.js') }}"></script>
+    <!-- end plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ URL::asset('/assets/vendors/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/template.js') }}"></script>
+    <!-- endinject -->
+    <!-- custom js for this page -->
+    <script src="{{ URL::asset('/assets/js/dashboard.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/datepicker.js') }}"></script>
+    <!-- end custom js for this page -->
 </body>
-</html>
+</html>    

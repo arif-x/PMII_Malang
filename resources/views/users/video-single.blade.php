@@ -1,47 +1,63 @@
 @extends('layouts.slider')
 
 @section('content')
-<div class="mt-5">
-    @foreach($videos as $video)
+@foreach($videos as $video)
+<div class="col-md-12 col-xl-12 middle-wrapper">
     <div class="row">
-        <div class="col-md-3 text-capitalize text-center">                    
-            <img class="img-fluid" style="max-width: 65%" src="/storage/foto/{{ $video->foto_terbaru }}">
-        </div>
-        <div class="col-md-9 text-capitalize">   
-            <div class="row">            
-                <div class="col-md-10">
-                    <h4>
-                        <span class="text-left">{{ $video->judul_post }}</span>
-                        <br>
-                        <span class="text-left">By {{ $video->nama_lengkap }}</span>
-                        <form method="POST" action="" hidden>
-                            <input type="" name="post" value="{{ $video->id_post }}">
-                        </form>
-                    </h4>
-                </div>
-                <div class="col-md-2 text-center text-primary">                    
-                    <form id="he"></form>                                   
-                    <div id="div-0" style="display: none">
-                        <a id="kosong"><i class='bx bx-heart nav__icon text-primary' style="font-size: 4vh"></i><br>
-                        Simpan</a>
+        <div class="col-md-12 grid-margin">
+            <div class="card rounded">
+                <div class="card-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img class="img-xs rounded-circle" src="/storage/foto/{{ $video->foto_terbaru }}" alt="">                                                  
+                            <div class="ml-2">
+                                <h4>{{ $video->nama_lengkap }}</h4>
+                                <p class="tx-11 text-muted">
+                                    @if($video->jenis_post == 1)
+                                    video
+                                    @elseif($video->jenis_post == 2)
+                                    Video
+                                    @endif
+                                    : {{ $video->tanggal_post }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="div-1" style="display: none">
-                        <a id="saveok"><i class='bx bxs-heart nav__icon text-primary' style="font-size: 4vh"></i><br>
-                        Hapus</a>
-                    </div>
-                </div>
-            </div>
-            <p>{{ $video->keterangan_post }}</p>                
-        </div>
-        <div class="col-md-12 mt-4">
-            <div style="width: auto; height: auto">
-                <video height="100%" width="100%" controls class="video" preload="metadata"><source src="/storage/video/{{ $video->file }}.{{ $video->format_post }}" type="video/mp4" />
+                    <div class="card-body">
+                        <h4>{{ $video->judul_post }}</h4>
+                        <p class="mb-3 tx-14">{{ $video->keterangan_post }}</p>
+                        <div style="width: auto; height: auto">
+                <video height="100%" width="100%" controls class="video" preload="metadata"><source src="{{ $video->post }}" type="video/mp4" />
                 </video>
+            </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex post-actions">
+                            <form id="he"></form>    
+                            <div id="div-0" style="display: none">
+                                <a id="kosong" class="d-flex align-items-center text-muted mr-4"><i class="icon-md" data-feather="heart"></i>
+                                 <p class="d-none d-md-block ml-2">Simpan</p></a>
+                             </div>
+                             <div id="div-1" style="display: none">
+                                <a id="saveok" class="d-flex align-items-center text-muted mr-4"><i class="icon-md" data-feather="heart"></i>
+                                 <p class="d-none d-md-block ml-2">Hapus</p></a>
+                             </div>
+                             <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
+                                <i class="icon-md" data-feather="message-square"></i>
+                                <p class="d-none d-md-block ml-2">Comment</p>
+                            </a>
+                            <a href="javascript:;" class="d-flex align-items-center text-muted">
+                                <i class="icon-md" data-feather="share"></i>
+                                <p class="d-none d-md-block ml-2">Share</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    @endforeach
 </div>
+@endforeach
 
 @if($save == "[]")
 <script type="text/javascript">

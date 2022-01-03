@@ -9,4 +9,5 @@ class Kader extends Model
     protected $table = "profile";
 
     protected $guarded = [];
+    public $timestamps = false;
 }

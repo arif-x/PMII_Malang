@@ -23,7 +23,7 @@ class VideoController extends Controller
 		// ->where('postingan.id_user', Auth::user()->id)
 		->select('postingan.*', 'profile.nama_lengkap')
 		->orderBy('id_post', 'DESC')
-		->paginate(15);		
+		->paginate(10);		
 		return view('users.video', ['video' => $data]);
 	}
 
@@ -42,7 +42,7 @@ class VideoController extends Controller
 
 			if(empty($datas)){
 				$files = $request->file('select_file');
-				$new_name = url('/storage/video') . '/' . Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
+				$new_name = url('/storage/video') . '/' . Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
 				$file_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
 				$file_val = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$files->move(storage_path('app/public/video'), $file_name);
@@ -70,7 +70,7 @@ class VideoController extends Controller
 				unlink(storage_path('app/public/video/'.$fileData.'.pdf'));
 
 				$files = $request->file('select_file');
-				$new_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
+				$new_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
 				$file_name = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s') . '.' . $files->getClientOriginalExtension();
 				$file_val = Auth::user()->id . '-' .Carbon::now()->format('d-m-Y'). '-' .Carbon::now()->format('H-i-s');
 				$files->move(storage_path('app/public/video'), $file_name);

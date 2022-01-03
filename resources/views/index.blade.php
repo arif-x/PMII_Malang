@@ -200,7 +200,7 @@
                     </div>
                 </div>
 
-                <div class="experience__img grid">
+                <div class="epxerience__img grid">
                     <div class="experience__overlay">
                         <img src="assets/img/home11.jpg" alt="" class="experience__img-one">
                     </div>

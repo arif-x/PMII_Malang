@@ -11,16 +11,16 @@ use Auth;
 
 class PostController extends Controller
 {
-    public function modulSingle($file, $format){
+    public function modulSingle($file){
     	$modul = Modul::join('profile', 'profile.id_user', '=', 'postingan.id_user')
         ->join('jenis_post', 'jenis_post.id_jenis_post', '=', 'postingan.jenis_post')
-        ->where('file', $file)->where('format_post', $format)
+        ->where('file', $file)
         ->select('postingan.*', 'profile.nama_lengkap', 'profile.foto_terbaru', 'jenis_post.jenis_post as jenis')
         ->get();
 
         $id = Modul::join('profile', 'profile.id_user', '=', 'postingan.id_user')
         ->join('jenis_post', 'jenis_post.id_jenis_post', '=', 'postingan.jenis_post')
-        ->where('file', $file)->where('format_post', $format)
+        ->where('file', $file)
         ->select('postingan.*', 'profile.nama_lengkap', 'profile.foto_terbaru', 'jenis_post.jenis_post as jenis')
         ->pluck('id_post');
 
@@ -34,16 +34,16 @@ class PostController extends Controller
     	return view('users.modul-single', ['moduls' => $modul], compact('save', 'id'));
     }
 
-    public function videoSingle($file, $format){
+    public function videoSingle($file){
     	$video = Video::join('profile', 'profile.id_user', '=', 'postingan.id_user')
         ->join('jenis_post', 'jenis_post.id_jenis_post', '=', 'postingan.jenis_post')
-        ->where('file', $file)->where('format_post', $format)
+        ->where('file', $file)
         ->select('postingan.*', 'profile.nama_lengkap', 'profile.foto_terbaru', 'jenis_post.jenis_post as jenis')
         ->get();
 
         $id = Video::join('profile', 'profile.id_user', '=', 'postingan.id_user')
         ->join('jenis_post', 'jenis_post.id_jenis_post', '=', 'postingan.jenis_post')
-        ->where('file', $file)->where('format_post', $format)
+        ->where('file', $file)
         ->select('postingan.*', 'profile.nama_lengkap', 'profile.foto_terbaru', 'jenis_post.jenis_post as jenis')
         ->pluck('id_post');
 

@@ -50,8 +50,8 @@ Route::group([
 	Route::post('/profile/submit', 'ProfileController@store');	
 	Route::get('/module', 'ModulController@index');
 	Route::post('/module/add', 'ModulController@store');
-	Route::get('/module/{file}.{format}', 'PostController@modulSingle');
-	Route::get('/video/{file}.{format}', 'PostController@videoSingle');
+	Route::get('/module/{file}', 'PostController@modulSingle');
+	Route::get('/video/{file}', 'PostController@videoSingle');
 	Route::get('/video', 'VideoController@index');
 	Route::post('/video/add', 'VideoController@store');	
 	Route::get('/history', 'HistoryController@index');
@@ -72,26 +72,30 @@ Route::group([
 	Route::get('/admin-komisariat', function(){
 		return redirect('/admin-komisariat/kader');
 	});
-	Route::get('/admin-komisariat/kader', function(){
-		return redirect('/admin-komisariat/kader/all');
-	});
 	Route::group([
 		'namespace' => 'Kader'
 	], function(){
-		Route::resource('/admin-komisariat/kader/all', 'AllController');		
+		Route::resource('/admin-komisariat/kader', 'AllController');		
 		Route::resource('/admin-komisariat/kader/filter', 'FilterController');
 		Route::get('/admin-komisariat/kader/detail/{id}', 'DetailController@index');
 	});
 	Route::group([
 		'namespace' => 'Postingan'
 	], function(){
-		Route::resource('/admin-komisariat/postingan/all', 'AllController');
+		Route::resource('/admin-komisariat/postingan', 'AllController');
 		Route::resource('/admin-komisariat/postingan/filter', 'FilterController');
 		Route::get('/admin-komisariat/postingan/detail/{id}', 'DetailController@index');
 	});
+	Route::group([
+		'namespace' => 'Export'
+	], function(){
+		Route::get('/admin-komisariat/export/kader', 'KaderController@export');
+		Route::get('/admin-komisariat/export/post', 'PostController@export');
+		Route::get('/admin-komisariat/export/rayon', 'RayonController@export');
+	});
 });
 
-// ========================================= Admin Komisariat Section =========================================
+// =========================================== Admin Rayon Section ===========================================
 Route::group([
 	'middleware' => ['rayon', 'auth'],
 	'namespace' => 'AdminRayon'
@@ -99,22 +103,25 @@ Route::group([
 	Route::get('/admin-rayon', function(){
 		return redirect('/admin-rayon/kader');
 	});
-	Route::get('/admin-rayon/kader', function(){
-		return redirect('/admin-rayon/kader/all');
-	});
 	Route::group([
 		'namespace' => 'Kader'
 	], function(){
-		Route::resource('/admin-rayon/kader/all', 'AllController');		
+		Route::resource('/admin-rayon/kader', 'AllController');		
 		Route::resource('/admin-rayon/kader/filter', 'FilterController');
 		Route::get('/admin-rayon/kader/detail/{id}', 'DetailController@index');
 	});
 	Route::group([
 		'namespace' => 'Postingan'
 	], function(){
-		Route::resource('/admin-rayon/postingan/all', 'AllController');
+		Route::resource('/admin-rayon/postingan', 'AllController');
 		Route::resource('/admin-rayon/postingan/filter', 'FilterController');
 		Route::get('/admin-rayon/postingan/detail/{id}', 'DetailController@index');
+	});
+	Route::group([
+		'namespace' => 'Export'
+	], function(){
+		Route::get('/admin-rayon/export/kader', 'KaderController@export');
+		Route::get('/admin-rayon/export/post', 'PostController@export');
 	});
 });
 
@@ -126,9 +133,6 @@ Route::group([
 	Route::get('/admin', function(){
 		return redirect('/admin/kader');
 	});
-	Route::get('/admin/kader', function(){
-		return redirect('/admin/kader/all');
-	});
 	Route::resource('/admin/slider', 'SliderController');
 	Route::resource('/admin/menu', 'MenuController');
 	Route::resource('/admin/komisariat', 'KomisariatController');
@@ -139,28 +143,33 @@ Route::group([
 	Route::group([
 		'namespace' => 'Kader'
 	], function(){
-		Route::resource('/admin/kader/all', 'AllController');		
-		Route::resource('/admin/kader/filter', 'FilterController');
+		Route::resource('/admin/kader', 'AllController');		
+		Route::resource('/admin/filter-kader', 'FilterController');
 		Route::get('/admin/kader/detail/{id}', 'DetailController@index');
 	});
 	Route::group([
 		'namespace' => 'Postingan'
 	], function(){
-		Route::resource('/admin/postingan/all', 'AllController');
-		Route::resource('/admin/postingan/filter', 'FilterController');
+		Route::resource('/admin/postingan', 'AllController');
+		Route::resource('/admin/filter-postingan', 'FilterController');
 		Route::get('/admin/postingan/detail/{id}', 'DetailController@index');
 	});
 	Route::group([
 		'namespace' => 'Export'
 	], function(){
-		Route::get('/admin/kader/export-kader', 'KaderController@export');
+		Route::get('/admin/export/kader', 'KaderController@export');
+		Route::get('/admin/export/post', 'PostController@export');
+		Route::get('/admin/export/komisariat', 'KomisariatController@export');
+		Route::get('/admin/export/pekerjaan', 'PekerjaanController@export');
+		Route::get('/admin/export/pendidikan', 'PendidikanController@export');
+		Route::get('/admin/export/rayon', 'RayonController@export');
 	});
 });
 
 // Test
-Route::get('/test', 'TestController@index');
-Route::post('/test-cuk', 'TestController@store');
-Route::get('/get-koordinat/{prov}/{city}/{kec}', 'WilayahController@koordinat');
+// Route::get('/test', 'TestController@index');
+// Route::post('/test-cuk', 'TestController@store');
+// Route::get('/get-koordinat/{prov}/{city}/{kec}', 'WilayahController@koordinat');
 
 // Data Wilayah
 Route::get('/get-provinsi', 'WilayahController@provinsi');

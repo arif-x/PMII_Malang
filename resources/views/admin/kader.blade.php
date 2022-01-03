@@ -7,16 +7,14 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
 
 <div class="mt-4">
 	<h1 style="margin-bottom: 20px;">Kader</h1>
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Filter</button>
-	<a href="/admin/kader/export-kader" type="button" class="btn btn-primary">Export ke Excel (.xlxs)</a>
+	<a href="/admin/export/kader" type="button" class="btn btn-primary">Export ke Excel (.xlxs)</a>
 	<br />
 	<br />
 	<div class="table-responsive">
@@ -70,7 +68,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form method="GET" action="/admin/kader/filter">
+					<form method="GET" action="/admin/filter-kader">
 
 						<div class="row">
 							<div class="col-md-4">
@@ -123,7 +121,7 @@
 									<label for="statusKawin" class="col-form-label">Status Pernikahan</label>
 
 									<div class="">
-										<select class="custom-select @error('statusKawin') is-invalid @enderror" name="statusKawin">
+										<select class="form-control custom-select @error('statusKawin') is-invalid @enderror" name="statusKawin">
 											<option value="">Pilih Status Pernikahan</option>
 											<option value="Menikah">Menikah</option>
 											<option value="Belum Menikah">Belum Menikah</option>
@@ -242,10 +240,10 @@
 								</div>
 
 								<div class="col-md-4">
-									<div class="form-group">
+									<div class="">
 										<label for="tahun" class="col-form-label">Tahun Bergabung </label>
 
-										<div class="">
+										<div class="input-group">
 											<select name="tahun" class="form-control">
 												<option value="">Pilih tahun</option>
 												@foreach ($tahun as $key => $value)
@@ -257,7 +255,7 @@
 								</div>
 							</div>
 
-							<button type="submit" class="btn btn-primary" style="width: 100%">Proses</button>
+							<button type="submit" class="btn btn-primary mt-2" style="width: 100%">Proses</button>
 						</div>						
 
 					</form>
@@ -269,96 +267,100 @@
 
 <hr>
 
-<div class="row">
-	<div class="col-md-6">
-		<div class="mt-5">
-			<figure class="highcharts-figure">
-				<div id="kaderisasi-terakhir"></div>
-				<p class="highcharts-description">
+<div class="text-center">
+	<h3>Bagan Data Global</h3>
+</div>
 
-				</p>
-			</figure>
-		</div>
+<label>Filter Bagan</label>
+<select id="selectors" class="form-control">
+	<option value="kaderisasi-terakhir">Bagan Berdasarkan Kaderisasi Terakhir</option>
+	<option value="pendidikan-terakhir">Bagan Berdasarkan Pendidikan Terakhir</option>
+	<option value="pekerjaans">Bagan Berdasarkan Pekerjaan</option>
+	<option value="komisariats">Bagan Berdasarkan Komisariat</option>
+	<option value="rayons">Bagan Berdasarkan Rayon</option>
+	<option value="provinsis">Bagan Berdasarkan Provinsi</option>
+	<option value="kabupatens">Bagan Berdasarkan Kabupaten/Kota</option>
+</select>
+
+<div class="col-md-12">
+	<div class="mt-5">
+		<figure class="highcharts-figure">
+			<div id="kaderisasi-terakhir"></div>
+			<p class="highcharts-description">
+
+			</p>
+		</figure>
 	</div>
+</div>
 
-	<div class="col-md-6">
-		<div class="mt-5">
-			<figure class="highcharts-figure">
-				<div id="pendidikan-terakhir"></div>
-				<p class="highcharts-description">
+<div class="col-md-12">
+	<div class="mt-5">
+		<figure class="highcharts-figure">
+			<div id="pendidikan-terakhir"></div>
+			<p class="highcharts-description">
 
-				</p>
-			</figure>
-		</div>
+			</p>
+		</figure>
+	</div>
+</div>
+
+
+<div class="col-md-12">
+	<div class="mt-5">
+		<figure class="highcharts-figure">
+			<div id="komisariats"></div>
+			<p class="highcharts-description">
+
+			</p>
+		</figure>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="mt-5">
+		<figure class="highcharts-figure">
+			<div id="rayons"></div>
+			<p class="highcharts-description">
+
+			</p>
+		</figure>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="mt-5">
+		<figure class="highcharts-figure">
+			<div id="pekerjaans"></div>
+			<p class="highcharts-description">
+
+			</p>
+		</figure>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="mt-5">
+		<figure class="highcharts-figure">
+			<div id="provinsis"></div>
+			<p class="highcharts-description">
+
+			</p>
+		</figure>
+	</div>
+</div>	
+
+<div class="col-md-12">
+	<div class="mt-5">
+		<figure class="highcharts-figure">
+			<div id="kabupatens"></div>
+			<p class="highcharts-description">
+
+			</p>
+		</figure>
 	</div>
 </div>
 
 <hr>
-
-<div class="row">
-	<div class="col-md-6">
-		<div class="mt-5">
-			<figure class="highcharts-figure">
-				<div id="komisariats"></div>
-				<p class="highcharts-description">
-
-				</p>
-			</figure>
-		</div>
-	</div>
-
-	<div class="col-md-6">
-		<div class="mt-5">
-			<figure class="highcharts-figure">
-				<div id="rayons"></div>
-				<p class="highcharts-description">
-
-				</p>
-			</figure>
-		</div>
-	</div>
-</div>
-
-<hr>
-
-<div class="row">
-	<div class="col-md-6">
-		<div class="mt-5">
-			<figure class="highcharts-figure">
-				<div id="pekerjaans"></div>
-				<p class="highcharts-description">
-
-				</p>
-			</figure>
-		</div>
-	</div>
-
-	<div class="col-md-6">
-		<div class="mt-5">
-			<figure class="highcharts-figure">
-				<div id="provinsis"></div>
-				<p class="highcharts-description">
-					
-				</p>
-			</figure>
-		</div>
-	</div>	
-</div>
-
-<hr>
-
-<div class="row">	
-	<div class="col-md-12">
-		<div class="mt-5">
-			<figure class="highcharts-figure">
-				<div id="kabupatens"></div>
-				<p class="highcharts-description">
-
-				</p>
-			</figure>
-		</div>
-	</div>
-</div>
 
 <style type="text/css">
 	#map {
@@ -372,6 +374,79 @@
 	<h5 class="text-center">Data Persebaran Kader Berdasarkan Peta</h5>
 	<div id="map"></div>
 </div>
+
+<script>
+
+	$("#kaderisasi-terakhir").show();
+	$("#pendidikan-terakhir").hide();
+	$("#komisariats").hide();
+	$("#rayons").hide();
+	$("#pekerjaans").hide();
+	$("#provinsis").hide();
+	$("#kabupatens").hide();
+
+	$(document).ready(function(){
+		$('#selectors').on('change', function() {
+			if ( this.value == 'kaderisasi-terakhir'){
+				$("#kaderisasi-terakhir").show();
+				$("#pendidikan-terakhir").hide();
+				$("#komisariats").hide();
+				$("#rayons").hide();
+				$("#pekerjaans").hide();
+				$("#provinsis").hide();
+				$("#kabupatens").hide();
+			} else if ( this.value == 'pendidikan-terakhir'){
+				$("#kaderisasi-terakhir").hide();
+				$("#pendidikan-terakhir").show();
+				$("#komisariats").hide();
+				$("#rayons").hide();
+				$("#pekerjaans").hide();
+				$("#provinsis").hide();
+				$("#kabupatens").hide();
+			} else if ( this.value == 'komisariats'){
+				$("#kaderisasi-terakhir").hide();
+				$("#pendidikan-terakhir").hide();
+				$("#komisariats").show();
+				$("#rayons").hide();
+				$("#pekerjaans").hide();
+				$("#provinsis").hide();
+				$("#kabupatens").hide();
+			} else if ( this.value == 'rayons'){
+				$("#kaderisasi-terakhir").hide();
+				$("#pendidikan-terakhir").hide();
+				$("#komisariats").hide();
+				$("#rayons").show();
+				$("#pekerjaans").hide();
+				$("#provinsis").hide();
+				$("#kabupatens").hide();
+			} else if ( this.value == 'pekerjaans'){
+				$("#kaderisasi-terakhir").hide();
+				$("#pendidikan-terakhir").hide();
+				$("#komisariats").hide();
+				$("#rayons").hide();
+				$("#pekerjaans").show();
+				$("#provinsis").hide();
+				$("#kabupatens").hide();
+			} else if ( this.value == 'provinsis'){
+				$("#kaderisasi-terakhir").hide();
+				$("#pendidikan-terakhir").hide();
+				$("#komisariats").hide();
+				$("#rayons").hide();
+				$("#pekerjaans").hide();
+				$("#provinsis").show();
+				$("#kabupatens").hide();
+			} else if ( this.value == 'kabupatens'){
+				$("#kaderisasi-terakhir").hide();
+				$("#pendidikan-terakhir").hide();
+				$("#komisariats").hide();
+				$("#rayons").hide();
+				$("#pekerjaans").hide();
+				$("#provinsis").hide();
+				$("#kabupatens").show();
+			}
+		});
+	});
+</script>
 
 
 <!-- Script Chart Kaderisasi Terakhir -->
@@ -788,7 +863,7 @@
 </script>
 
 <!-- Script Map -->
-<script>
+<!-- <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoiYXJpcG9uIiwiYSI6ImNrbjV3cmZ5NTA4aDUyd25zenk3MmlwYzgifQ.YbJ_Ir794eD8VlrVvpX64g';
 	var map = new mapboxgl.Map({
 		container: 'map',
@@ -930,6 +1005,25 @@
 			map.getCanvas().style.cursor = '';
 		});
 	});
+</script> -->
+
+<script>
+	L.mapbox.accessToken = 'pk.eyJ1IjoiYXJpcG9uIiwiYSI6ImNrbjV3cmZ5NTA4aDUyd25zenk3MmlwYzgifQ.YbJ_Ir794eD8VlrVvpX64g';
+	var map = L.mapbox.map('map')
+	.setView([-7.9666204, 112.6326321], 7)
+	.addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+
+	@foreach ($koordinats as $koordinat)
+	var marker = L.marker(['{{ $koordinat->lat }}', '{{ $koordinat->lng }}'], {
+		icon: L.mapbox.marker.icon({
+			'marker-color': '#9c89cc'
+		})
+	})
+	
+	.bindPopup('<strong>{{ $koordinat->kab }}<br>Jumlah Kader: {{ $koordinat->jml }}</strong><br><?php echo str_replace(',', '<br>- ', '- '.$koordinat->nama) ?>')
+	.addTo(map);	
+	@endforeach
+
 </script>
 
 <script type="text/javascript">
@@ -943,7 +1037,7 @@
 		var table = $('.data-table').DataTable({
 			processing: true,
 			serverSide: true,
-			ajax: "/admin/kader/all",
+			ajax: "/admin/kader",
 			columns: [
 			{data: 'DT_RowIndex', name: 'DT_RowIndex'},
 			{data: 'nama_lengkap', name: 'nama_lengkap'},

@@ -27,7 +27,7 @@
 
             <div class="card-body">
 
-                <form method="POST" action="/new-profile/submit" id="profileForm"  enctype="multipart/form-data">
+                <form method="POST" action="/new-profile/submit" id="profileForm" enctype="multipart/form-data">
                     @csrf
 
                     @if($errors->any())

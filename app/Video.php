@@ -8,4 +8,5 @@ class Video extends Model
 {
     protected $table = "postingan";
     protected $guarded = [];
+    public $timestamps = false;
 }

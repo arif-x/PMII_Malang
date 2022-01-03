@@ -1,40 +1,65 @@
 @extends('layouts.slider')
 
 @section('content')
-<div class="mt-5">
-    @foreach($moduls as $modul)
-    <div class="header-single">
-        <div class="img-single">
-            <img class="img-fluid imgs" src="/storage/foto/{{ $modul->foto_terbaru }}">
-        </div>
-        <div class="title-single">
-            <h4>
-                <span class="text-left">{{ $modul->judul_post }}</span>
-            </h4>
-            <span>By: {{ $modul->nama_lengkap }}</span><br>
-            <span>Tags: {{ $modul->jenis }}</span><br>
-            <span>{{ $modul->keterangan_post }}</span>  
-        </div>                
-        <div class="simpan text-center text-primary">     
-            <form id="he"></form>                                   
-            <div id="div-0" style="display: none">
-                <a id="kosong"><i class='bx bx-heart nav__icon text-primary' style="font-size: 4vh"></i><br>
-                Simpan</a>
-            </div>
-            <div id="div-1" style="display: none">
-                <a id="saveok"><i class='bx bxs-heart nav__icon text-primary' style="font-size: 4vh"></i><br>
-                Hapus</a>
-            </div>
-        </div>
 
-    </div>
-    <div class="col-md-12 mt-4">
-        <div class="embed-responsive embed-responsive-1by1">
-            <embed class="embed-responsive-item" src="/storage/modul/{{ $modul->file }}.{{ $modul->format_post }}"></embed>
+@foreach($moduls as $modul)
+<div class="col-md-12 col-xl-12 middle-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+            <div class="card rounded">
+                <div class="card-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img class="img-xs rounded-circle" src="/storage/foto/{{ $modul->foto_terbaru }}" alt="">                                                  
+                            <div class="ml-2">
+                                <h4>{{ $modul->nama_lengkap }}</h4>
+                                <p class="tx-11 text-muted">
+                                    @if($modul->jenis_post == 1)
+                                    Modul
+                                    @elseif($modul->jenis_post == 2)
+                                    Video
+                                    @endif
+                                    : {{ $modul->tanggal_post }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>{{ $modul->judul_post }}</h4>
+                        <p class="mb-3 tx-14">{{ $modul->keterangan_post }}</p>
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <embed class="embed-responsive-item" src="{{ $modul->post }}"></embed>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex post-actions">
+                            <form id="he"></form>    
+                            <div id="div-0" style="display: none">
+                                <a id="kosong" class="d-flex align-items-center text-muted mr-4"><i class="icon-md" data-feather="heart"></i>
+                                 <p class="d-none d-md-block ml-2">Simpan</p></a>
+                             </div>
+                             <div id="div-1" style="display: none">
+                                <a id="saveok" class="d-flex align-items-center text-muted mr-4"><i class="icon-md" data-feather="heart"></i>
+                                 <p class="d-none d-md-block ml-2">Hapus</p></a>
+                             </div>
+                             <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
+                                <i class="icon-md" data-feather="message-square"></i>
+                                <p class="d-none d-md-block ml-2">Comment</p>
+                            </a>
+                            <a href="javascript:;" class="d-flex align-items-center text-muted">
+                                <i class="icon-md" data-feather="share"></i>
+                                <p class="d-none d-md-block ml-2">Share</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    @endforeach
 </div>
+
+
+@endforeach
 
 @if($save == "[]")
 <script type="text/javascript">
@@ -73,7 +98,7 @@
             e.preventDefault();
             $.ajax({
                 data: $('#he').serialize(),
-                url: "/modul/remove/{{$modul->id_post}}",
+                url: "/module/remove/{{$modul->id_post}}",
                 type: "GET",
                 dataType: 'json',
                 success: function (data) {

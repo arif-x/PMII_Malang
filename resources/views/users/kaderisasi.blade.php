@@ -9,12 +9,6 @@
                 <p>Update Data Kaderisasi</p>
             </div>
             <div class="col-md-6" style="text-align: right; margin-top: auto; margin-bottom: auto">
-                <!-- <button class="btn btn-info mb-3" style="">
-                    <i class="fa fa-arrow-left"></i> Kembali
-                </button>
-                <button class="btn btn-primary mb-3" style="">
-                    <i class="fa fa-save"></i> Simpan
-                </button> -->
             </div>
         </div>
         @if ($message = Session::get('info'))
