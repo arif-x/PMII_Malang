@@ -36,7 +36,7 @@
                     @if (Route::has('login'))
                     @auth
                     <li class="nav__item">
-                        <a href="{{ url('/home') }}" class="nav__link">Home</a>
+                        <a href="{{ url('/home') }}" class="nav__link">Dashboard</a>
                     </li>
                     <li class="nav__item">
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav__link">Logout

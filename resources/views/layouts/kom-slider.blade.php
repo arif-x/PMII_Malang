@@ -20,7 +20,7 @@
     <!-- Layout styles -->  
     <link rel="stylesheet" href="{{ URL::asset('/assets/css/demo_1/style.css') }}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="{{ URL::asset('/assets/images/favicon.png') }}" />
+    <link rel="shortcut icon" href="landing/img/favicon1.png" type="image/png">
 
     <script src="{{ URL::asset('/assets/vendors/datatables.net/jquery.dataTables.js') }}" defer></script>
     <script src="{{ URL::asset('/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script> 
