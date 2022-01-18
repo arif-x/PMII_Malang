@@ -43,7 +43,14 @@
             </div>
             <div class="sidebar-body">
                 <ul class="nav">
-                    
+                    <li class="nav-item nav-category">Logout</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+                            <i class="link-icon" data-feather="log-out"></i>
+                            <span class="link-title">Logout</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

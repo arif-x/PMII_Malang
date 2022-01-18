@@ -66,11 +66,17 @@ Route::group([
 // ========================================= Admin Komisariat Section =========================================
 Route::group([
 	'middleware' => ['komisariat', 'auth'],
+], function(){
+	Route::get('/admin-komisariat/dashboard', 'HomeController@komIndex');
+});
+
+Route::group([
+	'middleware' => ['komisariat', 'auth'],
 	'namespace' => 'AdminKomisariat'
 ], function(){
 	Route::resource('/admin-komisariat/rayon', 'RayonController');
 	Route::get('/admin-komisariat', function(){
-		return redirect('/admin-komisariat/kader');
+		return redirect('/admin-komisariat/dashboard');
 	});
 	Route::group([
 		'namespace' => 'Kader'
@@ -98,10 +104,16 @@ Route::group([
 // =========================================== Admin Rayon Section ===========================================
 Route::group([
 	'middleware' => ['rayon', 'auth'],
+], function(){
+	Route::get('/admin-rayon/dashboard', 'HomeController@rayonIndex');
+});
+
+Route::group([
+	'middleware' => ['rayon', 'auth'],
 	'namespace' => 'AdminRayon'
 ], function(){
 	Route::get('/admin-rayon', function(){
-		return redirect('/admin-rayon/kader');
+		return redirect('/admin-rayon/dashboard');
 	});
 	Route::group([
 		'namespace' => 'Kader'
@@ -128,10 +140,16 @@ Route::group([
 // ============================================ Super Admin Section ============================================
 Route::group([
 	'middleware' => ['admin', 'auth'],
+], function(){
+	Route::get('/admin/dashboard', 'HomeController@adminIndex');
+});
+
+Route::group([
+	'middleware' => ['admin', 'auth'],
 	'namespace' => 'Admin'
 ], function(){
 	Route::get('/admin', function(){
-		return redirect('/admin/kader');
+		return redirect('/admin/dashboard');
 	});
 	Route::resource('/admin/slider', 'SliderController');
 	Route::resource('/admin/menu', 'MenuController');
@@ -183,4 +201,22 @@ Route::get('/oursymlink', function () {
 	$target = '/home/pmiigali/ehe_pub/storage/app/public';
 	$shortcut = '/home/pmiigali/ehe.pmiigalileo.or.id/storage';
 	symlink($target, $shortcut);
+});
+
+Route::group([
+	'middleware' => ['auth'],
+], function(){
+	Route::get('/storage/foto/{filename}', function($filename){
+		$path = storage_path() . '/app/public/foto/' . $filename;
+		// echo $path;
+		if(!File::exists($path)) abort(404);
+
+		$file = File::get($path);
+		$type = File::mimeType($path);
+
+		$response = Response::make($file, 200);
+		$response->header('Content-Type', $type);
+
+		return $response;	
+	});
 });

@@ -10,7 +10,7 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
-                            <img class="img-xs rounded-circle" src="/storage/foto/{{ $modul->foto_terbaru }}" alt="">                                                  
+                            <img class="img-xs rounded-circle" src="{{ $modul->foto_terbaru }}" alt="">                                                  
                             <div class="ml-2">
                                 <h4>{{ $modul->nama_lengkap }}</h4>
                                 <p class="tx-11 text-muted">
@@ -29,6 +29,7 @@
                         <p class="mb-3 tx-14">{{ $modul->keterangan_post }}</p>
                         <div class="embed-responsive embed-responsive-1by1">
                             <embed class="embed-responsive-item" src="{{ $modul->post }}"></embed>
+                            Jika tidak dapat diakses bisa dibuka <a href="{{ $modul->post }}">di sini</a>
                         </div>
                     </div>
                     <div class="card-footer">

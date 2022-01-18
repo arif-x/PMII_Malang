@@ -63,7 +63,7 @@ class NewProfileController extends Controller
         'pendidikan_terakhir' => $request->pendidikan,
         'pekerjaan' => $request->pekerjaan,
         'no_hp' => $request->noHp,
-        'foto_terbaru' => base_url().'/storage/foto/'.$new_name,
+        'foto_terbaru' => env('APP_URL').'/storage/foto/'.$new_name,
       ]);
 
       User::where('id', Auth::user()->id)->update([
