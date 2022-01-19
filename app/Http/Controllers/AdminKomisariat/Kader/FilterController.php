@@ -19,13 +19,15 @@ use App\Rayon;
 
 class FilterController extends Controller
 {
-    public function index(Request $request){
+	public function index(Request $request){
 		if ($request->ajax()) {
 			$data = Kader::join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 			->join('komisariat', 'komisariat.id_komisariat', '=', 'kaderisasi.komisariat')
 			->join('kaderisasi_terakhir', 'kaderisasi_terakhir.id_kaderisasi_terakhir', '=', 'kaderisasi.kaderisasi_terakhir')
 			->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
 			->join('pekerjaan', 'pekerjaan.id_pekerjan', '=', 'profile.pekerjaan')
+			->join('users', 'users.id', '=', 'profile.id_user')
+			->where('users.status_profile', 3)
 			->select('profile.*', 'rayon.nama_rayon', 'pekerjaan.pekerjan', 'kaderisasi.tahun_bergabung')
 			->when(!empty($request->provinsi), function($query) use ($request){
 				$query->where('profile.provinsi', $request->provinsi);

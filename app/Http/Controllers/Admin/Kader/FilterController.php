@@ -24,6 +24,7 @@ class FilterController extends Controller
 			->join('komisariat', 'komisariat.id_komisariat', '=', 'kaderisasi.komisariat')
 			->join('kaderisasi_terakhir', 'kaderisasi_terakhir.id_kaderisasi_terakhir', '=', 'kaderisasi.kaderisasi_terakhir')
 			->join('pekerjaan', 'pekerjaan.id_pekerjan', '=', 'profile.pekerjaan')
+			->join('users', 'users.id', '=', 'profile.id_user')
 			->select('profile.*', 'komisariat.nama_komisariat', 'pekerjaan.pekerjan', 'kaderisasi.tahun_bergabung')
 			->when(!empty($request->provinsi), function($query) use ($request){
 				$query->where('profile.provinsi', $request->provinsi);

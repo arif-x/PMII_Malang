@@ -18,12 +18,14 @@ use App\KoordinatUser;
 
 class AllController extends Controller
 {
-    public function index(Request $request){
+	public function index(Request $request){
 		if ($request->ajax()) {
 			$data = Kader::join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 			->join('komisariat', 'komisariat.id_komisariat', '=', 'kaderisasi.komisariat')
 			->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
 			->join('pekerjaan', 'pekerjaan.id_pekerjan', '=', 'profile.pekerjaan')
+			->join('users', 'users.id', '=', 'profile.id_user')
+			->where('users.status_profile', 3)
 			->select('profile.*', 'rayon.nama_rayon', 'pekerjaan.pekerjan', 'kaderisasi.tahun_bergabung')
 			->where('rayon.id_rayon', DB::raw('(SELECT kaderisasi.rayon FROM kaderisasi INNER JOIN profile ON profile.id_user = kaderisasi.id_user where profile.id_user = '. Auth::user()->id .')'))
 			->get();
@@ -50,6 +52,8 @@ class AllController extends Controller
 		$kaderisasi = KaderisasiTerakhir::pluck('kaderisasi_terakhir', 'id_kaderisasi_terakhir');
 		$tahun = DB::table('kaderisasi')
 		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
+		->join('users', 'users.id', '=', 'kaderisasi.id_user')
+		->where('users.status_profile', 3)
 		->groupBy('angkatan_ke')
 		->orderByRaw("cast(tahun_bergabung as unsigned) DESC")
 		->select('tahun_bergabung')
@@ -59,6 +63,8 @@ class AllController extends Controller
 		$kaders = Kader::join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
 		->join('kaderisasi_terakhir', 'kaderisasi_terakhir.id_kaderisasi_terakhir', '=', 'kaderisasi.kaderisasi_terakhir')
+		->join('users', 'users.id', '=', 'profile.id_user')
+		->where('users.status_profile', 3)
 		->groupBy('kaderisasi_terakhir.kaderisasi_terakhir')
 		->select('kaderisasi_terakhir.kaderisasi_terakhir', DB::raw('COUNT(kaderisasi_terakhir.kaderisasi_terakhir) as jumlah_kaderisasi', 'kaderisasi_terakhir.kaderisasi_terakhir'))
 		->where('rayon.id_rayon', DB::raw('(SELECT kaderisasi.rayon FROM kaderisasi INNER JOIN profile ON profile.id_user = kaderisasi.id_user where profile.id_user = '. Auth::user()->id .')'))
@@ -67,6 +73,8 @@ class AllController extends Controller
 		$pendidikans = Kader::join('pendidikan', 'pendidikan.id_pendidikan', '=', 'profile.pendidikan_terakhir')
 		->join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
+		->join('users', 'users.id', '=', 'profile.id_user')
+		->where('users.status_profile', 3)
 		->groupBy('pendidikan.pendidikan')
 		->select('pendidikan.pendidikan', DB::raw('COUNT(pendidikan.pendidikan) as jumlah_pendidikan', 'pendidikan.pendidikan'))
 		->where('rayon.id_rayon', DB::raw('(SELECT kaderisasi.rayon FROM kaderisasi INNER JOIN profile ON profile.id_user = kaderisasi.id_user where profile.id_user = '. Auth::user()->id .')'))
@@ -75,6 +83,8 @@ class AllController extends Controller
 		$pekerjaans = Kader::join('pekerjaan', 'id_pekerjan', '=', 'profile.pekerjaan')
 		->join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
+		->join('users', 'users.id', '=', 'profile.id_user')
+		->where('users.status_profile', 3)
 		->groupBy('pekerjaan.pekerjan')
 		->select('pekerjaan.pekerjan as kerja', DB::raw('COUNT(pekerjaan.pekerjan) as jumlah_pekerjaan', 'pekerjaan.pekerjan'))
 		->where('rayon.id_rayon', DB::raw('(SELECT kaderisasi.rayon FROM kaderisasi INNER JOIN profile ON profile.id_user = kaderisasi.id_user where profile.id_user = '. Auth::user()->id .')'))
@@ -83,6 +93,8 @@ class AllController extends Controller
 		$provinsis = Kader::join('wilayah_provinsi', 'wilayah_provinsi.id', '=', 'profile.provinsi')
 		->join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
+		->join('users', 'users.id', '=', 'profile.id_user')
+		->where('users.status_profile', 3)
 		->groupBy('wilayah_provinsi.id')
 		->select('wilayah_provinsi.name', DB::raw('COUNT(wilayah_provinsi.name) as jumlah_provinsi', 'wilayah_provinsi.name'))
 		->where('rayon.id_rayon', DB::raw('(SELECT kaderisasi.rayon FROM kaderisasi INNER JOIN profile ON profile.id_user = kaderisasi.id_user where profile.id_user = '. Auth::user()->id .')'))
@@ -91,6 +103,8 @@ class AllController extends Controller
 		$kabupatens = Kader::join('wilayah_kabupaten', 'wilayah_kabupaten.id', '=', 'profile.kota_kabupaten')
 		->join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
+		->join('users', 'users.id', '=', 'profile.id_user')
+		->where('users.status_profile', 3)
 		->groupBy('wilayah_kabupaten.id')
 		->select('wilayah_kabupaten.name', DB::raw('COUNT(wilayah_kabupaten.name) as jumlah_kabupaten', 'wilayah_kabupaten.name'))
 		->where('rayon.id_rayon', DB::raw('(SELECT kaderisasi.rayon FROM kaderisasi INNER JOIN profile ON profile.id_user = kaderisasi.id_user where profile.id_user = '. Auth::user()->id .')'))
@@ -100,6 +114,8 @@ class AllController extends Controller
 		->join('kaderisasi', 'kaderisasi.id_user', '=', 'profile.id_user')
 		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
 		->join("wilayah_kabupaten","wilayah_kabupaten.id", "=", "profile.kota_kabupaten")
+		->join('users', 'users.id', '=', 'profile.id_user')
+		->where('users.status_profile', 3)
 		->groupBy('koordinat_user.lat', 'koordinat_user.lng')
 		->select('koordinat_user.lat', 'koordinat_user.lng', 'wilayah_kabupaten.name as kab',  DB::raw('COUNT(koordinat_user.id_user) as jml', 'profile.nama_lengkap'), DB::raw('GROUP_CONCAT(profile.nama_lengkap SEPARATOR ",") as nama'))
 		->where('rayon.id_rayon', DB::raw('(SELECT kaderisasi.rayon FROM kaderisasi INNER JOIN profile ON profile.id_user = kaderisasi.id_user where profile.id_user = '. Auth::user()->id .')'))

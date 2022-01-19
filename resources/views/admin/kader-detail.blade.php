@@ -24,11 +24,11 @@
                     @csrf        
 
                     <h3>I. Data Diri:</h3>
-                    <div class="alert alert-primary" role="alert">
+                    <!-- <div class="alert alert-primary" role="alert">
                         <div class="ml-3 centere">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Wajib <nobr class="red-color">*</nobr>.
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="row">
@@ -148,11 +148,11 @@
 
                     <h2>II. Data Kaderisasi:</h2>
 
-                    <div class="alert alert-primary" role="alert">
+                    <!-- <div class="alert alert-primary" role="alert">
                         <div class="ml-3 centere">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Kaderisasi.
                         </div>
-                    </div>
+                    </div> -->
 
                     <h3>MAPABA:</h3>
 
@@ -214,7 +214,7 @@
     $(document).ready(function() {
         var data_id = "{{ $id }}";
         console.log = data_id;
-        $.get("/admin/kader/all" +'/' + data_id +'/edit', function (data) {
+        $.get("/admin/kader" +'/' + data_id +'/edit', function (data) {
             $('#name_detail').html(data[0].nama_lengkap);
             $('#nama_lengkap').val(data[0].nama_lengkap);
             $('#tanggal_lahir').val(data[0].tanggal_lahir);

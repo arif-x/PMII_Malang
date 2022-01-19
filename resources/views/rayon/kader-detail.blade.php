@@ -24,11 +24,11 @@
                     @csrf        
 
                     <h3>I. Data Diri:</h3>
-                    <div class="alert alert-primary" role="alert">
+                    <!-- <div class="alert alert-primary" role="alert">
                         <div class="ml-3 centere">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Wajib <nobr class="red-color">*</nobr>.
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="row">
@@ -148,11 +148,11 @@
 
                     <h2>II. Data Kaderisasi:</h2>
 
-                    <div class="alert alert-primary" role="alert">
+                    <!-- <div class="alert alert-primary" role="alert">
                         <div class="ml-3 centere">
                             <i class="fa fa-info-circle" style="font-size: 3em"></i> &emsp; Isian Kaderisasi.
                         </div>
-                    </div>
+                    </div> -->
 
                     <h3>MAPABA:</h3>
 

@@ -8,6 +8,7 @@ use App\Modul;
 use Carbon\Carbon;
 use Auth;
 use Validator;
+use Http;
 use File;
 
 class ModulController extends Controller
@@ -61,6 +62,18 @@ class ModulController extends Controller
 						'format_post' => $type
 					]
 				);
+
+				$apiURL = 'https://api.ika-pmiikotamalang.or.id/api/Notif_web';
+				$postInput = [
+					'api-key' => 'qwerty',
+					'jenis_post' => 1,
+					'judul_post' =>  $request->judul,
+					'keterangan_post' => $request->keterangan,
+				];
+				$headers = [];
+
+				$response = Http::withHeaders($headers)->post($apiURL, $postInput);
+				$responseBody = json_decode($response->getBody(), true);
 
 				return back();
 			} else {

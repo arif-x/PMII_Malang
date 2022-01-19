@@ -30,6 +30,8 @@ class KaderExport implements FromView, ShouldAutoSize
 		->join('kaderisasi_terakhir', 'kaderisasi_terakhir.id_kaderisasi_terakhir', 'kaderisasi.kaderisasi_terakhir')
 		->join('komisariat', 'komisariat.id_komisariat', '=', 'kaderisasi.komisariat')
 		->join('rayon', 'rayon.id_rayon', '=', 'kaderisasi.rayon')
+		->join('users', 'users.id', '=', 'profile.id_user')
+		->where('users.status_profile', 3)
 		->select(
 			'profile.*', 
 			'pekerjaan.id_pekerjan as id_kerja',
