@@ -151,6 +151,13 @@ Route::group([
 	Route::get('/admin', function(){
 		return redirect('/admin/dashboard');
 	});
+	Route::get('/get-user', 'GetUserController@search')->name('searchUser');
+	Route::resource('/admin/admin-komisariat', 'AdminKomisariatController');
+	Route::post('/admin/admin-komisariat/tambah/{id}', 'AdminKomisariatController@tambah');
+	Route::post('/admin/admin-komisariat/hapus/{id}', 'AdminKomisariatController@hapus');
+	Route::resource('/admin/admin-rayon', 'AdminRayonController');
+	Route::post('/admin/admin-rayon/tambah/{id}', 'AdminRayonController@tambah');
+	Route::post('/admin/admin-rayon/hapus/{id}', 'AdminRayonController@hapus');
 	Route::resource('/admin/slider', 'SliderController');
 	Route::resource('/admin/menu', 'MenuController');
 	Route::resource('/admin/komisariat', 'KomisariatController');

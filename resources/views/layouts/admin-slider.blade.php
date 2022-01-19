@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <title>E-PMII Kota Malang</title>
     <!-- core:css -->
     <link rel="stylesheet" href="{{ URL::asset('/assets/vendors/core/core.css') }}">
@@ -99,6 +100,19 @@
                         <a href="/admin/slider" class="nav-link">
                             <i class="link-icon" data-feather="sliders"></i>
                             <span class="link-title">Data Slider</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Kelola Admin</li>
+                    <li class="nav-item">
+                        <a href="/admin/admin-komisariat" class="nav-link">
+                            <i class="link-icon" data-feather="user"></i>
+                            <span class="link-title">Data Admin Komisariat</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/admin-rayon" class="nav-link">
+                            <i class="link-icon" data-feather="user"></i>
+                            <span class="link-title">Data Admin Rayon</span>
                         </a>
                     </li>
                     <li class="nav-item nav-category">Logout</li>
