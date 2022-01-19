@@ -151,7 +151,7 @@ Route::group([
 	Route::get('/admin', function(){
 		return redirect('/admin/dashboard');
 	});
-	Route::get('/get-user', 'GetUserController@search')->name('searchUser');
+	Route::get('/get-user-for-admin', 'GetUserController@searchNewAdmin')->name('searchUserForAdmin');
 	Route::resource('/admin/admin-komisariat', 'AdminKomisariatController');
 	Route::post('/admin/admin-komisariat/tambah/{id}', 'AdminKomisariatController@tambah');
 	Route::post('/admin/admin-komisariat/hapus/{id}', 'AdminKomisariatController@hapus');

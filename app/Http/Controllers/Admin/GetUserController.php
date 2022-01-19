@@ -8,11 +8,11 @@ use App\User;
 
 class GetUserController extends Controller
 {
-    function search(Request $request){
+    function searchNewAdmin(Request $request){
         if($request->get('query')){
             $query = $request->get('query');
             $data = User::join('profile', 'profile.id_user', '=', 'users.id')
-            ->where('status_profile', 3)->where('profile.nama_lengkap', 'LIKE', "%{$query}%")
+            ->where('status_profile', 3)->whereNotIn('level', [2, 3, 4])->where('profile.nama_lengkap', 'LIKE', "%{$query}%")
             ->select('id_user', 'nama_lengkap', 'email')
             ->get();
             $output = '';

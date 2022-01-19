@@ -191,7 +191,7 @@
 			if(query != ''){
 				var _token = $('input[name="_token"]').val();
 				$.ajax({
-					url:"{{ route('searchUser') }}",
+					url:"{{ route('searchUserForAdmin') }}",
 					method:"GET",
 					data:{query:query, _token:_token},
 					success:function(data){
